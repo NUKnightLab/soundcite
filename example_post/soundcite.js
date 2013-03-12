@@ -4,14 +4,19 @@ $(document).ready(function () {
 			redirect_uri: "http://localhost:9292/soundcite",
 		});
 		SC.stream(id, function(sound) {
-			sound.load();
-			$('.soundcite').css({'border' : '1px solid rgba(0,0,0,.5)', 'border-radius' : '10px', 'padding' : '0 5px 0 5px', 'display' : 'inline-block', 'cursor' : 'pointer'});
+			sound.load({
+				onload: function() {
+					$('.soundcite').css({'border' : '1px solid rgba(0,0,0,.5)', 'border-radius' : '10px', 'padding' : '0 5px 0 5px', 'display' : 'inline-block', 'cursor' : 'pointer'});
+				}
+			});
 			$('.soundcite').click(function () {
 				var clicked = $(this);
 				var start = clicked.attr('data-start');
 				var end = clicked.attr('data-end');
 				sound.setPosition(start);
-				sound.onPosition(end, function() { sound.pause(); })
+				sound.onPosition(end, function() {
+					sound.pause();
+				})
 				sound.play({
 					whileplaying: function() {
 						var totalTime = end - start;
