@@ -24,7 +24,13 @@ $(document).ready(function () {
 						var relative_position = position - start;
 						var percentage = (relative_position / totalTime) * 100
 						clicked.css({'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'});
-					}
+						if (sound.position > end) {
+							sound.pause();
+						}
+					},
+					onpause: function() {
+						sound.setPosition(start);
+					},
 				});
 			});
 
