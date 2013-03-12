@@ -5,18 +5,20 @@ $(document).ready(function () {
 		});
 		SC.stream(id, function(sound) {
 			sound.load();
-			$('.soundcite').css({'border' : '1px solid rgba(0,0,0,.5)', 'border-radius' : '10px', 'padding' : '0 5px 0 5px', 'display' : 'inline-block', 'cursor' : 'pointer'}); 
+			$('.soundcite').css({'border' : '1px solid rgba(0,0,0,.5)', 'border-radius' : '10px', 'padding' : '0 5px 0 5px', 'display' : 'inline-block', 'cursor' : 'pointer'});
 			$('.soundcite').click(function () {
-				var start = $(this).attr('data-start');
-				var end = $(this).attr('data-end');
-				sound.setPosition(start); 
+				var clicked = $(this);
+				var start = clicked.attr('data-start');
+				var end = clicked.attr('data-end');
+				sound.setPosition(start);
 				sound.onPosition(end, function() { sound.pause(); })
 				sound.play({
 					whileplaying: function() {
-						var totalTime = end;
+						var totalTime = end - start;
 						var position = sound.position;
-						var percentage = (position / totalTime) * 100
-						$('.soundcite').css({'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'});
+						var relative_position = position - start;
+						var percentage = (relative_position / totalTime) * 100
+						clicked.css({'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'});
 					}
 				});
 			});
