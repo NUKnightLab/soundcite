@@ -72,13 +72,13 @@
 				</div>
 				<form id="times" class="form-inline">
 					<p>Play the audio above, and use the start and end buttons to create your clip's start and end points.</p>
-					<input type="text" class="input-small" id="start" placeholder="time (milliseconds)">
-					<input type="button" value="Start" class="btn" onclick="get_start_position();">
-					<input type="text" class="input-small" id="end" placeholder="time (milliseconds)">
-					<input type="button" value="End" class="btn" onclick="get_end_position();">
+					<input type="text" class="input-small start" placeholder="time (milliseconds)">
+					<input type="button" value="Start" class="btn start_btn">
+					<input type="text" class="input-small end" placeholder="time (milliseconds)">
+					<input type="button" value="End" class="btn end_btn">
 					<input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked">
-					<input type="button" value="Preview" onclick="test();" class="btn"></br>
-					<input class="btn-large btn-primary" type="button" value="Get the embed code" id="make" onclick="bringcode();">
+					<input type="button" value="Preview" class="btn test_btn"></br>
+					<input class="btn-large btn-primary" type="button" value="Get the embed code" id="make" onclick="bring_code();">
 				</form>
 			</section>
 			<section id="code">

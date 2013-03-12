@@ -8,7 +8,7 @@ SC.initialize({
 // Get the song
 
 function connect() {
-	var baseURL = $('#url').val();
+    var baseURL = $('#url').val();
     $.getJSON('https://soundcloud.com/oembed?callback=?', {
         format: 'js',
         url: baseURL,
@@ -20,7 +20,6 @@ function connect() {
         var sc_url = $('#player_container').find('iframe').attr('src')
         if (sc_url.substring(0,5) == "http:") {
             sc_url = "https" + sc_url.substring(4)
-            console.log(sc_url);
             $('#player_container').find('iframe').attr('src', sc_url)
             var new_iframe = $('#player_container').find('iframe');
             $('#player_container').empty();
@@ -29,62 +28,69 @@ function connect() {
         else {
             return false;
         }
-
+        $('#explainer').css('display', 'none');
+        $('#creation_box').css('display', 'block');
     });
 }
 
 // Player functionality
 
-var get_start_position = function() {
-    var widgetIframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widgetIframe[0]);
+$(".start_btn").live('click', function() {
+    var widget_iframe = $('#player_container').find('iframe');
+    var widget = SC.Widget(widget_iframe[0]);
+    var clicked = $(this);
     widget.getPosition(function(position) {
-           $('#start').attr('value', Math.round(position));
+        clicked.prev('.start').attr('value', Math.round(position));
     });
-}
+});
 
-var get_end_position = function() {
-    var widgetIframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widgetIframe[0]);
+$(".end_btn").live('click', function() {
+    var widget_iframe = $('#player_container').find('iframe');
+    var widget = SC.Widget(widget_iframe[0]);
+    var clicked = $(this);
     widget.getPosition(function(position) {
-       $('#end').attr('value', Math.round(position));
+        clicked.prev('.end').attr('value', Math.round(position));
     });
-}
+});
 
-function test() {
-    var widgetIframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widgetIframe[0]);
-    start_time = $('#start').val()
-    end_time = $('#end').val()
+$(".test_btn").live('click', function() {
+    var widget_iframe = $('#player_container').find('iframe');
+    var widget = SC.Widget(widget_iframe[0]);
+    start_time = $(this).prev('.start').val();
+    console.log(start_time)
+    end_time = $('input').prev('.end').val();
+    console.log(end_time)
     widget.seekTo(start_time);
     widget.play();
     widget.bind(SC.Widget.Events.PLAY_PROGRESS, function() {
         widget.getPosition(function(position) {
-            if(position > end_time) {
+            if(position >= end_time) {
                 widget.pause();
             }
         });
     });
-}
+});
 
+function add() {
+    $('#clips').append("<form id='times' class='form-inline'> <input type='text' class='input-small start' placeholder='time (milliseconds)'> <input type='button' value='Start' class='btn start_btn'> <input type='text' class='input-small end' placeholder='time (milliseconds)'> <input type='button' value='End' class='btn end_btn'> <input type='text' class='input-medium linktext' placeholder='text to be hyperlinked'> <input type='button' value='Preview' class='btn test_btn'> <input type='button' value='+' onclick='add();' class='btn-primary'> </form>"); }
 // Presenting the code
 
-function bringcode() {
-    var widgetIframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widgetIframe[0]);
+function bring_code() {
+    var widget_iframe = $('#player_container').find('iframe');
+    var widget = SC.Widget(widget_iframe[0]);
     widget.getCurrentSound(function(currentSound) {
         $('#header').append("&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;\n&lt;script type='text/javascript'&gt;var id=\'" + currentSound.id + "\';&lt;/script&gt;\n&lt;script type='text/javascript' src='http://www.soundcite.com/soundcite.js'&gt;&lt;/script&gt;")
     });
-	var linkedtext = $('#linktext').val();
-	$('#code').css('display', 'block');
-	$('#inline').append("&lt;span class='soundcite' data-start='" + $('#start').val() + "' data-end='" + $('#end').val() + "'&gt;" + $('#linktext').val() + "&lt;/span&gt;");
+    var linkedtext = $('#linktext').val();
+    $('#code').css('display', 'block');
+    $('#inline').append("&lt;span class='soundcite' data-start='" + $('.start').val() + "' data-end='" + $('.end').val() + "'&gt;" + $('#linktext').val() + "&lt;/span&gt;");
 };
 
 
-function selectheadercode() {
+function select_header_code() {
     $('#header').select();
 };
 
-function selectinlinecode() {
+function select_inline_code() {
     $('#inline').select();
 };
