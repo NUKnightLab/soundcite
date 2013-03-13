@@ -8,35 +8,6 @@ body, p {
   text-align: center;
 }
 
-#topbar {
-    width: 100%;
-    height: 35px;
-    margin: 0 auto;
-    background: #eee url('knight-lab.png') no-repeat 10px 6px;
-    line-height: 33px;
-    margin-bottom: 20px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-#topbar .tagline {
-    display:inline-block;
-    float: left;
-    padding: 0 20px 0 112px;
-    color: #7f7f7f;
-    font-size: 0.8em;
-    font-style: italic;
-}
-#topbar .contact {
-    display:inline-block;
-    float: right;
-    padding-right: 10px;
-    font-size: 0.9em;
-}
-
-.tagline {
-  font-size: 32px;
-}
-
 #url {
   position: relative;
   left: -10px;
@@ -52,6 +23,10 @@ body, p {
 }
 
 #player {
+  display: none;
+}
+
+#creation_box{
   display: none;
 }
 
@@ -80,32 +55,6 @@ input:-ms-input-placeholder {
 pre {
   background-color: white !important;
   text-align: center !important;
-}
-
-#songlist {
-  padding: 20px 6px 0 6px;
-  background-color: white;
-  border: 1px solid #cccccc;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear .2s, box-shadow linear .2s;
-  overflow: scroll;
-  height: 397px;
-}
-
-#songlist p{
-  text-align: left;
-}
-
-#songlist a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-#songlist a:hover {
-  background-color: #eee;
 }
 
 .container {

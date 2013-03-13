@@ -15,79 +15,82 @@
 </head>
 <body>
 <div class="container-fluid">
-	<div id='topbar'>
-	    <span class='tagline'>Advancing media innovation through exploration and experimentation</span>
-	    <span class='contact'>
-	        <a href='http://twitter.com/knightlab'>@knightlab</a> |
-	        <a href='mailto:knightlab@northwestern.edu'>knightlab@northwestern.edu</a>
-	    </span>
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="#">SoundCite</a>
+			<ul class="nav">
+				<li><a href="#intro">Intro</a></li>
+				<li><a href="#embed">Embed</a></li>
+				<li><a href="#qa">Q&A</a></li>
+				<li><a href="#about">About/Contact</a></li>
+			</ul>
+		</div>
 	</div>
 	<div class="row-fluid">
-		<div id="left_column" class="span3 well">
-			<section id="connect">
-				<h2>Select Your Source</h2>
-				<p style="text-align: left;">To begin, enter the URL of the SoundCloud file you want to clip.</p>
-				<p><input type="text" placeholder="https://soundcloud.com/tame-impala/elephant" id="url"></input><a href="#" onclick="connect();"><img id="soundcloud" src="btn-connect-l.png"></a></p>
-			</section>
-		</div>
-		<div id="right_column" class="span9 well">
-			<section id="explainer">
-				<div class="steps row">
-					<ul>
-						<li>Find some audio on SoundCloud or upload your own audio to SoundCloud and copy the URL.</li>
-						<li>Set your in and out points for your clip to be embedded. Often a snippet will do — just enough to describe the text you are linking to.</li>
-						<li>Grab the embed code and add it to your story within your own CMS. Treat it just like any other link.</li>
-					</ul>
-				</div>
-				<div class="examples row">
-					<div id="spoken" class="span4">
-						<h3>Spoken Word</h3>
-						<p>When the emotion or tone in a speaker's voice will tell more than text can, use a clip.</p>
-						<blockquote>
-							Stephanie Hooks pleaded for help after collapsing on the floor of her South Los Angeles home.</br></br>
-
-							“I can’t breathe…. Help me breathe!” the 53-year-old grandmother wailed as frantic family members took turns on the phone with a Los Angeles Fire Department dispatcher, who alerted paramedics at a city station nearly 3 miles away
-						</blockquote>
+		<section id="intro" class="span12 well">
+			<div class="span3">
+				<p>Intro paragraph</p>
+			</div>
+			<div class="span9">
+				<p>Examples</p>
+			</div>
+		</section>
+	</div>
+	<div class="row-fluid">
+		<section id="embed">
+			<div id="left_column" class="span3 well">
+				<section id="connect">
+					<h2>Select Your Source</h2>
+					<p>To begin, enter the URL of the SoundCloud file you want to clip.</p>
+					<p><input type="text" placeholder="https://soundcloud.com/tame-impala/elephant" id="url"></input><a href="#" onclick="connect();"><img id="soundcloud" src="btn-connect-l.png"></a></p>
+				</section>
+			</div>
+			<div id="right_column" class="span9 well">
+				<section id="creation_box">
+					<h2>Create Your Clip</h2>
+					<div id="player_container">
+						<iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
 					</div>
-					<div id="natsound" class="span4">
-						<h3>Natural Sound</h3>
-						<p>Sometimes, the sounds of your setting can transport your reader to the world you are describing.</p>
-						<blockquote>
-							The crowd was as large as any that has gathered in the square since the protests that forced out President Hosni Mubarak in February 2011. Even more unusual in the increasingly polarized political climate, Islamists, liberals and leftists all found common ground on at least one front: the demand that the generals, who took power with Mr. Mubarak’s ouster, finally give it up.
-						</blockquote>
-					</div>
-					<div id="music" class="span4">
-						<h3>Music</h3>
-						<p>It often can be harder to describe a piece of music than to just let your audience hear it while you analyze.</p>
-						<blockquote>
-							The first official single from their sophomore LP, Lonerism, initially sounds like a pure top-down songwriting exercise– as in, “let’s try to sound like the song’s badass title.” So, thick, one-note guitar riffs shuffle and stomp with a heavy beat, while Kevin Parker manages to rhyme “elephant” with “shakin’ its big red trunk for the hell of it”.
-						</blockquote>
-					</div>
-				</div>
-			</section>
-			<section id="creation_box">
-				<h2>Create Your Clip</h2>
-				<div id="player_container">
-					<iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
-				</div>
-				<form id="times" class="form-inline">
-					<p>Play the audio above, and use the start and end buttons to create your clip's start and end points.</p>
-					<input type="text" class="input-small start" placeholder="time (milliseconds)">
-					<input type="button" value="Start" class="btn start_btn">
-					<input type="text" class="input-small end" placeholder="time (milliseconds)">
-					<input type="button" value="End" class="btn end_btn">
-					<input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked">
-					<input type="button" value="Preview" class="btn test_btn"></br>
-					<input class="btn-large btn-primary" type="button" value="Get the embed code" id="make" onclick="bring_code();">
-				</form>
-			</section>
-			<section id="code">
-				<legend>Here is your embed code.</legend>
-				<p>Paste the contents of the first box at the top of your post or in the header of your HTML document, if possible. Place the contents of the second box where the linked text would normally go in your written piece.</p>
-				<textarea id="header" readonly="readonly" class="code" onclick="selectheadercode();"></textarea>
-				<textarea id="inline" readonly="readonly" class="code" onclick="selectinlinecode();"></textarea>
-			</section>
-		</div>
-	</section>
+					<form id="times" class="form-inline">
+						<p>Play the audio above, and use the start and end buttons to create your clip's start and end points.</p>
+						<input type="text" class="input-small start" placeholder="time (milliseconds)">
+						<input type="button" value="Start" class="btn start_btn">
+						<input type="text" class="input-small end" placeholder="time (milliseconds)">
+						<input type="button" value="End" class="btn end_btn">
+						<input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked">
+						<input type="button" value="Preview" class="btn test_btn"></br>
+						<input class="btn-large btn-primary" type="button" value="Get the embed code" id="make" onclick="bring_code();">
+					</form>
+				</section>
+				<section id="code">
+					<legend>Here is your embed code.</legend>
+					<p>Paste the contents of the first box at the top of your post or in the header of your HTML document, if possible. Place the contents of the second box where the linked text would normally go in your written piece.</p>
+					<textarea id="header" readonly="readonly" class="code" onclick="selectheadercode();"></textarea>
+					<textarea id="inline" readonly="readonly" class="code" onclick="selectinlinecode();"></textarea>
+				</section>
+			</div>
+		</section>
+	</div>
+	<div class="row-fluid">
+		<section id="qa" class="span12 well">
+			<div class="question span3">
+				<p>Question 1</p>
+			</div>
+			<div class="question span3">
+				<p>Question 2</p>
+			</div>
+			<div class="question span3">
+				<p>Question 3</p>
+			</div>
+			<div class="question span3">
+				<p>Question 4</p>
+			</div>
+		</section>
+	</div>
+	<div class="row-fluid">
+		<section id="about" class="span12 well">
+			<p>About</p>
+		</section>
+	</div>
 </body>
 </html>
