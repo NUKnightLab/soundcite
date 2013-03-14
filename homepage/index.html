@@ -10,6 +10,7 @@
 	<script src="//connect.soundcloud.com/sdk.js" type="text/javascript"></script>
 	<script src="jquery-1.8.2.min.js" type="text/javascript"></script>
 	<script src="http://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+	<script src="homepage.js" type="text/javascript"></script>
 	<script src="soundcite.js" type="text/javascript"></script>
 	<script src="bootstrap.min.js" type="text/javascript"></script>
 </head>
@@ -28,11 +29,34 @@
 	</div>
 	<div class="row-fluid">
 		<section id="intro" class="span12 well">
-			<div class="span3">
-				<p>Intro paragraph</p>
+			<div class="span4">
+				<h2>What Is SoundCite?</h2>
+				<p>SoundCite is a web-based tool that clips long audio files, such as songs or interviews, into short, embeddable clips that the user can embed into their text. We call this "inline audio," as the reader will see highlighted, actionable text to click on, which will result in the audio file playing inline. There is no standalone player. There are no controls beyond the simple click of the text. The underlying principle behind SoundCite is that the audio clip should not interrupt the reading experience; indeed, it should <em>augment</em> the reading experience.</p>
+				<p>SoundCite is currently in an alpha, pre-release stage. Check out our <a href="http://github.com/NUKnightLab/soundcite">GitHub repo</a> and please feel free to contribute! We will have more news on a beta release soon.
 			</div>
-			<div class="span9">
-				<p>Examples</p>
+			<div class="span8 examples">
+				<header class="row-fluid">
+					<h2 class="span12">Examples</h2>
+				</header>
+				<div class="example row-fluid">
+					<figure class="span1">
+						<a href="examples-music.html"><img src="img/sc-music-tameimpala.jpg" alt="Tame Impala"></a>
+					</figure>
+					<p class="span8">Tame Impala have never shied away from the sounds of classic rock radio, but "Elephant" is the first time they've gone deep into its mythology and symbolism. The first official single from their sophomore LP, Lonerism, initially sounds like a pure top-down songwriting exercise- as in, "let's try to sound like the song's badass title." So, <span class="soundcite" data-start="1" data-end="4820"><span class="genericon genericon-video"></span> thick, one-note guitar riffs</span> shuffle and stomp with a heavy beat.</p>
+				</div>
+				<div class="example">
+					<figure class="span1">
+						<a href="examples-spokenword.html"><img src="img/sc-spokenword-911delay.jpg" alt="Stephanie Hooks"></a>
+					</figure>
+					<p class="span8">Stephanie Hooks pleaded for help after collapsing on the floor of her South Los Angeles home.</p>
+			        <p class="span8"><span class="soundcite" data-start="175796" data-end="177000"><span class="genericon genericon-video"></span>"I can't breathe... .</span> Help me breathe!" the 53-year-old grandmother wailed as frantic family members took turns on the phone with a Los Angeles Fire Department dispatcher, who alerted paramedics at a city station nearly 3 miles away.</p>
+				</div>
+				<div class="example">
+					<figure class="span1">
+						<a href="examples-naturalsound.html"><img src="img/sc-naturalsound-protest.jpg" alt="Protest"></a>
+					</figure>
+					<p class="span8"><span class="soundcite" data-start="72436" data-end="81701"><span class="genericon genericon-video"></span>The crowd was as large</span> as any that has gathered in the square since the protests that forced out President Hosni Mubarak in February 2011. Even more unusual in the increasingly polarized political climate, Islamists, liberals and leftists all found common ground on at least one front: the demand that the generals, who took power with Mr. Mubarak's ouster, finally give it up.</p>
+				</div>
 			</div>
 		</section>
 	</div>
@@ -73,22 +97,27 @@
 	</div>
 	<div class="row-fluid">
 		<section id="qa" class="span12 well">
-			<div class="question span3">
-				<h3>Do I need to know &lt;code&gt; to use SoundCite?</h3>
-				<p class="answer">Absolutely not. SoundCite is friction-free for media consumers and creators. If you can record audio, upload it to <a href="http://soundcloud.com" target="_blank">soundcloud.com</a>, click a few buttons and can cut & paste you are ready to embed your own audio. You won't have to write or read HTML, CSS or JavaScript to use SoundCite.</p>
-			</div>
-			<div class="question span3">
-				<h3>Can I customize what SoundCite looks like?</h3>
-				<p class="answer">SoundCite is designed to work with virtually any site or theme design. The simple shading of the links should compliment your design without any customization. But we know you may still want to change the size, color or shading so... we're working on it. Stay tuned. More customization will follow.</p>
-			</div>
-			<div class="question span3">
-				<h3>Can I use an audio source other than SoundCloud?</h3>
-				<p class="answer">SoundCloud is a great platform but we know you might want to use audio you host on a variety of other sources or your own servers. We're working on this too. Hopefully we can start expanding the potential sources soon.</p>
-			</div>
-			<div class="question span3">
-				<h3>Can I help build new features for SoundCite?</h3>
-				<p class="answer">Absolutely. <a href="http://www.github.com/NUKnightLab/soundcite" target="_blank">Fork the project</a> and get involved. <a href="http://twitter.com/euphonos" target="_blank">Send us feedback</a>. Help us make SoundCite the tool you need and want it to be.</p>
-			</div>
+			<header class="row-fluid">
+				<h2 class="span12">Frequently Asked Questions</h2>
+			</header>
+			<article class="sections row-fluid">
+				<div class="question span3">
+					<h3>Do I need to know &lt;code&gt; to use SoundCite?</h3>
+					<p class="answer">Absolutely not. SoundCite is friction-free for media consumers and creators. If you can record audio, upload it to <a href="http://soundcloud.com" target="_blank">soundcloud.com</a>, click a few buttons and can cut & paste you are ready to embed your own audio. You won't have to write or read HTML, CSS or JavaScript to use SoundCite.</p>
+				</div>
+				<div class="question span3">
+					<h3>Can I customize what SoundCite looks like?</h3>
+					<p class="answer">SoundCite is designed to work with virtually any site or theme design. The simple shading of the links should compliment your design without any customization. But we know you may still want to change the size, color or shading so... we're working on it. Stay tuned. More customization will follow.</p>
+				</div>
+				<div class="question span3">
+					<h3>Can I use an audio source other than SoundCloud?</h3>
+					<p class="answer">SoundCloud is a great platform but we know you might want to use audio you host on a variety of other sources or your own servers. We're working on this too. Hopefully we can start expanding the potential sources soon.</p>
+				</div>
+				<div class="question span3">
+					<h3>Can I help build new features for SoundCite?</h3>
+					<p class="answer">Absolutely. <a href="http://www.github.com/NUKnightLab/soundcite" target="_blank">Fork the project</a> and get involved. <a href="http://twitter.com/euphonos" target="_blank">Send us feedback</a>. Help us make SoundCite the tool you need and want it to be.</p>
+				</div>
+			</article>
 		</section>
 	</div>
 	<div class="row-fluid">

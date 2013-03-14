@@ -7,6 +7,7 @@ body, p {
   font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif;
   font-size: 16px;
   text-align: center;
+  line-height: 22px;
 }
 
 .answer {

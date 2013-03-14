@@ -1,96 +1,48 @@
-// Invoke SoundCloud player methods
-
-SC.initialize({
-    client_id: "5ba7fd66044a60db41a97cb9d924996a",
-    redirect_uri: "http://www.soundcite.com"
-});
-
-// Get the song
-
-function connect() {
-    var baseURL = $('#url').val();
-    $.getJSON('https://soundcloud.com/oembed?callback=?', {
-        format: 'js',
-        url: baseURL,
-        show_comments: 'false'
-    },
-    function(data) {
-        $('#player_container').empty();
-        $('#player_container').html(data.html);
-        var sc_url = $('#player_container').find('iframe').attr('src')
-        if (sc_url.substring(0,5) == "http:") {
-            sc_url = "https" + sc_url.substring(4)
-            $('#player_container').find('iframe').attr('src', sc_url)
-            var new_iframe = $('#player_container').find('iframe');
-            $('#player_container').empty();
-            $('#player_container').html(new_iframe);
-        }
-        else {
-            return false;
-        }
-        $('#explainer').css('display', 'none');
-        $('#creation_box').css('display', 'block');
+$(document).ready(function () {
+    SC.initialize({
+        client_id: "5ba7fd66044a60db41a97cb9d924996a",
+        redirect_uri: "http://localhost:9292/soundcite",
     });
-}
-
-// Player functionality
-
-$(".start_btn").live('click', function() {
-    var widget_iframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widget_iframe[0]);
-    var clicked = $(this);
-    widget.getPosition(function(position) {
-        clicked.prev('.start').attr('value', Math.round(position));
-    });
-});
-
-$(".end_btn").live('click', function() {
-    var widget_iframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widget_iframe[0]);
-    var clicked = $(this);
-    widget.getPosition(function(position) {
-        clicked.prev('.end').attr('value', Math.round(position));
-    });
-});
-
-$(".test_btn").live('click', function() {
-    var widget_iframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widget_iframe[0]);
-    start_time = $(this).prev('.start').val();
-    console.log(start_time)
-    end_time = $('input').prev('.end').val();
-    console.log(end_time)
-    widget.seekTo(start_time);
-    widget.play();
-    widget.bind(SC.Widget.Events.PLAY_PROGRESS, function() {
-        widget.getPosition(function(position) {
-            if(position >= end_time) {
-                widget.toggle();
+    $('body').append('<link rel="stylesheet" href="http://soundcite.com/player.css" type="text/css" />');
+    SC.stream(id, function(sound) {
+        sound.load({
+            onload: function() {
+                $('.soundcite').css({'border' : '1px solid rgba(0,0,0,.5)', 'border-radius' : '10px', 'padding' : '0 5px 0 5px', 'display' : 'inline-block', 'cursor' : 'pointer'});
             }
         });
+        if (sound.playState == 0) {
+            $('.soundcite').click(function () {
+                var clicked = $(this);
+                var start = clicked.attr('data-start');
+                var end = clicked.attr('data-end');
+                sound.setPosition(start);
+                sound.onPosition(end, function() {
+                    sound.pause();
+                })
+                sound.play({
+                    whileplaying: function() {
+                        var totalTime = end - start;
+                        var position = sound.position;
+                        var relative_position = position - start;
+                        var percentage = (relative_position / totalTime) * 100
+                        clicked.css({'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'});
+                        if (sound.position > end) {
+                            sound.pause();
+                        }
+                        clicked.click(function() {
+                            sound.pause();
+                        })
+                    },
+                    onpause: function() {
+                        sound.setPosition(start);
+                    },
+                });
+            });
+        }
+        else if (sound.playState == 1) {
+            $('.soundcite').click(function () {
+                sound.pause();
+            })
+        }
     });
 });
-
-function add() {
-    $('#clips').append("<form id='times' class='form-inline'> <input type='text' class='input-small start' placeholder='time (milliseconds)'> <input type='button' value='Start' class='btn start_btn'> <input type='text' class='input-small end' placeholder='time (milliseconds)'> <input type='button' value='End' class='btn end_btn'> <input type='text' class='input-medium linktext' placeholder='text to be hyperlinked'> <input type='button' value='Preview' class='btn test_btn'> <input type='button' value='+' onclick='add();' class='btn-primary'> </form>"); }
-// Presenting the code
-
-function bring_code() {
-    var widget_iframe = $('#player_container').find('iframe');
-    var widget = SC.Widget(widget_iframe[0]);
-    widget.getCurrentSound(function(currentSound) {
-        $('#header').append("&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;\n&lt;script type='text/javascript'&gt;var id=\'" + currentSound.id + "\';&lt;/script&gt;\n&lt;script type='text/javascript' src='http://www.soundcite.com/soundcite.js'&gt;&lt;/script&gt;")
-    });
-    var linkedtext = $('#linktext').val();
-    $('#code').css('display', 'block');
-    $('#inline').append("&lt;span class='soundcite' data-start='" + $('.start').val() + "' data-end='" + $('.end').val() + "'&gt;" + $('#linktext').val() + "&lt;/span&gt;");
-};
-
-
-function select_header_code() {
-    $('#header').select();
-};
-
-function select_inline_code() {
-    $('#inline').select();
-};
