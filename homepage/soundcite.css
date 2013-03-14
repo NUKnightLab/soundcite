@@ -9,6 +9,10 @@ body, p {
   text-align: center;
 }
 
+.answer {
+  text-align: left;
+}
+
 #url {
   position: relative;
   left: -10px;
