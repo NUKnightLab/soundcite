@@ -1,9 +1,10 @@
 h2, h3, legend {
-  font-family: 'Kreon', Georgia, serif !important;
+  font-family: 'Arvo', Georgia, serif !important;
+  font-weight: 400 !important;
 }
 
 body, p {
-  font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif;
   font-size: 16px;
   text-align: center;
 }
