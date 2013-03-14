@@ -65,7 +65,7 @@ $(".test_btn").live('click', function() {
     widget.bind(SC.Widget.Events.PLAY_PROGRESS, function() {
         widget.getPosition(function(position) {
             if(position >= end_time) {
-                widget.pause();
+                widget.toggle();
             }
         });
     });
