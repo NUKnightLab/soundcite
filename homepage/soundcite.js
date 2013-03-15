@@ -4,6 +4,7 @@ $(document).ready(function () {
         redirect_uri: "http://localhost:9292/soundcite",
     });
     $('body').append('<link rel="stylesheet" href="http://soundcite.com/player.css" type="text/css" />');
+    console.log($('.soundcite').attr('data-id'));
     SC.stream(id, function(sound) {
         sound.load({
             onload: function() {
