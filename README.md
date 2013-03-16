@@ -1,6 +1,11 @@
-soundcite
-=========
-
 **SoundCite is not ready for widespread use.**
 
-SoundCite is a web-based tool that clips long audio files, such as songs or interviews, into short, embeddable clips that the user can embed into their text. We call this "inline audio," as the reader will see highlighted, actionable text to click on, which will result in the audio file playing inline. There is no standalone player. There are no controls beyond the simple click of the text. The underlying principle behind SoundCite is that the audio clip should not interrupt the reading experience; indeed, it should *augment* the reading experience.
+Usually adding audio to a text story is an uncomfortable choice. Either the user reads or listens but never both. Until now.
+
+SoundCite is a simple-to-use tool that helps content creators add audio to their stories. The audio is not isolated in a player positioned off to the side, interrupting the text or housed in a garish player that distracts content consumers from reading.
+
+SoundCite's audio is just a link that plays right under the relevant text.
+
+SoundCite audio adds emotion or context to the text. It never asks users to look away from what their reading. And, most importantly, it requires no technical skills to use.
+
+SoundCite is currently in an alpha, pre-release stage. Check out our GitHub repo and please feel free to contribute! We will have more news on a beta release soon.
