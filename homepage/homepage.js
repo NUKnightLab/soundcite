@@ -78,12 +78,12 @@ function add() {
 function bring_code() {
     var widget_iframe = $('#player_container').find('iframe');
     var widget = SC.Widget(widget_iframe[0]);
-    widget.getCurrentSound(function(currentSound) {
-        $('#header').append("&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;\n&lt;script type='text/javascript'&gt;var id=\'" + currentSound.id + "\';&lt;/script&gt;\n&lt;script type='text/javascript' src='http://www.soundcite.com/soundcite.js'&gt;&lt;/script&gt;")
-    });
+    $('#header').append("&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;\n&lt;script type='text/javascript' src='http://www.soundcite.com/soundcite.js'&gt;&lt;/script&gt;")
     var linkedtext = $('#linktext').val();
     $('#code').css('display', 'block');
-    $('#inline').append("&lt;span class='soundcite' data-start='" + $('.start').val() + "' data-end='" + $('.end').val() + "'&gt;" + $('#linktext').val() + "&lt;/span&gt;");
+    widget.getCurrentSound(function(currentSound) {
+        $('#inline').append("&lt;span class='soundcite' data-id='" + currentSound.id + "' data-start='" + $('.start').val() + "' data-end='" + $('.end').val() + "'&gt;&lt;span class='genericon genericon-video'&gt;&lt;/span&gt;" + $('#linktext').val() + "&lt;/span&gt;");
+    });
 };
 
 

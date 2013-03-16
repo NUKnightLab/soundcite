@@ -1,7 +1,5 @@
-h2, h3, legend {
-  font-family: 'Arvo', Georgia, serif !important;
-  font-weight: 400 !important;
-  text-align: center;
+body {
+  padding-top: 40px;
 }
 
 body, p {
@@ -10,9 +8,39 @@ body, p {
   line-height: 22px;
 }
 
+h2, h3, legend {
+  font-family: 'Arvo', Georgia, serif !important;
+  font-weight: 400 !important;
+  text-align: center;
+}
+
+#intro {
+  padding: 30px 0 40px 0;
+  background-color: #f3f3f3;
+}
+
+#intro h2 {
+  margin:20px 0 35px 0;
+}
+
+#intro .examples h4 {
+  margin-top:0;
+}
+
+#intro .examples .example {
+  margin-bottom:20px;
+  overflow:auto;
+}
+
+#intro .examples .example:last-child {
+  margin-bottom:0;
+  overflow:auto;
+}
 
 #intro .examples .example figure {
   float: left;
+  margin:0;
+  margin-right:5px;
 }
 
 #intro .examples .example p {
@@ -29,8 +57,25 @@ body, p {
   clear: both;
 }
 
-.answer {
-  text-align: left;
+#embed {
+  padding:30px 0 40px 0;
+  background:#ccc;
+}
+
+#qa {
+  padding:30px 0 40px 0;
+  background-color:#ececec;
+}
+
+#about {
+  padding:30px 0 40px 0;
+  background-color:#f3f3f3;
+}
+
+#about2 {
+  padding:30px 0 40px 0;
+  background-color:#333;
+  color:#f3f3f3;
 }
 
 #make {
@@ -80,8 +125,4 @@ textarea {
   cursor: auto !important;
   resize: none !important;
   text-align: center !important;
-}
-
-#header {
-  height: 60px !important;
 }
