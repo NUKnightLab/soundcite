@@ -1,6 +1,6 @@
 # Roadmap
 
-## Beta release: 4/15/12
+## Beta release: 4/15/13 (tentative)
 
 * Queueing: make multiple clips on one page
 * Deployment and organization for versions of the library
