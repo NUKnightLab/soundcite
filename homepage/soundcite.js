@@ -4,7 +4,6 @@ $(document).ready(function () {
 
     SC.initialize({
         client_id: "5ba7fd66044a60db41a97cb9d924996a",
-        redirect_uri: "http://localhost:9292/soundcite",
     });
     $('body').append('<link rel="stylesheet" href="http://soundcite.com/player.css" type="text/css" />');
     var soundcite_array = $('.soundcite');
