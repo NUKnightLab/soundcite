@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SoundCite | Short, embeddable audio clips</title>
+  <title>SoundCite | Making Inline Audio Easy and Seamless</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
@@ -20,7 +20,7 @@
 <div class="container-fluid">
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-      <a class="brand" href="#">SoundCite</a>
+      <a class="brand" href="index.html">SoundCite</a>
       <ul class="nav">
         <li><a href="#intro">Intro</a></li>
         <li><a href="#embed">Embed</a></li>
@@ -49,7 +49,7 @@
           <a href="examples-music.html"><img src="img/sc-music-tameimpala.jpg" alt="Tame Impala"></a>
         </figure>
         <article class="span8">
-          <p>Tame Impala have never shied away from the sounds of classic rock radio, but "Elephant" is the first time they've gone deep into its mythology and symbolism. The first official single from their sophomore LP, <em>Lonerism</em>, initially sounds like a pure top-down songwriting exercise- as in, "let's try to sound like the song's badass title." So, <span class="soundcite" data-id="55728529" data-start="1" data-end="4820"><span class="genericon genericon-video"></span> thick, one-note guitar riffs</span> shuffle and stomp with a heavy beat.</p>
+          <p>Tame Impala have never shied away from the sounds of classic rock radio, but "Elephant" is the first time they've gone deep into its mythology and symbolism. <!-- The first official single from their sophomore LP, <em>Lonerism</em>, --> ... [It] initially sounds like a pure top-down songwriting exercise- as in, "let's try to sound like the song's badass title." So, <span class="soundcite" data-id="55728529" data-start="1" data-end="4820"><span class="genericon genericon-video"></span> thick, one-note guitar riffs</span> shuffle and stomp ... <!-- with a heavy beat.--></p>
         </article>
       </div>
       <div class="example span12">
@@ -57,8 +57,7 @@
           <a href="examples-spokenword.html"><img src="img/sc-spokenword-911delay.jpg" alt="Stephanie Hooks"></a>
         </figure>
         <article class="span8">
-          <p>Stephanie Hooks pleaded for help after collapsing on the floor of her South Los Angeles home.</p>
-          <p><span class="soundcite" data-id="61188346" data-start="175796" data-end="177000"><span class="genericon genericon-video"></span>"I can't breathe... .</span> Help me breathe!" the 53-year-old grandmother wailed as frantic family members took turns on the phone with a Los Angeles Fire Department dispatcher, who alerted paramedics at a city station nearly 3 miles away.</p>
+          <p>Stephanie Hooks pleaded for help after collapsing on the floor of her South Los Angeles home: <span class="soundcite" data-id="61188346" data-start="175796" data-end="177000"><span class="genericon genericon-video"></span>"I can't breathe... .</span> Help me breathe!" the 53-year-old grandmother wailed as frantic family members took turns on the phone with a Los Angeles Fire Department dispatcher...</p>
         </article>
       </div>
       <div class="example span12">
@@ -66,7 +65,7 @@
           <a href="examples-naturalsound.html"><img src="img/sc-naturalsound-protest.jpg" alt="Protest"></a>
         </figure>
         <article class="span8">
-          <p><span class="soundcite" data-id="34598716" data-start="72436" data-end="81701"><span class="genericon genericon-video"></span>The crowd was as large</span> as any that has gathered in the square since the protests that forced out President Hosni Mubarak in February 2011. Even more unusual in the increasingly polarized political climate, Islamists, liberals and leftists all found common ground on at least one front: the demand that the generals, who took power with Mr. Mubarak's ouster, finally give it up.</p>
+          <p>Tens of thousands of Egyptians packed into Tahrir Square in central Cairo on Friday ... <span class="soundcite" data-id="34598716" data-start="72436" data-end="81701"><span class="genericon genericon-video"></span>The crowd was as large</span> as any that has gathered in the square since the protests that forced out President Hosni Mubarak in February 2011. <!-- Even more unusual in the increasingly polarized political climate, Islamists, liberals and leftists all found common ground on at least one front: the demand that the generals, who took power with Mr. Mubarak's ouster, finally give it up. --></p>
         </article>
       </div>
     </div>
@@ -78,7 +77,7 @@
     <div id="left_column" class="span3">
       <h3>Select Your Source</h3>
       <p>To begin, enter the URL of the SoundCloud file you want to clip.</p>
-      <p><input type="text" placeholder="https://soundcloud.com/tame-impala/elephant" id="url"></input><a onclick="connect();"><img id="soundcloud" src="btn-connect-l.png"></a></p>
+      <p><input type="text" placeholder="https://soundcloud.com/tame-impala/elephant" id="url"><a onclick="connect();"><img id="soundcloud" src="btn-connect-l.png" alt="Connect to SoundCloud"></a></p>
     </div>
     <div id="right_column" class="span8">
       <section id="creation_box">
@@ -92,12 +91,12 @@
           <input type="text" class="input-small end" placeholder="time (milliseconds)">
           <input type="button" value="End" class="btn end_btn">
           <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked">
-          <input type="button" value="Preview" class="btn test_btn"></br>
+          <input type="button" value="Preview" class="btn test_btn"><br>
           <input class="btn-large btn-primary" type="button" value="Get the embed code" id="make" onclick="bring_code();">
         </form>
       </section>
       <section id="code">
-        <legend>Here is your embed code.</legend>
+        <fieldset><legend>Here is your embed code.</legend></fieldset>
         <p>Paste the contents of the first box at the top of your post or in the header of your HTML document, if possible. Place the contents of the second box where the linked text would normally go in your written piece.</p>
         <textarea id="header" readonly="readonly" class="code" onclick="selectheadercode();"></textarea>
         <textarea id="inline" readonly="readonly" class="code" onclick="selectinlinecode();"></textarea>
@@ -132,7 +131,7 @@
       <h2 class="span12">About</h2>
     </header>
     <article class="span12">
-      <p>SoundCite was created by Tyler Fisher and Jeremy Gilbert at Northwestern University's Knight Lab, with support from the John S. and James L. Knight Foundation and the National Science Foundation.</p>
+      <p>SoundCite was created by <strong><a href="http://www.tylerjfisher.com/" target="_blank">Tyler Fisher</a></strong> and <strong><a href="http://www.jeremygilbert.com/" target="_blank">Jeremy Gilbert</a></strong> at Northwestern University's Knight Lab, with support from the John S. and James L. Knight Foundation and the National Science Foundation.</p>
     </article>
     <div class="row-fluid">
       <figure class="offset2 span2 text-center" style="padding-top:70px;">
@@ -163,5 +162,20 @@
       <p>1845 Sheridan Road, Fisk 109-111, Evanston IL. 60208 | (847) 467-4971</p>
     </div>
   </div>
+  <!-- Google Analytics Tracking -->
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34830490-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</div>
 </body>
 </html>
