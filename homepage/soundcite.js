@@ -52,6 +52,10 @@ $(document).ready(function () {
                             // clicked.click(function() {
                             //     sound.pause();
                             // })
+
+                            if (sound.position > end) {
+                                sound.pause();
+                            }
                         },
                         onpause: function() {
                             sound.setPosition(start);
