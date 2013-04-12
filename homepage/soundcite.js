@@ -33,17 +33,17 @@ $(document).ready(function () {
                 start = clicked.attr('data-start');
                 end = clicked.attr('data-end');
                 var this_id = clicked.attr('data-id');
-                console.log(sound.url);
-                console.log(start)
-                console.log(end)
+                // console.log(sound.url);
+                // console.log(start)
+                // console.log(end)
                 sound.setPosition(start);
-                sound.onPosition(end, function() {
-                    sound.pause();
-                });
+                // sound.onPosition(end, function() {
+                //     sound.pause();
+                // });
                 if (sound.url == 'http://api.soundcloud.com/tracks/' + this_id + '/stream?client_id=5ba7fd66044a60db41a97cb9d924996a' ) {
                     sound.play({
                         whileplaying: function() {
-                            console.log('working');
+                            // console.log('working');
                             var totalTime = end - start;
                             var position = sound.position;
                             var relative_position = position - start;
