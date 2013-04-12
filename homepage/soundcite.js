@@ -1,6 +1,16 @@
 $(document).ready(function () {
-    var start = "";
-    var end = "";
+    var start;
+    var end;
+
+    // borrowing underscore.js bind function
+
+    var scBind = function(func, context) {
+        if (func.bind === nativeBind && nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
+        var args = slice.call(arguments, 2);
+        return function() {
+          return func.apply(context, args.concat(slice.call(arguments)));
+        };
+    };
 
     SC.initialize({
         client_id: "5ba7fd66044a60db41a97cb9d924996a",
@@ -15,7 +25,7 @@ $(document).ready(function () {
         SC.stream(ids[i], function(sound) {
             sound.load({
                 onload: function() {
-                    $('.soundcite').css({'border' : '1px solid rgba(0,0,0,.5)', 'border-radius' : '10px', 'padding' : '0 5px 0 5px', 'display' : 'inline-block', 'cursor' : 'pointer'});
+                    $('.soundcite').addClass('soundcite-loaded');
                 }
             });
             $('.soundcite').click(function () {

@@ -1,3 +1,15 @@
+/*PLAYER CHROME*/
+
+.soundcite-loaded {
+    border: 1px solid rgba(0,0,0,.5);
+    border-radius: 10px;
+    padding: 0 5px 0 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/*PLAY ICON*/
+
 @font-face {
     font-family: 'Genericons';
     src: url('font/genericons-regular-webfont.eot');
