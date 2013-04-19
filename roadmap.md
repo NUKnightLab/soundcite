@@ -2,13 +2,11 @@
 
 ## Beta release: end of April
 
-* Queueing: make multiple clips on one page
-* Deployment and organization for versions of the library
-* Public homepage with examples, tutorial, and clip generator
-* Ready for public use across all content management systems and HTML pages
+* Redesign of embed generator and UX
+* Custom theming of SoundCite player UI
+* Homepage consistent with other Knight Lab projects
 
 ## Future (1.0)
 
 * Other audio sources (YouTube?)
-* Custom theming of SoundCite UI
 * Draggable waveform for clip creation
