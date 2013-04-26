@@ -51,6 +51,7 @@ $(document).ready(function () {
             if (this.el !== clips[i].el) {
                 clips[i].sound.stop();
                 clips[i].playing = false;
+                clips[i].sound.setPosition(clips[i].start);
             }
         }
 
