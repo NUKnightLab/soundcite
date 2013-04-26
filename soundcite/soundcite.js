@@ -41,6 +41,7 @@ $(document).ready(function () {
     Clip.prototype.sound_loaded = function() {
         $(this.el).addClass('soundcite-loaded');
         $(this.el).click(bind(this.click_handler, this));
+        $(this.el).prepend('<i class="icon-play"></i> ');
     }
 
     Clip.prototype.click_handler = function() {
