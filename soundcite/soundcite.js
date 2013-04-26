@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     // load player chrome
-    $('body').append('<link rel="stylesheet" href="http://soundcite.com/player.css" type="text/css" />');
+    $('body').append('<link rel="stylesheet" href="http://soundcite.com/player.css" type="text/css" />  <link href="font-awesome.min.css" rel="stylesheet" type="text/css">');
 
     // borrowing underscore.js bind function
     var bind = function(func, context) {
@@ -39,8 +39,6 @@ $(document).ready(function () {
 
     //clip methods
     Clip.prototype.sound_loaded = function() {
-        console.log("loaded sound");
-        console.log(this);
         $(this.el).addClass('soundcite-loaded');
         $(this.el).click(bind(this.click_handler, this));
     }
@@ -52,6 +50,8 @@ $(document).ready(function () {
                 clips[i].sound.stop();
                 clips[i].playing = false;
                 clips[i].sound.setPosition(clips[i].start);
+                $(clips[i].el).find('i').removeClass('icon-pause');
+                $(clips[i].el).find('i').addClass('icon-play');
             }
         }
 
@@ -70,6 +70,10 @@ $(document).ready(function () {
         if (this.times_played > 0) {
             this.sound.setPosition(this.sound.position);
         }
+
+        $(this.el).find('i').removeClass('icon-play');
+        $(this.el).find('i').addClass('icon-pause');
+
         this.sound.play({
             whileplaying: bind(function() {
                 // progress bar
@@ -82,6 +86,8 @@ $(document).ready(function () {
                 });
 
                 if (this.sound.position > this.end) {
+                    $(this.el).find('i').removeClass('icon-pause');
+                    $(this.el).find('i').addClass('icon-play');
                     this.sound.stop();
                     this.playing = false;
                 }
@@ -92,6 +98,8 @@ $(document).ready(function () {
     }
 
     Clip.prototype.pause_clip = function() {
+        $(this.el).find('i').removeClass('icon-pause');
+        $(this.el).find('i').addClass('icon-play');
         this.playing = false;
         this.sound.pause();
     }
