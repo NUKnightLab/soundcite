@@ -76,14 +76,7 @@ $(document).ready(function () {
 
         this.sound.play({
             whileplaying: bind(function() {
-                // progress bar
-                var totalTime = this.end - this.start;
-                var position = this.sound.position;
-                var relative_position = position - this.start;
-                var percentage = (relative_position / totalTime) * 100
-                $(this.el).css({
-                    'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
-                });
+                this.track_progress();
 
                 if (this.sound.position > this.end) {
                     $(this.el).find('i').removeClass('icon-pause');
@@ -102,6 +95,19 @@ $(document).ready(function () {
         $(this.el).find('i').addClass('icon-play');
         this.playing = false;
         this.sound.pause();
+    }
+
+    Clip.prototype.track_progress = function() {
+        var totalTime = this.end - this.start;
+        var position = this.sound.position;
+        var relative_position = position - this.start;
+        var percentage = (relative_position / totalTime) * 100
+
+        // change the css to customize your player
+
+        $(this.el).css({
+            'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
+        });
     }
 
     // set up clips array
