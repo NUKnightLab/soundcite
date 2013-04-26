@@ -56,7 +56,7 @@ $(".end_btn").live('click', function() {
 $(".test_btn").live('click', function() {
     var widget_iframe = $('#player_container').find('iframe');
     var widget = SC.Widget(widget_iframe[0]);
-    start_time = $(this).prev('.start').val();
+    start_time = $('input').prev('.start').val();
     console.log(start_time)
     end_time = $('input').prev('.end').val();
     console.log(end_time)
