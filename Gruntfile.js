@@ -1,5 +1,10 @@
 'use strict';
 
+// Variables
+var path = require('path'),
+    port = 8000,
+    lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+
 module.exports = function(grunt) {
 
   // configurable paths
@@ -19,6 +24,33 @@ module.exports = function(grunt) {
             ' * <%= pkg.homepage %>\n' +
             ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
             ' */\n',
+
+    // Development server
+    connect: {
+      livereload: {
+        options: {
+          port: port,
+          middleware: function(connect, options) {
+            return [lrSnippet, connect.static(path.resolve('.'))]
+          }
+        }
+      }
+    },
+
+    // Open
+    open: { 
+      dev: {
+        path: 'http://localhost:' + port + '/homepage/index.html'
+      }
+    },
+
+    // Regarde (Watch)
+    regarde: {
+      html: {
+        files: 'homepage/*.html',
+        tasks: ['livereload']
+      }
+    },
 
     // Uglify
     uglify: {
@@ -81,8 +113,8 @@ module.exports = function(grunt) {
 
   // Load all Grunt task
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  
   // Define complex tasks
+  grunt.registerTask('server', ['livereload-start', 'connect', 'regarde']);
   grunt.registerTask('build', ['clean',  'copy', 'uglify', 'concat']);
+  grunt.registerTask('default', ['open:dev', 'server']);
 };
