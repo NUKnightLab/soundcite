@@ -1,0 +1,26 @@
+{
+  "name": "soundcite",
+  "version": "0.1.0",
+  "description": "Making Inline Audio Easy and Seamless",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+      "grunt": "~0.4.1",
+      "grunt-contrib-copy": "~0.4.0",
+      "grunt-contrib-clean": "0.4.0",
+      "grunt-contrib-uglify": "~0.1.2",
+      "grunt-contrib-concat": "~0.2.0",
+      "matchdep": "~0.1.1"
+    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/NUKnightLab/soundcite.git"
+  },
+  "author": "Tyler J. Fisher and Northwestern University Knight Lab",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "15a318870f3f5b69f73df6f5e3a349533f427c04"
+}
