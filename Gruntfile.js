@@ -12,12 +12,18 @@ module.exports = function(grunt) {
       source: 'soundcite',
       build: 'build'
   };
+  
+  // cdn configuration
+  var cdnConfig = {
+      path: path.join('..', 'cdn.knightlab.com', 'app', 'libs', 'soundcite')
+  };
 
   // Project configuration.
   grunt.initConfig({
     // Configs
     pkg: grunt.file.readJSON('package.json'),
     soundcite: soundciteConfig,
+    cdn: cdnConfig,
 
     // Banner for the top of CSS and JS files
     banner: '/* <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -87,12 +93,37 @@ module.exports = function(grunt) {
             ]
           }
         ]
+      },
+      stg: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= soundcite.build %>',
+            dest: path.join('<%= cdn.path %>', '<%= pkg.version %>'),           
+            src: ['css/**', 'font/**', 'js/*.min.js'], 
+          },
+          {
+            expand: true,
+            cwd: '<%= soundcite.build %>',
+            dest: path.join('<%= cdn.path %>', 'latest'),           
+            src: ['css/**', 'font/**', 'js/*.min.js'], 
+          }                 
+        ]      
       }
     },
 
     // Clean
     clean: {
-      dist: '<%= soundcite.build %>'
+      dist: '<%= soundcite.build %>',
+      stg: {
+        options: {
+          force: true
+        },
+        src: [
+          path.join('<%= cdn.path %>', '<%= pkg.version %>'), 
+          path.join('<%= cdn.path %>', 'latest')
+        ]
+      }
     },
 
     // Concat
@@ -109,12 +140,23 @@ module.exports = function(grunt) {
         }
       }
     }
+    
   });
 
   // Load all Grunt task
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  
+  grunt.registerTask('check_for_cdn', 'Check for cdn repository', function() {
+    // Make sure CDN repo exists
+    if(!grunt.file.exists('..', 'cdn.knightlab.com')) {
+        grunt.fatal('Could not find local cdn.knightlab.com repository.')
+    }
+  });
+  
   // Define complex tasks
   grunt.registerTask('server', ['livereload-start', 'connect', 'regarde']);
-  grunt.registerTask('build', ['clean',  'copy', 'uglify', 'concat']);
-  grunt.registerTask('default', ['open:dev', 'server']);
+  grunt.registerTask('build', ['clean:dist',  'copy:dist', 'uglify', 'concat']);
+  grunt.registerTask('default', ['open:dev', 'server']);  
+  grunt.registerTask('stage_for_cdn', ['check_for_cdn', 'build', 'clean:stg', 'copy:stg']);
+
 };
