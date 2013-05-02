@@ -36,9 +36,8 @@ $(document).ready(function () {
 
     //clip methods
     Clip.prototype.sound_loaded = function() {
-        $(this.el).addClass('soundcite-loaded');
         $(this.el).click(bind(this.click_handler, this));
-        $(this.el).prepend('<i class="icon-play"></i> ');
+        $(this.el).addClass('soundcite-loaded soundcite-play');
     }
 
     Clip.prototype.click_handler = function() {
@@ -48,8 +47,8 @@ $(document).ready(function () {
                 clips[i].sound.stop();
                 clips[i].playing = false;
                 clips[i].sound.setPosition(clips[i].start);
-                $(clips[i].el).find('i').removeClass('icon-pause');
-                $(clips[i].el).find('i').addClass('icon-play');
+                $(clips[i].el).removeClass('soundcite-pause');
+                $(clips[i].el).addClass('soundcite-play');
             }
         }
 
@@ -69,17 +68,16 @@ $(document).ready(function () {
             this.sound.setPosition(this.sound.position);
         }
 
-        $(this.el).find('i').removeClass('icon-play');
-        $(this.el).find('i').addClass('icon-pause');
+        $(this.el).removeClass('soundcite-play');
+        $(this.el).addClass('soundcite-pause');
 
         this.sound.play({
             whileplaying: bind(function() {
                 this.track_progress();
 
                 if (this.sound.position > this.end) {
-                    $(this.el).find('i').removeClass('icon-pause');
-                    $(this.el).find('i').addClass('icon-play');
-                    this.sound.stop();
+                    $(this.el).removeClass('soundcite-pause');
+                    $(this.el).addClass('soundcite-play');
                     this.playing = false;
                 }
             }, this),
@@ -89,8 +87,8 @@ $(document).ready(function () {
     }
 
     Clip.prototype.pause_clip = function() {
-        $(this.el).find('i').removeClass('icon-pause');
-        $(this.el).find('i').addClass('icon-play');
+        $(this.el).removeClass('soundcite-pause');
+        $(this.el).addClass('soundcite-play');
         this.playing = false;
         this.sound.pause();
     }
