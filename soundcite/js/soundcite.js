@@ -9,9 +9,6 @@ $(document).ready(function () {
         client_id: "5ba7fd66044a60db41a97cb9d924996a",
     });
 
-    // load player chrome
-    $('body').append('<link rel="stylesheet" href="http://soundcite.com/player.css" type="text/css" />  <link href="font-awesome.min.css" rel="stylesheet" type="text/css">');
-
     // borrowing underscore.js bind function
     var bind = function(func, context) {
         var slice = Array.prototype.slice;
