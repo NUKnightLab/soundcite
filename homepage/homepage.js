@@ -78,7 +78,11 @@ function add() {
 function bring_code() {
     var widget_iframe = $('#player_container').find('iframe');
     var widget = SC.Widget(widget_iframe[0]);
-    $('#header').append("&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;\n&lt;script type='text/javascript' src='http://www.soundcite.com/soundcite.js'&gt;&lt;/script&gt;")
+    $('#header').append(
+        "&lt;href='//cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'&gt;\n"
+        + "&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;\n"
+        + "&lt;script type='text/javascript' src='//cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'&gt;&lt;/script&gt;"
+    );
     var linkedtext = $('#linktext').val();
     $('#code').css('display', 'block');
     widget.getCurrentSound(function(currentSound) {
