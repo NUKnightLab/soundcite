@@ -100,13 +100,13 @@ module.exports = function(grunt) {
             expand: true,
             cwd: '<%= soundcite.build %>',
             dest: path.join('<%= cdn.path %>', '<%= pkg.version %>'),           
-            src: ['css/**', 'font/**', 'js/*.min.js'], 
+            src: ['css/**', 'font/**', 'js/**'], 
           },
           {
             expand: true,
             cwd: '<%= soundcite.build %>',
             dest: path.join('<%= cdn.path %>', 'latest'),           
-            src: ['css/**', 'font/**', 'js/*.min.js'], 
+            src: ['css/**', 'font/**', 'js/**'], 
           }                 
         ]      
       }
