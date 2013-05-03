@@ -78,7 +78,10 @@ $(document).ready(function () {
                 this.track_progress();
 
                 if (this.sound.position > this.end) {
-                    this.pause_clip();
+                    $(this.el).removeClass('soundcite-pause');
+                    $(this.el).addClass('soundcite-play');
+                    this.sound.stop();
+                    this.playing = false;
                 }
             }, this),
         });
