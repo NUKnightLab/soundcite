@@ -1,5 +1,7 @@
+
 $(document).ready(function () {
     // global vars
+    window.soundcite = {};
     var start;
     var end;
     var clips = [];
@@ -76,9 +78,7 @@ $(document).ready(function () {
                 this.track_progress();
 
                 if (this.sound.position > this.end) {
-                    $(this.el).removeClass('soundcite-pause');
-                    $(this.el).addClass('soundcite-play');
-                    this.playing = false;
+                    this.pause_clip();
                 }
             }, this),
         });
@@ -111,6 +111,5 @@ $(document).ready(function () {
     for (i = 0; i < soundcite_array.length; i++) {
         clips.push(new Clip(soundcite_array[i]));
     }
-    window.Clip = Clip;
-    window.clips = clips;
+    soundcite.Clip = Clip;
 });
