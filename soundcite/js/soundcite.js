@@ -1,5 +1,7 @@
+
 $(document).ready(function () {
     // global vars
+    window.soundcite = {};
     var start;
     var end;
     var clips = [];
@@ -112,6 +114,5 @@ $(document).ready(function () {
     for (i = 0; i < soundcite_array.length; i++) {
         clips.push(new Clip(soundcite_array[i]));
     }
-    window.Clip = Clip;
-    window.clips = clips;
+    soundcite.Clip = Clip;
 });
