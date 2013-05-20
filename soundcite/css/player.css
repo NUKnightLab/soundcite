@@ -12,7 +12,7 @@
 .soundcite-loaded:before {
     display: inline-block;
     content: "";
-    vertical-align: middle;
+    vertical-align: -10%;
     margin-right: 0.25em;
 }
 
