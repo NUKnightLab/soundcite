@@ -101,31 +101,32 @@ module.exports = function(grunt) {
             cwd: '<%= soundcite.build %>',
             dest: path.join('<%= cdn.path %>', '<%= pkg.version %>'),           
             src: ['css/**', 'font/**', 'js/**'], 
-          },
+          }                 
+          ]      
+        },
+      stgLatest: {
+        files: [
           {
             expand: true,
             cwd: '<%= soundcite.build %>',
-            dest: path.join('<%= cdn.path %>', 'latest'),           
-            src: ['css/**', 'font/**', 'js/**'], 
-          }                 
-        ]      
+            dest: path.join('<%= cdn.path %>', 'latest'),
+            src: ['css/**', 'font/**', 'js/**' ],
+          }
+        ]
       }
     },
-
     // Clean
     clean: {
       dist: '<%= soundcite.build %>',
       stg: {
-        options: {
-          force: true
-        },
-        src: [
-          path.join('<%= cdn.path %>', '<%= pkg.version %>'), 
-          path.join('<%= cdn.path %>', 'latest')
-        ]
+        options: { force: true },
+        src: path.join('<%= cdn.path %>', '<%= pkg.version %>')
+      },
+      stgLatest: {
+        options: { force: true },
+        src: path.join('<%= cdn.path %>', 'latest')
       }
     },
-
     // Concat
     concat: {
       options: {
@@ -140,13 +141,12 @@ module.exports = function(grunt) {
         }
       }
     }
-    
   });
 
   // Load all Grunt task
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   
-  grunt.registerTask('check_for_cdn', 'Check for cdn repository', function() {
+  grunt.registerTask('check-for-cdn', 'Check for cdn repository', function() {
     // Make sure CDN repo exists
     if(!grunt.file.exists('..', 'cdn.knightlab.com')) {
         grunt.fatal('Could not find local cdn.knightlab.com repository.')
@@ -157,6 +157,7 @@ module.exports = function(grunt) {
   grunt.registerTask('server', ['livereload-start', 'connect', 'regarde']);
   grunt.registerTask('build', ['clean:dist',  'copy:dist', 'uglify', 'concat']);
   grunt.registerTask('default', ['open:dev', 'server']);  
-  grunt.registerTask('stage_for_cdn', ['check_for_cdn', 'build', 'clean:stg', 'copy:stg']);
+  grunt.registerTask('stage', "Stage the release for deployment to the CDN", ['check-for-cdn', 'build', 'clean:stg', 'copy:stg']);
+  grunt.registerTask('stage-latest', "Stage the release for deployment to the CDN, and copy it to the latest directory", ['stage','clean:stgLatest', 'copy:stgLatest']);
 
 };
