@@ -1,6 +1,6 @@
 {
   "name": "soundcite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Making Inline Audio Easy and Seamless",
   "main": "index.js",
   "dependencies": {},
