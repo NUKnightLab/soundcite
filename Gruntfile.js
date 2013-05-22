@@ -160,4 +160,6 @@ module.exports = function(grunt) {
   grunt.registerTask('stage', "Stage the release for deployment to the CDN", ['check-for-cdn', 'build', 'clean:stg', 'copy:stg']);
   grunt.registerTask('stage-latest', "Stage the release for deployment to the CDN, and copy it to the latest directory", ['stage','clean:stgLatest', 'copy:stgLatest']);
 
+  grunt.registerTask('default', ['open:dev', 'server']);
+
 };
