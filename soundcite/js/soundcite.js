@@ -38,6 +38,7 @@
         // create clip constructor
         function Clip(el) {
             this.el = el;
+            this.$el = $(this.el);
             this.id = el.attributes['data-id'].value;
             this.start = el.attributes['data-start'].value;
             this.end = el.attributes['data-end'].value;
@@ -53,8 +54,8 @@
 
         //clip methods
         Clip.prototype.sound_loaded = function() {
-            $(this.el).click(bind(this.click_handler, this));
-            $(this.el).addClass('soundcite-loaded soundcite-play');
+            this.$el.click(bind(this.click_handler, this));
+            this.$el.addClass('soundcite-loaded soundcite-play');
         }
 
         Clip.prototype.click_handler = function() {
@@ -85,16 +86,16 @@
                 this.sound.setPosition(this.sound.position);
             }
 
-            $(this.el).removeClass('soundcite-play');
-            $(this.el).addClass('soundcite-pause');
+            this.$el.removeClass('soundcite-play');
+            this.$el.addClass('soundcite-pause');
 
             this.sound.play({
                 whileplaying: bind(function() {
                     this.track_progress();
 
                     if (this.sound.position > this.end) {
-                        $(this.el).removeClass('soundcite-pause');
-                        $(this.el).addClass('soundcite-play');
+                        this.$el.removeClass('soundcite-pause');
+                        this.$el.addClass('soundcite-play');
                         this.sound.stop();
                         this.playing = false;
                     }
@@ -105,8 +106,8 @@
         }
 
         Clip.prototype.pause_clip = function() {
-            $(this.el).removeClass('soundcite-pause');
-            $(this.el).addClass('soundcite-play');
+            this.$el.removeClass('soundcite-pause');
+            this.$el.addClass('soundcite-play');
             this.playing = false;
             this.sound.pause();
         }
@@ -119,9 +120,11 @@
 
             // change the css to customize your player
 
-            $(this.el).css({
-                'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
-            });
+            this.$el.css(this.progress_css(percentage));
+        }
+
+        Clip.prototype.style_for_progress = function(percentage) {
+            return { 'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)' }
         }
 
         // set up clips array
