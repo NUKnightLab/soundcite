@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SoundCite | Customize the Progress Bar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+  <link href="soundcite.css" rel="stylesheet" type="text/css">
+  <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../soundcite/css/player.css" type="text/css" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="http://connect.soundcloud.com/sdk.js" type="text/javascript"></script>
+  <script src="jquery-1.8.2.min.js" type="text/javascript"></script>
+  <script src="http://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+  <script src="homepage.js" type="text/javascript"></script>
+  <script src="../soundcite/js/soundcite.js" type="text/javascript"></script>
+  <script src="bootstrap.min.js" type="text/javascript"></script>  
+</head>
+<body>
+<div class="container-fluid">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <a class="brand" href="index.html">SoundCite</a>
+      <ul class="nav">
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#embed">Embed</a></li>
+        <li><a href="#qa">Q &amp; A</a></li>
+        <li><a href="#about">About/Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="intro" class="row-fluid">
+    <header class="row-fluid">
+      <h2 class="span12">Making Inline Audio Easy and Seamless</h2>
+    </header>
+    <div class="span4">
+      <p class="lead">If you want to change how a playing clip is styled, you can implement your own progress callback. The callback gets two arguments, the DOM element which was clicked to play a clip, and an integer percentage of the amount of the clip which has been played at the time it was called. You tell Soundcite about your alternative callback using the <code>SOUNDCITE_CONFIG</code> variable somewhere in a <code>&lt;script&gt;</code> tag on your page. This example uses a different color scheme. 
+          </p>
+       <pre>
+   var SOUNDCITE_CONFIG = {
+         update_playing_element: function(el, percentage) {
+             $(el).css({
+                 'background' : '-webkit-linear-gradient(left, white, #c34528 ' + percentage + '%, white)'
+             });
+         }
+     }
+       </pre>      
+    </div>
+    <div class="span7 examples well row-fluid">
+      <header class="row-fluid">
+        <h4 class="span12">Examples</h4>
+      </header>
+      <div class="example span12">
+        <figure>
+          <a href="examples-music.html"><img src="img/sc-music-tameimpala.jpg" alt="Tame Impala"></a>
+        </figure>
+        <article class="span8">
+          <p>Tame Impala have never shied away from the sounds of classic rock radio, but "Elephant" is the first time they've gone deep into its mythology and symbolism. <!-- The first official single from their sophomore LP, <em>Lonerism</em>, --> ... [It] initially sounds like a pure top-down songwriting exercise- as in, "let's try to sound like the song's badass title." So, <span class="soundcite" data-id="55728529" data-start="1" data-end="4820">thick, one-note guitar riffs</span> shuffle and stomp ... <!-- with a heavy beat.--></p>
+        </article>
+      </div>
+    </div>
+  </div>
+  <div id="about2" class="row-fluid">
+    <div class="span12">
+      <p>&copy;2012 Copyright <strong>Knight Lab</strong> | <a href="http://knightlab.northwestern.edu/site/" target="blank">knightlab.us</a> |  <a href="http://www.twitter.com/knightlab" target="blank">@knightlab</a>  |  <a href="http://twitter.com/soundcite" target="blank">@soundcite</a></p>
+      <p>1845 Sheridan Road, Fisk 109-111, Evanston IL. 60208 | (847) 467-4971</p>
+    </div>
+  </div>
+  <!-- Google Analytics Tracking -->
+  <script type="text/javascript">
+  var SOUNDCITE_CONFIG = {
+        update_playing_element: function(el, percentage) {
+            $(el).css({
+                'background' : '-webkit-linear-gradient(left, white, #c34528 ' + percentage + '%, white)'
+            });
+        }
+    }
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34830490-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</div>
+</body>
+</html>

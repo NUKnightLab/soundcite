@@ -15,8 +15,17 @@
     }
 })(window, document, "1.3", function($, jquery_loaded) {
     $(document).ready(function () {
+        var SOUNDCITE_CONFIG = {
+            update_playing_element: function(el, percentage) {
+                $(el).css({
+                    'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
+                });
+            }
+        }
+        $.extend(SOUNDCITE_CONFIG, window.SOUNDCITE_CONFIG)
         // global vars
         window.soundcite = {};
+        
         var start;
         var end;
         var clips = [];
@@ -117,16 +126,9 @@
             var position = this.sound.position;
             var relative_position = position - this.start;
             var percentage = (relative_position / totalTime) * 100
-            this.style_for_progress(percentage);
+            SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
         }
         
-        // change the css to customize your player
-        Clip.prototype.style_for_progress = function(percentage) {
-            this.$el.css({
-                'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
-            });
-        }
-
         // set up clips array
         var soundcite_array = $('.soundcite');
         for (i = 0; i < soundcite_array.length; i++) {
