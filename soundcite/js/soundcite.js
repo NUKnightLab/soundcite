@@ -18,14 +18,15 @@
         var SOUNDCITE_CONFIG = {
             update_playing_element: function(el, percentage) {
                 $(el).css({
-                    'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
+                    'background' : '-webkit-linear-gradient(left, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%)',
+                    'background' : 'linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%)'
                 });
             }
         }
         $.extend(SOUNDCITE_CONFIG, window.SOUNDCITE_CONFIG)
         // global vars
         window.soundcite = {};
-        
+
         var start;
         var end;
         var clips = [];
@@ -105,6 +106,9 @@
                     if (this.sound.position > this.end) {
                         this.$el.removeClass('soundcite-pause');
                         this.$el.addClass('soundcite-play');
+                        // this.$el.css({
+                        //     'background': 'rgba(0,0,0,.05)'
+                        // })
                         this.sound.stop();
                         this.playing = false;
                     }
@@ -128,7 +132,7 @@
             var percentage = (relative_position / totalTime) * 100
             SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
         }
-        
+
         // set up clips array
         var soundcite_array = $('.soundcite');
         for (i = 0; i < soundcite_array.length; i++) {
