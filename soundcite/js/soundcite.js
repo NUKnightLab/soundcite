@@ -22,6 +22,7 @@
                     'background' : 'linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%)'
                 });
             }
+
         }
         $.extend(SOUNDCITE_CONFIG, window.SOUNDCITE_CONFIG)
         // global vars

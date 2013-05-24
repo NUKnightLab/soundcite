@@ -2,7 +2,7 @@
 /*PLAYER CHROME*/
 
 .soundcite-loaded {
-    border-radius: 5px;
+    border-radius: 6px;
     padding: 0 5px 0 5px;
     display: inline-block;
     cursor: pointer;
@@ -17,11 +17,17 @@
 }
 
 .soundcite-play:before {
+    font-size: 0.9em;
+    position: relative;
+    top: -.05em;
     border: 0.5em solid transparent;
     border-left: 0.75em solid black;
 }
 
 .soundcite-pause:before {
+    font-size: 0.9em;
+    position: relative;
+    top: -.05em;
     height: 1em;
     border-left: .75em double black;
     border-right: .5em solid transparent;
