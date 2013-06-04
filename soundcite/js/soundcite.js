@@ -45,7 +45,7 @@
               return func.apply(context, args.concat(slice.call(arguments)));
             };
         };
-
+        
         // create clip constructor
         function Clip(el) {
             this.el = el;
@@ -67,6 +67,11 @@
         Clip.prototype.sound_loaded = function() {
             this.$el.click(bind(this.click_handler, this));
             this.$el.addClass('soundcite-loaded soundcite-play');
+            this.$progress_bar = $(this.el).clone();
+            this.$progress_bar.addClass("soundcite-progressbar")
+                              .css({position: 'absolute', top: this.$el.position().top, left: this.$el.position().left})
+                              .appendTo(this.$el.parent());
+            this.$progress_bar.click(bind(this.click_handler, this));
         }
 
         Clip.prototype.click_handler = function() {
@@ -126,12 +131,18 @@
             this.sound.pause();
         }
 
+        Clip.prototype.update_progress_bar = function(percentage) {
+            var pb_width = percentage / 100 * this.$progress_bar.outerWidth();
+            this.$progress_bar.css({clip: 'rect(auto,' + Math.floor(pb_width) + 'px,auto,auto)'});
+        }
+
         Clip.prototype.track_progress = function() {
             var totalTime = this.end - this.start;
             var position = this.sound.position;
             var relative_position = position - this.start;
             var percentage = (relative_position / totalTime) * 100
-            SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
+            this.update_progress_bar(percentage);
+            //SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
         }
 
         // set up clips array
@@ -140,5 +151,7 @@
             clips.push(new Clip(soundcite_array[i]));
         }
         soundcite.Clip = Clip;
+        soundcite.clips = clips;
     });
+    
 });

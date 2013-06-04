@@ -33,3 +33,7 @@
     border-right: .5em solid transparent;
 }
 
+.soundcite-progressbar {
+  color: red;
+  clip: rect(auto,0,auto,auto);
+}
