@@ -45,7 +45,7 @@
               return func.apply(context, args.concat(slice.call(arguments)));
             };
         };
-        
+
         // create clip constructor
         function Clip(el) {
             this.el = el;
@@ -104,6 +104,8 @@
 
             this.$el.removeClass('soundcite-play');
             this.$el.addClass('soundcite-pause');
+            this.$progress_bar.removeClass('soundcite-play');
+            this.$progress_bar.addClass('soundcite-pause');
 
             this.sound.play({
                 whileplaying: bind(function() {
@@ -112,6 +114,8 @@
                     if (this.sound.position > this.end) {
                         this.$el.removeClass('soundcite-pause');
                         this.$el.addClass('soundcite-play');
+                        this.$progress_bar.removeClass('soundcite-pause');
+                        this.$progress_bar.addClass('soundcite-play');
                         // this.$el.css({
                         //     'background': 'rgba(0,0,0,.05)'
                         // })
@@ -127,6 +131,8 @@
         Clip.prototype.pause_clip = function() {
             this.$el.removeClass('soundcite-pause');
             this.$el.addClass('soundcite-play');
+            this.$progress_bar.removeClass('soundcite-pause');
+            this.$progress_bar.addClass('soundcite-play');
             this.playing = false;
             this.sound.pause();
         }
@@ -153,5 +159,5 @@
         soundcite.Clip = Clip;
         soundcite.clips = clips;
     });
-    
+
 });
