@@ -34,14 +34,7 @@
     <header class="row-fluid">
       <h2 class="span12">Making Inline Audio Easy and Seamless</h2>
     </header>
-    <div class="span4">
-      <p class="lead">Usually adding audio to a text story is an uncomfortable choice. Either the user reads or listens but never both. Until now.</p>
-      <p>SoundCite is a simple-to-use tool that helps content creators add audio to their stories. The audio is not isolated in a player positioned off to the side, interrupting the text or housed in a garish player that distracts content consumers from reading.</p>
-      <p>SoundCite's audio is just a link that plays right under the relevant text.</p>
-      <p>SoundCite audio adds emotion or context to the text. It never asks users to look away from what their reading. And, most importantly, it requires no technical skills to use.</p>
-      <p>SoundCite is currently in an alpha, pre-release stage. Check out our <a href="http://github.com/NUKnightLab/soundcite">GitHub repo</a> and please feel free to contribute! We will have more news on a beta release soon.</p>
-    </div>
-    <div class="span7 examples well row-fluid">
+    <div class="span12 examples row-fluid">
       <header class="row-fluid">
         <h4 class="span12">Examples</h4>
       </header>
@@ -71,98 +64,7 @@
       </div>
     </div>
   </div>
-  <div id="embed" class="row-fluid">
-    <header class="row-fluid">
-      <h2 class="span12">Create Your SoundCite Clip</h2>
-    </header>
-    <div id="left_column" class="span3">
-      <h3>Select Your Source</h3>
-      <p>To begin, enter the URL of the SoundCloud file you want to clip.</p>
-      <p><input type="text" placeholder="https://soundcloud.com/tame-impala/elephant" id="url"><a onclick="connect();"><img id="soundcloud" src="btn-connect-l.png" alt="Connect to SoundCloud"></a></p>
-    </div>
-    <div id="right_column" class="span8">
-      <section id="creation_box">
-        <div id="player_container">
-          <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
-        </div>
-        <form id="times" class="form-inline">
-          <p>Play the audio above, and use the start and end buttons to create your clip's start and end points.</p>
-          <input type="text" class="input-small start" placeholder="time (milliseconds)">
-          <input type="button" value="Start" class="btn start_btn">
-          <input type="text" class="input-small end" placeholder="time (milliseconds)">
-          <input type="button" value="End" class="btn end_btn">
-          <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked">
-          <input type="button" value="Preview" class="btn test_btn"><br>
-          <input class="btn-large btn-primary" type="button" value="Get the embed code" id="make" onclick="bring_code();">
-        </form>
-      </section>
-      <section id="code">
-        <fieldset><legend>Here is your embed code.</legend></fieldset>
-        <p>Paste the contents of the first box at the top of your post or in the header of your HTML document, if possible. Place the contents of the second box where the linked text would normally go in your written piece.</p>
-        <textarea id="header" rows="6" readonly="readonly" class="code" onclick="selectheadercode();"></textarea>
-        <textarea id="inline" readonly="readonly" class="code" onclick="selectinlinecode();"></textarea>
-      </section>
-    </div>
-  </div>
-  <div id="qa" class="row-fluid">
-    <header class="row-fluid">
-      <h2 class="span12">Frequently Asked Questions</h2>
-    </header>
-    <article class="sections">
-      <div class="question span3">
-        <h3>Do I need to know &lt;code&gt; to use SoundCite?</h3>
-        <p class="answer">Absolutely not. SoundCite is friction-free for media consumers and creators. If you can record audio, upload it to <a href="http://soundcloud.com" target="_blank">soundcloud.com</a>, click a few buttons and can cut & paste you are ready to embed your own audio. You won't have to write or read HTML, CSS or JavaScript to use SoundCite.</p>
-      </div>
-      <div class="question span3">
-        <h3>Can I customize what SoundCite looks like?</h3>
-        <p class="answer">SoundCite is designed to work with virtually any site or theme design. The simple shading of the links should compliment your design without any customization. But we know you may still want to change the size, color or shading so... we're working on it. Stay tuned. More customization will follow.</p>
-      </div>
-      <div class="question span3">
-        <h3>Can I use an audio source other than SoundCloud?</h3>
-        <p class="answer">SoundCloud is a great platform but we know you might want to use audio you host on a variety of other sources or your own servers. We're working on this too. Hopefully we can start expanding the potential sources soon.</p>
-      </div>
-      <div class="question span3">
-        <h3>Can I help build new features for SoundCite?</h3>
-        <p class="answer">Absolutely. <a href="http://www.github.com/NUKnightLab/soundcite" target="_blank">Fork the project</a> and get involved. <a href="http://twitter.com/euphonos" target="_blank">Send us feedback</a>. Help us make SoundCite the tool you need and want it to be.</p>
-      </div>
-    </article>
-  </div>
-  <div id="about" class="row-fluid">
-    <header class="row-fluid">
-      <h2 class="span12">About</h2>
-    </header>
-    <article class="span12">
-      <p>SoundCite was created by <strong><a href="http://www.tylerjfisher.com/" target="_blank">Tyler Fisher</a></strong> and <strong><a href="http://www.jeremygilbert.com/" target="_blank">Jeremy Gilbert</a></strong> at Northwestern University's Knight Lab, with support from the John S. and James L. Knight Foundation and the National Science Foundation.</p>
-    </article>
-    <div class="row-fluid">
-      <figure class="offset2 span2 text-center" style="padding-top:70px;">
-          <a href="http://knightlab.northwestern.edu/site/" target="blank">
-              <img src="img/knight_lab_logo.png" alt="Knight Lab logo">
-          </a>
-      </figure>
-      <figure class="span2 text-center">
-          <a href="http://www.northwestern.edu/" target="blank">
-              <img src="img/northwestern_university_logo.png" alt="Northwestern University logo">
-          </a>
-      </figure>
-      <figure class="span2 text-center" style="padding-top:80px;">
-          <a href="http://www.knightfoundation.org/" target="blank">
-              <img src="img/knight_foundation_logo.png" alt="Knight Foundation logo">
-          </a>
-      </figure>
-      <figure class="span2 text-center" style="padding-top:20px;">
-          <a href="http://www.nsf.gov/" target="blank">
-              <img src="img/national_science_foundation_logo.png" alt="national_science_foundation_logo">
-          </a>
-      </figure>
-    </div>
-  </div>
-  <div id="about2" class="row-fluid">
-    <div class="span12">
-      <p>&copy;2012 Copyright <strong>Knight Lab</strong> | <a href="http://knightlab.northwestern.edu/site/" target="blank">knightlab.us</a> |  <a href="http://www.twitter.com/knightlab" target="blank">@knightlab</a>  |  <a href="http://twitter.com/soundcite" target="blank">@soundcite</a></p>
-      <p>1845 Sheridan Road, Fisk 109-111, Evanston IL. 60208 | (847) 467-4971</p>
-    </div>
-  </div>
+
 </div>
 </body>
 </html>
