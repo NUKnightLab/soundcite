@@ -21,17 +21,37 @@
                     'background' : '-webkit-linear-gradient(left, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%)',
                     'background' : 'linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%)'
                 });
-            }
-
-        }
+            },
+            // Use google analytics, set to false for no tracking
+            use_analytics: true
+        };
         $.extend(SOUNDCITE_CONFIG, window.SOUNDCITE_CONFIG)
+  
+        // add google analytics
+        var _gaq = _gaq || [];
+        if(SOUNDCITE_CONFIG.use_analytics) {            
+            _gaq.push(
+                function() {
+                    var pageTracker = _gat._createTracker('UA-27829802-1', 'knightlabTracker');
+                 },
+                ['knightlabTracker._setDomainName', 'knightlab.com']
+                ['knightlabTracker._setAllowLinker', true], 
+                ['knightlabTracker._trackPageview']
+            );
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        }
+
         // global vars
         window.soundcite = {};
 
         var start;
         var end;
         var clips = [];
-
+        
         // initialize SoundCloud SDK
         SC.initialize({
             client_id: "5ba7fd66044a60db41a97cb9d924996a",
@@ -117,6 +137,11 @@
             });
             this.playing = true;
             this.times_played++;
+            
+            // track play event
+            if(SOUNDCITE_CONFIG.use_analytics) {
+                _gaq.push(['_trackEvent', 'soundcite', 'play', undefined, 'soundcloud:'+this.id]); 
+            }
         }
 
         Clip.prototype.pause_clip = function() {
