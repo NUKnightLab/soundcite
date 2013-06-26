@@ -32,11 +32,11 @@
         if(SOUNDCITE_CONFIG.use_analytics) {            
             _gaq.push(
                 function() {
-                    var pageTracker = _gat._createTracker('UA-27829802-1', 'knightlabTracker');
+                    var pageTracker = _gat._createTracker('UA-34830490-1', 'soundciteTracker');
                  },
-                ['knightlabTracker._setDomainName', 'knightlab.com']
-                ['knightlabTracker._setAllowLinker', true], 
-                ['knightlabTracker._trackPageview']
+                ['soundciteTracker._setDomainName', 'knightlab.com']
+                ['soundciteTracker._setAllowLinker', true], 
+                ['soundciteTracker._trackPageview']
             );
             (function() {
                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -140,7 +140,7 @@
             
             // track play event
             if(SOUNDCITE_CONFIG.use_analytics) {
-                _gaq.push(['_trackEvent', 'soundcite', 'play', undefined, 'soundcloud:'+this.id]); 
+                _gaq.push(['soundciteTracker._trackEvent', 'soundcite', 'play', 'soundcloud:'+this.id]); 
             }
         }
 
@@ -149,6 +149,10 @@
             this.$el.addClass('soundcite-play');
             this.playing = false;
             this.sound.pause();
+            // track play event
+            if(SOUNDCITE_CONFIG.use_analytics) {
+                _gaq.push(['soundciteTracker._trackEvent', 'soundcite', 'pause', 'soundcloud:'+this.id]); 
+            }
         }
 
         Clip.prototype.track_progress = function() {
