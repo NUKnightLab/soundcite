@@ -1,0 +1,6 @@
+Fabric==1.6.1
+paramiko==1.10.1
+ply==3.4
+pycrypto==2.6
+slimit==0.8.1
+wsgiref==0.1.2
