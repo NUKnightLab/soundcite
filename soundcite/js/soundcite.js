@@ -11,7 +11,9 @@
                 j(script).remove();
             }
         };
-        document.documentElement.childNodes[0].appendChild(script)
+        // document.head not standard before HTML5
+        var insertionPoint = document.head || document.getElementsByTagName('head').item(0) || document.documentElement.childNodes[0];
+        insertionPoint.appendChild(script)
     }
 })(window, document, "1.3", function($, jquery_loaded) {
     $(document).ready(function () {
