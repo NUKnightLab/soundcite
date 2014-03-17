@@ -75,8 +75,10 @@
         // input: list of file/directory paths
         //
         "banner": [ 
-            "build/css",
-            "build/js"
+            {
+                "src": "build",
+                "regex": "(js|css)/.*\\.(js|css)$"
+            }
         ]
     },
     //
@@ -98,6 +100,6 @@
     // - run usemin on all html in build/website
     // - sync build/website with bucket
     "deploy": {
-        "bucket": "soundcite.knightlab.com"
+        "prd": {"bucket": "soundcite.knightlab.com"}
     }
 }
