@@ -79,14 +79,12 @@
             };
         };
 
-// ------------------------------------------------------------
-// Generic Clip
-
+// Clip
         function Clip(el) {
             this.el = el;
             this.$el = $(this.el);
-            this.start = el.attributes['data-start'].value || 0;
-            this.end = el.attributes['data-end'].value;
+            this.start = el.attributes['data-start'].value || 0;        // ms
+            this.end = el.attributes['data-end'].value;                 // ms
             this.playing = false;
             this.times_played = 0;            
             this.sound = null;                          // implement in subclass
@@ -112,7 +110,6 @@
             this.pause_sound();                         // implement in subclass
         }
         Clip.prototype.stop = function() {    
-            console.log('stop');
             this.stop_sound();                          // implement in subclass
             this.playing = false;
             this.position_sound(this.start);            // implement in subclass
@@ -129,23 +126,19 @@
         }
 
         Clip.prototype.click_handler = function() {
-            // stop other playing clips
-            for(var i = 0; i < clips.length; i++) {
+             for(var i = 0; i < clips.length; i++) {
                 if(this.el !== clips[i].el) {
                     clips[i].pause();
                  }
             }
-
-            if(!this.playing) {
-                this.play();
-            } else {
+            if(this.playing) {
                 this.pause();
+            } else {
+                this.play();
             }
         }
 
-// ------------------------------------------------------------
 // SoundCloud Clip
-
         function SoundCloudClip(el) {
             Clip.apply(this, Array.prototype.slice.call(arguments));
 
@@ -193,11 +186,13 @@
             this.sound.stop();
         }
         
-// ------------------------------------------------------------
-// Popcorn Clip
-    
+// Popcorn Clip    
         function PopcornClip(el) {
             Clip.apply(this, Array.prototype.slice.call(arguments));
+            
+            // convert to ms to secs
+            this.start = Math.floor(this.start / 1000);
+            this.end = Math.floor(this.end / 1000);
                      
             this.url = el.attributes['data-url'].value;
             
@@ -211,8 +206,7 @@
             this.sound.on('loadeddata', bind(function() {
                 if(!this.end) {
                     this.end = this.sound.duration();
-                }   
-                  
+                }                  
                 this.sound.cue(this.end, bind(this.stop, this)); 
                 this.sound_loaded();                
             }, this));
@@ -249,10 +243,9 @@
             this.sound.off('timeupdate');
         }
 
-// ------------------------------------------------------------
 // set up clips array
-
         var soundcite_array = $('.soundcite');
+        
         for(var i = 0; i < soundcite_array.length; i++) {
             var el = soundcite_array[i];          
             if(el.hasAttribute('data-url')) {
@@ -261,7 +254,9 @@
                 clips.push(new SoundCloudClip(el));
             }
         }
+        
         soundcite.Clip = Clip;
-    });
-    
+        soundcite.SoundCloudClip = SoundCloudClip;
+        soundcite.PopcornClip = PopcornClip;
+    });  
 });
