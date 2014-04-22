@@ -1,8 +1,12 @@
+Fabric==1.8.3
 Flask==0.10.1
 Jinja2==2.7
 MarkupSafe==0.18
 Werkzeug==0.9.3
 boto==2.27.0
+ecdsa==0.11
 itsdangerous==0.22
+paramiko==1.12.3
 ply==3.4
+pycrypto==2.6.1
 wsgiref==0.1.2
