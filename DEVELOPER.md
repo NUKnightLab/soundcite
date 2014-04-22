@@ -62,9 +62,9 @@ To stage your changes to the `latest` directory in your local CDN repository, ty
 You must push and deploy all CDN changes separately from that repository.
 
 
-## Deploying to S3 (timeline.knightlab.com)
+## Deploying to S3 (soundcite.knightlab.com)
 
-To deploy to S3, type `fab deploy`. 
+To deploy to S3, type `fab prd deploy`. 
 
 
   
