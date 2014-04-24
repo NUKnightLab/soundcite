@@ -291,7 +291,7 @@ $(".example-url").click(function() {
 
 $('#load_url').click(function(event) {
     load_sound($('#url').val().trim());
-    event.stopPropagation();
+    event.preventDefault();
 });
 
 $("#start_field, #end_field, #linktext").change(validate_form);
