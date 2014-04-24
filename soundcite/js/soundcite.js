@@ -197,10 +197,8 @@
             this.url = el.attributes['data-url'].value;
             
             var id = 'soundcite-audio-'+clips.length;
-            $audio.append('<audio id="'+id+'">'
-                        + '<source src="'+this.url+'" />'
-                        + '</audio>');   
-                        
+
+            $audio.append('<audio id="'+id+'" src="'+this.url+'"></audio>');   
             this.sound = $Popcorn('#'+id, {'frameAnimation': true});
             
             this.sound.on('loadeddata', bind(function() {

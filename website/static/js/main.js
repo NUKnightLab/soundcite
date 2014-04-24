@@ -91,7 +91,7 @@ function load_audio_file() {
     
     var url = $('#url').val();
     
-    $('#audio_player source').attr("src", url);
+    $('#audio_player').attr("src", url);
 
     popcorn_clip = Popcorn('#audio_player', {'frameAnimation': true});
     popcorn_clip.on('loadeddata', function() {
@@ -104,8 +104,8 @@ function load_audio_file() {
         $('#explainer').css('display', 'none');
         $('#creation_box').css('display', 'block');
         validate_time_field($("#end_field"));       
-    });
-    
+    });   
+
     $('#audio_player')[0].load();
 }
 
