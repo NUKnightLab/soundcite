@@ -61,7 +61,7 @@
         window.soundcite = {};
 
         var clips = [];
-        var $audio = $('<div class="soundcite-audio"></div>');                  // TODO: style to hide
+        var $audio = $('<div class="soundcite-audio"></div>');
         
         $('body').append($audio);
 
