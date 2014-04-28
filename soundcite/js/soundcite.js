@@ -1,5 +1,7 @@
 // window.Popcorn.version = 1.5.6
 // http://popcornjs.org/code/dist/popcorn-complete.min.js
+//
+//
 
 (function(window, document, version, callback) { // http://stackoverflow.com/questions/2170439/how-to-embed-javascript-widget-that-depends-on-jquery-into-an-unknown-environmen
     var loaded_j = false;
@@ -91,16 +93,16 @@
         }
         
         Clip.prototype.sound_loaded = function() {
-            this.$el.click(bind(this.click_handler, this));
+            this.$el.click(bind(this.click_handler, this));           
             this.$el.addClass('soundcite-loaded soundcite-play');        
         }
         
         Clip.prototype.play = function() {
             this.$el.removeClass('soundcite-play');
-            this.$el.addClass('soundcite-pause');           
             this.play_sound();                          // implement in subclass
             this.playing = true;
             this.times_played++;
+            //this.$el.addClass('soundcite-pause');           
         }
 
         Clip.prototype.pause = function() {
@@ -109,6 +111,7 @@
             this.playing = false;
             this.pause_sound();                         // implement in subclass
         }
+        
         Clip.prototype.stop = function() {    
             this.stop_sound();                          // implement in subclass
             this.playing = false;
@@ -176,6 +179,8 @@
                     }
                 }, this),
             });
+            
+            this.$el.addClass('soundcite-pause');
         }
         
         SoundCloudClip.prototype.pause_sound = function() { 
@@ -189,26 +194,28 @@
 // Popcorn Clip    
         function PopcornClip(el) {
             Clip.apply(this, Array.prototype.slice.call(arguments));
-            
+ 
+            this.id = 'soundcite-audio-'+clips.length;
+            this.url = el.attributes['data-url'].value;
+           
             // convert to ms to secs
             this.start = Math.floor(this.start / 1000);
             this.end = Math.floor(this.end / 1000);
-                     
-            this.url = el.attributes['data-url'].value;
-            
-            var id = 'soundcite-audio-'+clips.length;
-
-            $audio.append('<audio id="'+id+'" src="'+this.url+'"></audio>');   
-            this.sound = $Popcorn('#'+id, {'frameAnimation': true});
-            
+                              
+            $audio.append('<audio id="'+this.id+'" src="'+this.url+'"></audio>');   
+            this.sound = $Popcorn('#'+this.id, {'frameAnimation': true});
+                        
+            // Safari iOS Audio streams cannot be loaded unless triggered by a 
+            // user event, so actually load in play_sound via click
             this.sound.on('loadeddata', bind(function() {
                 if(!this.end) {
                     this.end = this.sound.duration();
                 }                  
                 this.sound.cue(this.end, bind(this.stop, this)); 
-                this.sound_loaded();                
+                //this.sound_loaded();                
             }, this));
-                        
+             
+            this.sound_loaded();
         } 
         PopcornClip.prototype = Object.create(Clip.prototype);
      
@@ -220,15 +227,23 @@
             this.sound.currentTime(pos);
         }
 
-        PopcornClip.prototype.play_sound = function() {            
-            if (this.times_played == 0 || this.sound.roundTime() > this.end) {
-                this.sound.play(this.start)
-            } else {   
-                this.sound.play();
-            }       
+        PopcornClip.prototype.play_sound = function() {   
+            this.$el.addClass('soundcite-loading');
             
-            this.sound.on('timeupdate', bind(this.track_progress, this));
-            this.sound.on('ended', bind(this.stop, this));
+            $('#'+this.id).load();
+            $('#'+this.id).on('canplaythrough', bind(function() {
+                this.$el.removeClass('soundcite-loading');
+                this.$el.addClass('soundcite-pause');
+          
+                if (this.times_played == 0 || this.sound.roundTime() > this.end) {
+                    this.sound.play(this.start)
+                } else {   
+                    this.sound.play();
+                }       
+        
+                this.sound.on('timeupdate', bind(this.track_progress, this));
+                this.sound.on('ended', bind(this.stop, this));
+            }, this));
         }
         
         PopcornClip.prototype.pause_sound = function() {
