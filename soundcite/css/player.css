@@ -16,6 +16,15 @@
     margin-right: 0.25em;
 }
 
+.soundcite-loading:before {
+    font-size: 0.9em;
+    position: relative;
+    top: -.05em;
+    height: 1em;
+    border-left: .75em double lightgray;
+    border-right: .5em solid transparent;
+}
+
 .soundcite-play:before {
     font-size: 0.9em;
     position: relative;
