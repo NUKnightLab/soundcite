@@ -190,7 +190,7 @@
         SoundCloudClip.prototype.stop_sound = function() {
             this.sound.stop();
         }
-        
+                
 // Popcorn Clip    
         function PopcornClip(el) {
             Clip.apply(this, Array.prototype.slice.call(arguments));
@@ -202,7 +202,7 @@
             this.start = Math.floor(this.start / 1000);
             this.end = Math.floor(this.end / 1000);
                               
-            $audio.append('<audio id="'+this.id+'" src="'+this.url+'"></audio>');   
+            $audio.append('<audio id="'+this.id+'" src="'+this.url+'" preload="true"></audio>');   
             this.sound = $Popcorn('#'+this.id, {'frameAnimation': true});
                         
             // Safari iOS Audio streams cannot be loaded unless triggered by a 
@@ -212,9 +212,8 @@
                     this.end = this.sound.duration();
                 }                  
                 this.sound.cue(this.end, bind(this.stop, this)); 
-                //this.sound_loaded();                
             }, this));
-             
+                         
             this.sound_loaded();
         } 
         PopcornClip.prototype = Object.create(Clip.prototype);
@@ -229,8 +228,9 @@
 
         PopcornClip.prototype.play_sound = function() {   
             this.$el.addClass('soundcite-loading');
-            
+
             $('#'+this.id).load();
+                     
             $('#'+this.id).on('canplaythrough', bind(function() {
                 this.$el.removeClass('soundcite-loading');
                 this.$el.addClass('soundcite-pause');
@@ -244,6 +244,7 @@
                 this.sound.on('timeupdate', bind(this.track_progress, this));
                 this.sound.on('ended', bind(this.stop, this));
             }, this));
+            
         }
         
         PopcornClip.prototype.pause_sound = function() {
