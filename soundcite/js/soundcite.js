@@ -134,6 +134,7 @@
                     clips[i].pause();
                  }
             }
+             
             if(this.playing) {
                 this.pause();
             } else {
@@ -228,8 +229,6 @@
 
         PopcornClip.prototype.play_sound = function() {   
             this.$el.addClass('soundcite-loading');
-
-            $('#'+this.id).load();
                      
             $('#'+this.id).on('canplaythrough', bind(function() {
                 this.$el.removeClass('soundcite-loading');
@@ -245,6 +244,7 @@
                 this.sound.on('ended', bind(this.stop, this));
             }, this));
             
+            $('#'+this.id)[0].load();            
         }
         
         PopcornClip.prototype.pause_sound = function() {
