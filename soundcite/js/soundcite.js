@@ -62,6 +62,13 @@
         // global vars
         window.soundcite = {};
 
+        // check for mobile
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            soundcite.mobile = true;
+        } else {
+            soundcite.mobile = false;
+        }
+
         var clips = [];
         var $audio = $('<div class="soundcite-audio"></div>');
         
@@ -102,7 +109,6 @@
             this.play_sound();                          // implement in subclass
             this.playing = true;
             this.times_played++;
-            //this.$el.addClass('soundcite-pause');           
         }
 
         Clip.prototype.pause = function() {
@@ -207,15 +213,21 @@
             this.sound = $Popcorn('#'+this.id, {'frameAnimation': true});
                         
             // Safari iOS Audio streams cannot be loaded unless triggered by a 
-            // user event, so actually load in play_sound via click
+            // user event, so load in play_sound via click for mobile
             this.sound.on('loadeddata', bind(function() {
                 if(!this.end) {
                     this.end = this.sound.duration();
                 }                  
                 this.sound.cue(this.end, bind(this.stop, this)); 
+                
+                if(!soundcite.mobile) {
+                    this.sound_loaded();
+                }
             }, this));
-                         
-            this.sound_loaded();
+                      
+            if(soundcite.mobile) {   
+                this.sound_loaded();
+            }
         } 
         PopcornClip.prototype = Object.create(Clip.prototype);
      
@@ -227,24 +239,32 @@
             this.sound.currentTime(pos);
         }
 
-        PopcornClip.prototype.play_sound = function() {   
-            this.$el.addClass('soundcite-loading');
-                     
-            $('#'+this.id).on('canplaythrough', bind(function() {
-                this.$el.removeClass('soundcite-loading');
-                this.$el.addClass('soundcite-pause');
-          
-                if (this.times_played == 0 || this.sound.roundTime() > this.end) {
-                    this.sound.play(this.start)
-                } else {   
-                    this.sound.play();
-                }       
-        
-                this.sound.on('timeupdate', bind(this.track_progress, this));
-                this.sound.on('ended', bind(this.stop, this));
-            }, this));
+        PopcornClip.prototype._play_sound = function() {
+            this.$el.addClass('soundcite-pause');          
             
-            $('#'+this.id)[0].load();            
+            if (this.times_played == 0 || this.sound.roundTime() > this.end) {
+                this.sound.play(this.start)
+            } else {   
+                this.sound.play();
+            }       
+    
+            this.sound.on('timeupdate', bind(this.track_progress, this));
+            this.sound.on('ended', bind(this.stop, this));
+        }
+        
+        PopcornClip.prototype.play_sound = function() {  
+            if(soundcite.mobile) { 
+                this.$el.addClass('soundcite-loading');
+                     
+                $('#'+this.id).on('canplaythrough', bind(function() {
+                    this.$el.removeClass('soundcite-loading');
+                    this._play_sound();
+                }, this));
+            
+                $('#'+this.id)[0].load();     
+            } else {
+                this._play_sound();
+            }       
         }
         
         PopcornClip.prototype.pause_sound = function() {
