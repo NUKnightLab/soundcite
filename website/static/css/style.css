@@ -184,6 +184,22 @@ input:-ms-input-placeholder {
 
 #creation_box h3 {
 }
+
+#audio_container {
+    background-color: #efefef;
+    padding: 4px 4px 0 4px;
+}
+
+#audio_name {
+    font-style: italic;
+    padding: 4px 0 4px 0;
+}
+
+#audio_player {
+    width: 100%;
+}
+
+
 #examples figure {
   margin: 0px 0px 35px;
 }
