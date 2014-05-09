@@ -96,7 +96,6 @@
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
             this.playing = false;
-            this.times_played = 0;            
             this.sound = null;                          // implement in subclass
             
             clips.push(this);   // keep track of this
@@ -107,26 +106,18 @@
             this.$el.addClass('soundcite-loaded soundcite-play');        
         }
         
-        Clip.prototype.play = function() {
-            this.$el.removeClass('soundcite-play');
-            this.play_sound();                          // implement in subclass
-            this.playing = true;
-            this.times_played++;
-        }
-
         Clip.prototype.pause = function() {
             this.$el.removeClass('soundcite-pause');
             this.$el.addClass('soundcite-play');
-            this.playing = false;
             this.pause_sound();                         // implement in subclass
+            this.playing = false;
         }
         
         Clip.prototype.stop = function() {    
-            this.stop_sound();                          // implement in subclass
-            this.playing = false;
-            this.position_sound(this.start);            // implement in subclass
             this.$el.removeClass('soundcite-pause');
             this.$el.addClass('soundcite-play');            
+            this.stop_sound();                          // implement in subclass
+            this.playing = false;
         }
 
         Clip.prototype.track_progress = function() {
@@ -147,7 +138,7 @@
             if(this.playing) {
                 this.pause();
             } else {
-                this.play();
+                this.play();                            // implement in subclass
             }
         }
 
@@ -167,19 +158,25 @@
         SoundCloudClip.prototype.sound_position = function() {
             return this.sound.position;
         }
-
-        SoundCloudClip.prototype.position_sound = function(pos) {
-            this.sound.setPosition(pos);
+                        
+        SoundCloudClip.prototype.pause_sound = function() { 
+            this.sound.pause();
         }
         
-        SoundCloudClip.prototype.play_sound = function() {
-            if (this.times_played == 0 || this.sound.position > this.end) {
+        SoundCloudClip.prototype.stop_sound = function() {
+            this.sound.stop();
+        }
+
+        SoundCloudClip.prototype.play = function() {
+            var pos = this.sound.position;
+            
+            if(pos < this.start || pos >= this.end) {
                 this.sound.setPosition(this.start);
             }
-            if (this.times_played > 0) {
-                this.sound.setPosition(this.sound.position);
-            }
-
+            
+            this.$el.removeClass('soundcite-play');
+            this.$el.addClass('soundcite-pause');
+        
             this.sound.play({
                 whileplaying: bind(function() {
                     this.track_progress();
@@ -190,15 +187,7 @@
                 }, this),
             });
             
-            this.$el.addClass('soundcite-pause');
-        }
-        
-        SoundCloudClip.prototype.pause_sound = function() { 
-            this.sound.pause();
-        }
-        
-        SoundCloudClip.prototype.stop_sound = function() {
-            this.sound.stop();
+            this.playing = true;
         }
                 
 // Popcorn Clip    
@@ -240,38 +229,6 @@
             return this.sound.currentTime();
         }
 
-        PopcornClip.prototype.position_sound = function(pos) {
-            this.sound.currentTime(pos);
-        }
-
-        PopcornClip.prototype._play_sound = function() {
-            this.$el.addClass('soundcite-pause');          
-            
-            if (this.times_played == 0 || this.sound.roundTime() > this.end) {
-                this.sound.play(this.start)
-            } else {   
-                this.sound.play();
-            }       
-    
-            this.sound.on('timeupdate', bind(this.track_progress, this));
-            this.sound.on('ended', bind(this.stop, this));
-        }
-        
-        PopcornClip.prototype.play_sound = function() {  
-            if(soundcite.mobile) { 
-                this.$el.addClass('soundcite-loading');
-                     
-                $('#'+this.id).on('canplaythrough', bind(function() {
-                    this.$el.removeClass('soundcite-loading');
-                    this._play_sound();
-                }, this));
-            
-                $('#'+this.id)[0].load();     
-            } else {
-                this._play_sound();
-            }       
-        }
-        
         PopcornClip.prototype.pause_sound = function() {
             this.sound.pause();      
             this.sound.off('timeupdate');
@@ -281,6 +238,52 @@
             this.sound.pause();
             this.sound.off('timeupdate');
         }
+
+        PopcornClip.prototype._play_sound = function() {
+            this.$el.removeClass('soundcite-loading soundcite-play');
+            this.$el.addClass('soundcite-pause');
+            this.sound.play();
+            this.playing = true;
+ 
+            this.sound.on('timeupdate', bind(this.track_progress, this));
+            this.sound.on('ended', bind(this.stop, this));
+        }
+        
+        PopcornClip.prototype.play_sound = function() {
+            var pos = this.sound.roundTime();
+            
+            if(pos < this.start || pos >= this.end) {
+                this.sound.on('seeked', bind(function() {
+                    this.sound.off('seeked');
+                    this._play_sound();                
+                }, this));
+                
+                this.sound.currentTime(this.start);
+            } else {
+                this._play_sound();                         
+            }
+        }
+              
+        PopcornClip.prototype.play = function() {  
+            
+            if(soundcite.mobile) { 
+                this.$el.removeClass('soundcite-play');
+                this.$el.addClass('soundcite-loading');
+                     
+                if(this.sound.readyState() > 1) {
+                    this.play_sound();
+                } else {               
+                    this.sound.on('canplaythrough',bind(function() {
+                        this.play_sound();
+                    }, this));
+                    
+                    $('#'+this.id)[0].load();   
+                }  
+            } else {
+                this.play_sound();
+            }       
+        }
+        
 
 // set up clips array
         var soundcite_array = $('.soundcite');
