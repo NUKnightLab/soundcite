@@ -94,7 +94,9 @@ function load_audio_file() {
 
     popcorn_clip = Popcorn('#audio_player', {'frameAnimation': true});
     popcorn_clip.on('loadeddata', function() {
-        $('#audio_player').show();
+        var parts = url.split('/');
+        $('#audio_name').html(parts[parts.length - 1]);
+        $('#audio_container').show();
         
         clip_duration_in_millis = Math.floor(popcorn_clip.duration()) * 1000;        
         setTime('#start_field', millisToTime(0));
@@ -116,7 +118,7 @@ function load_sound(url) {
     }
 
     $('#player_container').empty();
-    $('#audio_player').hide();   
+    $('#audio_container').hide();   
     $("#times")[0].reset();
 
     if(url.match(/^https?:\/\/soundcloud.com\//i)) {
