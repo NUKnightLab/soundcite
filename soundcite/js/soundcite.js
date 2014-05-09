@@ -69,6 +69,7 @@
             soundcite.mobile = false;
         }
 
+    
         var clips = [];
         var $audio = $('<div class="soundcite-audio"></div>');
         
@@ -97,6 +98,8 @@
             this.playing = false;
             this.times_played = 0;            
             this.sound = null;                          // implement in subclass
+            
+            clips.push(this);   // keep track of this
         }
         
         Clip.prototype.sound_loaded = function() {
@@ -136,9 +139,9 @@
 
         Clip.prototype.click_handler = function() {
              for(var i = 0; i < clips.length; i++) {
-                if(this.el !== clips[i].el) {
+                if(this.el !== clips[i].el && clips[i].playing) {
                     clips[i].pause();
-                 }
+                }
             }
              
             if(this.playing) {
@@ -224,8 +227,10 @@
                     this.sound_loaded();
                 }
             }, this));
-                      
+
             if(soundcite.mobile) {   
+                this.sound_loaded();
+            } else if(this.sound.readyState() > 1) {
                 this.sound_loaded();
             }
         } 
@@ -283,14 +288,15 @@
         for(var i = 0; i < soundcite_array.length; i++) {
             var el = soundcite_array[i];          
             if(el.hasAttribute('data-url')) {
-                clips.push(new PopcornClip(el));
+                new PopcornClip(el);
             } else {
-                clips.push(new SoundCloudClip(el));
+                new SoundCloudClip(el);
             }
         }
         
         soundcite.Clip = Clip;
         soundcite.SoundCloudClip = SoundCloudClip;
         soundcite.PopcornClip = PopcornClip;
+        soundcite.clips = clips;    // keep track of clips
     });  
 });

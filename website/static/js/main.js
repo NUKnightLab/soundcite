@@ -1,4 +1,3 @@
-var clips = [];
 var clip_duration_in_millis = 0;
 var popcorn_clip = null;
 
@@ -160,9 +159,9 @@ var create_error_template = _.template($("#create-error-template").html().trim()
 
 $('#audition_area').on("click",".delete-clip", function() {
     var the_sound = $(this).prev('.soundcite');
-    for(var i = 0; i < clips.length; i++) {
-        if(the_sound[0] === clips[i].el) {
-            clips.splice(i, 1);
+    for(var i = 0; i < soundcite.clips.length; i++) {
+        if(the_sound[0] === soundcite.clips[i].el) {
+            soundcite.clips.splice(i, 1);
         }
     }
     $(this).parents(".clip").remove();
@@ -182,7 +181,7 @@ function create_clip() {
             $('#audition_area_status').css('display', 'none');
             $('#audition_area').prepend(clip_preview_template({clip_html: clip_html}))
             $('#audition_area .clip:first').find('.soundcite').each(function() {
-                clips.push(new soundcite.PopcornClip(this));
+                new soundcite.PopcornClip(this);
             });
         } else {
             var widget = SC.Widget("player_iframe");
@@ -198,7 +197,7 @@ function create_clip() {
                 $('#audition_area_status').css('display', 'none');
                 $('#audition_area').prepend(clip_preview_template({clip_html: clip_html}))
                 $('#audition_area .clip:first').find('.soundcite').each(function() {
-                    clips.push(new soundcite.SoundCloudClip(this));
+                    new soundcite.SoundCloudClip(this);
                 });
             });
         }
@@ -243,7 +242,6 @@ function validate_time_field($el, label, msgs) {
             }
             return false;
         } else if (timeToMillis(value) < 0) {
-            console.log(value);
             msgs.push(label + " must not be a negative number." + value);
             return false;
         } else if (clip_duration_in_millis > 0 && timeToMillis(value) > clip_duration_in_millis) {
