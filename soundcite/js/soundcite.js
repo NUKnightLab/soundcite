@@ -68,7 +68,6 @@
         } else {
             soundcite.mobile = false;
         }
-
     
         var clips = [];
         var $audio = $('<div class="soundcite-audio"></div>');
@@ -292,9 +291,9 @@
             var el = soundcite_array[i];          
             if(el.hasAttribute('data-url')) {
                 new PopcornClip(el);
-            } else {
+            } else if(!soundcite.mobile) {
                 new SoundCloudClip(el);
-            }
+            } 
         }
         
         soundcite.Clip = Clip;
