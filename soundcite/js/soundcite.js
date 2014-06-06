@@ -61,10 +61,7 @@
         // global vars
         window.soundcite = {};
 
-        // check for mobile
-        // iOS, Android, Chrome, other
-        alert('userAgent ='+navigator.userAgent);
-        
+        // check for mobile        
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             soundcite.mobile = true;
         } else {
@@ -148,8 +145,6 @@
             Clip.apply(this, Array.prototype.slice.call(arguments));
 
             this.id = el.attributes['data-id'].value;
-
-alert('creating soundcloud clip');
 
             SC.stream(this.id, bind(function(sound) {
                 this.sound = sound;
@@ -294,7 +289,7 @@ alert('creating soundcloud clip');
             var el = soundcite_array[i];          
             if(el.hasAttribute('data-url')) {
                 new PopcornClip(el);
-            } else { //if(!soundcite.mobile) {
+            } else if(!soundcite.mobile) {
                 new SoundCloudClip(el);
             } 
         }
