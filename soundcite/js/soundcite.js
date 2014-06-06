@@ -2,7 +2,6 @@
 // http://popcornjs.org/code/dist/popcorn-complete.min.js
 //
 //
-
 (function(window, document, version, callback) { // http://stackoverflow.com/questions/2170439/how-to-embed-javascript-widget-that-depends-on-jquery-into-an-unknown-environmen
     var loaded_j = false;
     var loaded_p = false;   
@@ -63,6 +62,9 @@
         window.soundcite = {};
 
         // check for mobile
+        // iOS, Android, Chrome, other
+        alert('userAgent ='+navigator.userAgent);
+        
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             soundcite.mobile = true;
         } else {
@@ -147,15 +149,26 @@
 
             this.id = el.attributes['data-id'].value;
 
+alert('creating soundcloud clip');
+
             SC.stream(this.id, bind(function(sound) {
                 this.sound = sound;
-                sound.load({onload: bind(this.sound_loaded, this)});
+
+                this.sound._player.on("positionChange", bind(function(pos) {
+                    this.track_progress();
+                    
+                    if(pos > this.end) {
+                        this.stop();
+                    }
+                }, this));
+               
+               this.sound_loaded();
             }, this));
         }
         SoundCloudClip.prototype = Object.create(Clip.prototype);
 
         SoundCloudClip.prototype.sound_position = function() {
-            return this.sound.position;
+            return this.sound.getCurrentPosition();
         }
                         
         SoundCloudClip.prototype.pause_sound = function() { 
@@ -167,25 +180,16 @@
         }
 
         SoundCloudClip.prototype.play = function() {
-            var pos = this.sound.position;
-            
+            var pos = this.sound_position();
+
             if(pos < this.start || pos >= this.end) {
-                this.sound.setPosition(this.start);
+                this.sound.seek(this.start);
             }
             
             this.$el.removeClass('soundcite-play');
             this.$el.addClass('soundcite-pause');
-        
-            this.sound.play({
-                whileplaying: bind(function() {
-                    this.track_progress();
 
-                    if(this.sound.position > this.end) {
-                        this.stop();
-                    }
-                }, this),
-            });
-            
+            this.sound.play();                        
             this.playing = true;
         }
                 
@@ -263,8 +267,7 @@
             }
         }
               
-        PopcornClip.prototype.play = function() {  
-            
+        PopcornClip.prototype.play = function() {           
             if(soundcite.mobile) { 
                 this.$el.removeClass('soundcite-play');
                 this.$el.addClass('soundcite-loading');
@@ -291,7 +294,7 @@
             var el = soundcite_array[i];          
             if(el.hasAttribute('data-url')) {
                 new PopcornClip(el);
-            } else if(!soundcite.mobile) {
+            } else { //if(!soundcite.mobile) {
                 new SoundCloudClip(el);
             } 
         }
