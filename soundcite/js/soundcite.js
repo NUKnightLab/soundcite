@@ -140,7 +140,6 @@
             }
         }
 
-// SoundCloud Clip
         function SoundCloudClip(el) {
             Clip.apply(this, Array.prototype.slice.call(arguments));
 
@@ -150,7 +149,7 @@
                 this.sound = sound;
 
                 this.sound._player.on("positionChange", bind(function(pos) {
-                    this.track_progress();
+                     this.track_progress();
                     
                     if(pos > this.end) {
                         this.stop();
