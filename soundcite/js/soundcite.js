@@ -5,6 +5,8 @@
 (function(window, document, version, callback) { // http://stackoverflow.com/questions/2170439/how-to-embed-javascript-widget-that-depends-on-jquery-into-an-unknown-environmen
     var loaded_j = false;
     var loaded_p = false;   
+    var loaded_s = false;
+    
     // document.head not standard before HTML5
     var insertionPoint = document.head || document.getElementsByTagName('head').item(0) || document.documentElement.childNodes[0];
     
@@ -41,13 +43,40 @@
         } 
     }
     
+    // Loading player api initializes incomplete version of window.SC,
+    // so need to check for that.
+    function load_soundcloud(j, version, cb) {
+        var js, d, Widget = null;
+
+        if(!(js = window.SC) || !js.Dialog || version > js._version || cb(js)) {
+            if(window.SC) {
+                Widget = window.SC.Widget;
+            }    
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "http://connect.soundcloud.com/sdk-2.0.0.js";
+            script.onload = script.onreadystatechange = function() {
+                if(!loaded_s && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
+                    if(Widget) {
+                        window.SC.Widget = Widget;
+                    }
+                    cb(window.SC, loaded_s = true);
+                    j(script).remove();
+                }
+            };
+            insertionPoint.appendChild(script);        
+        }    
+    }
+    
     load_jquery(version, function(j) {
         load_popcorn(j, "1.5.6", function(p) {
-            callback(j, p);       
+            load_soundcloud(j, "2.0.0", function(s) {
+               callback(j, p, s);   
+            });                
         });
     });
      
-})(window, document, "1.3", function($, $Popcorn) {
+})(window, document, "1.3", function($, $Popcorn, $SoundCloud) {    
     $(document).ready(function () {
         var SOUNDCITE_CONFIG = {
             update_playing_element: function(el, percentage) {
@@ -74,7 +103,7 @@
         $('body').append($audio);
 
         // initialize SoundCloud SDK
-        SC.initialize({
+        $SoundCloud.initialize({
             client_id: "5ba7fd66044a60db41a97cb9d924996a",
         });
 
@@ -145,11 +174,11 @@
 
             this.id = el.attributes['data-id'].value;
 
-            SC.stream(this.id, bind(function(sound) {
+            $SoundCloud.stream(this.id, bind(function(sound) {
                 this.sound = sound;
 
                 this.sound._player.on("positionChange", bind(function(pos) {
-                     this.track_progress();
+                    this.track_progress();
                     
                     if(pos > this.end) {
                         this.stop();
@@ -288,7 +317,7 @@
             var el = soundcite_array[i];          
             if(el.hasAttribute('data-url')) {
                 new PopcornClip(el);
-            } else if(!soundcite.mobile) {
+            } else { //if(!soundcite.mobile) {
                 new SoundCloudClip(el);
             } 
         }

@@ -42,11 +42,6 @@ function timeToMillis(s) {
     return (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000);
 }
 
-SC.initialize({
-    client_id: "5ba7fd66044a60db41a97cb9d924996a",
-    redirect_uri: "http://www.soundcite.com"
-});
-
 function sc_resolve(url,callback) {
     SC.get('http://api.soundcloud.com/resolve.json', {url: url}, callback);
 }
