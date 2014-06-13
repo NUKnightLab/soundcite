@@ -1,6 +1,7 @@
 // window.Popcorn.version = 1.5.6
 // http://popcornjs.org/code/dist/popcorn-complete.min.js
-//
+// window.SC._version = 2.0.0
+// http://connect.soundcloud.com/sdk-2.0.0.js
 //
 (function(window, document, version, callback) { // http://stackoverflow.com/questions/2170439/how-to-embed-javascript-widget-that-depends-on-jquery-into-an-unknown-environmen
     var loaded_j = false;
@@ -28,14 +29,18 @@
     }
         
     function load_popcorn(j, version, cb) {
-        var js, d;      
+        var js, d, new_js;      
         if(!(js = window.Popcorn) || version > js.version || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "http://popcornjs.org/code/dist/popcorn-complete.min.js";
             script.onload = script.onreadystatechange = function() {
                 if(!loaded_p && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
-                    cb(window.Popcorn, loaded_p = true);
+                    new_js = window.Popcorn;
+                    if(js) {
+                        window.Popcorn = js;
+                    }
+                    cb(new_js, loaded_p = true);
                     j(script).remove();               
                 }
             };       
@@ -43,23 +48,16 @@
         } 
     }
     
-    // Loading player api initializes incomplete version of window.SC,
-    // so need to check for that.
+    // Loading player api initializes incomplete version of window.SC
     function load_soundcloud(j, version, cb) {
-        var js, d, Widget = null;
+        var js, d;
 
         if(!(js = window.SC) || !js.Dialog || version > js._version || cb(js)) {
-            if(window.SC) {
-                Widget = window.SC.Widget;
-            }    
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "http://connect.soundcloud.com/sdk-2.0.0.js";
             script.onload = script.onreadystatechange = function() {
                 if(!loaded_s && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
-                    if(Widget) {
-                        window.SC.Widget = Widget;
-                    }
                     cb(window.SC, loaded_s = true);
                     j(script).remove();
                 }
