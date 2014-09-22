@@ -60,8 +60,11 @@ function load_sc_player() {
     $("#url").removeClass("error");
     
     var baseURL = $('#url').val();
-    SC.oEmbed(baseURL, {visual: false },
-        function(data) {
+    $.ajax({
+            type: "POST",
+            url: 'http://soundcloud.com/oembed',
+            data: { url: baseURL, format: 'json', visual: false },
+            success: function(data) {
             if (data) {
                 clip_duration_in_millis = 0;
                 setTime("#start_field",millisToTime(0));                
@@ -77,7 +80,9 @@ function load_sc_player() {
             } else {
                 $("#url").addClass('error');
             }
-        });
+        },
+            dataType: 'json'
+    });
 }
 
 function load_audio_file() {
