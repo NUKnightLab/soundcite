@@ -1,4 +1,4 @@
-/* soundcite - v0.3.0 - 2014-06-16
+/* soundcite - v0.3.1 - 2014-10-24
  * Copyright (c) 2014 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 // window.Popcorn.version = 1.5.6
@@ -117,6 +117,19 @@
             };
         };
 
+        // pause all playing clips. Optionally pass a clip as an argument which
+        // should not be paused, for the case that this is triggered from a 
+        // click handler.
+        function pause_all_clips(except_clip){
+            for(var i = 0; i < clips.length; i++) {
+                if(clips[i].playing) {
+                    if (!except_clip || except_clip.el !== clips[i].el) {
+                        clips[i].pause();
+                    }
+                }
+            }
+        }
+
 // Clip
         function Clip(el) {
             this.el = el;
@@ -157,12 +170,8 @@
         }
 
         Clip.prototype.click_handler = function() {
-             for(var i = 0; i < clips.length; i++) {
-                if(this.el !== clips[i].el && clips[i].playing) {
-                    clips[i].pause();
-                }
-            }
-             
+            pause_all_clips(this);
+
             if(this.playing) {
                 this.pause();
             } else {
@@ -327,5 +336,6 @@
         soundcite.SoundCloudClip = SoundCloudClip;
         soundcite.PopcornClip = PopcornClip;
         soundcite.clips = clips;    // keep track of clips
+        soundcite.pause_all_clips = pause_all_clips;
     });  
 });
