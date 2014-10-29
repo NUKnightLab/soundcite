@@ -10,10 +10,25 @@
     
     // document.head not standard before HTML5
     var insertionPoint = document.head || document.getElementsByTagName('head').item(0) || document.documentElement.childNodes[0];
+ 
+    function cmp_vers(v1, v2) {
+        var a1 = v1.split('.');
+        var a2 = v2.split('.');       
+        for(var i = 0; i < Math.min(a1.length, a2.length); i++) {
+            var n1 = parseInt(a1[i]);
+            var n2 = parseInt(a2[i]);
+            var d = n1 - n2;
+            if(d) {
+                return d;
+            }
+        }
     
+        return(a1.length - a2.length);
+    }
+       
     function load_jquery(version, cb) {
         var js, d;       
-        if (!(js = window.jQuery) || version > js.fn.jquery || cb(js)) {
+        if (!(js = window.jQuery) || cmp_vers(version, js.fn.jquery) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "http://code.jquery.com/jquery-1.9.1.min.js";       
@@ -29,8 +44,8 @@
     }
         
     function load_popcorn(j, version, cb) {
-        var js, d, new_js;      
-        if(!(js = window.Popcorn) || version > js.version || cb(js)) {
+        var js, d, new_js;     
+        if(!(js = window.Popcorn) || cmp_vers(version, js.version) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "http://popcornjs.org/code/dist/popcorn-complete.min.js";
@@ -51,8 +66,7 @@
     // Loading player api initializes incomplete version of window.SC
     function load_soundcloud(j, version, cb) {
         var js, d;
-
-        if(!(js = window.SC) || !js.Dialog || version > js._version || cb(js)) {
+        if(!(js = window.SC) || !js.Dialog || cmp_vers(version, js._version) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "http://connect.soundcloud.com/sdk-2.0.0.js";
