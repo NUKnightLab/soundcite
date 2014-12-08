@@ -1,0 +1,15 @@
+0.3.3 (2014-12-08)
+------------------
+Protocol relative URL for jQuery
+
+0.3.2 (2014-10-29)
+------------------
+Fix version comparison for library load test
+
+0.3.1 (2014-10-24)
+------------------
+Create a 'pause_all_clips' function which is available to host pages.
+
+0.3.0 (2014-06-16)
+------------------
+Support for MP3 and update Soundcloud SDK
