@@ -138,7 +138,9 @@
             for(var i = 0; i < clips.length; i++) {
                 if(clips[i].playing) {
                     if (!except_clip || except_clip.el !== clips[i].el) {
-                        clips[i].pause();
+                        if(clips[i].mixable !== true){
+                            clips[i].pause();
+                        }
                     }
                 }
             }
@@ -150,6 +152,7 @@
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
+            this.mixable = el.attributes['data-mixable'].value || false;
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
