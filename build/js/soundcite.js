@@ -150,7 +150,6 @@
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
-            this.loops = el.attributes['data-loops'].value;
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
@@ -182,15 +181,6 @@
             var relative_position = position - this.start;
             var percentage = (relative_position * 100) / totalTime;            
             SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
-
-            if(position >= this.end && this.loops > 1){
-                position = this.start;
-                this.loops--;
-            }else if(position >= this.end && this.loops == 1){
-                this.stop();
-            }else if (position >= this.end && this.loops == 0){
-                position = this.start;
-            }
         }
 
         Clip.prototype.click_handler = function() {
@@ -207,7 +197,6 @@
             Clip.apply(this, Array.prototype.slice.call(arguments));
 
             this.id = el.attributes['data-id'].value;
-            this.loops = el.attributes['data-loops'].value;
 
             $SoundCloud.stream(this.id, bind(function(sound) {
                 this.sound = sound;
@@ -215,15 +204,9 @@
                 this.sound._player.on("positionChange", bind(function(pos) {
                     this.track_progress();
                     
-                    if(pos >= this.end && this.loops > 1) {
-                        pos == this.start;
-                        this.loops--;
-                    }else if (pos >= this.end && this.loops == 1){
+                    if(pos > this.end) {
                         this.stop();
-                    }else if (pos >= this.end && this.loops == 0){
-                        pos == this.start;
                     }
-                    
                 }, this));
                
                this.sound_loaded();
