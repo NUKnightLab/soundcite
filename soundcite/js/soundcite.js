@@ -147,11 +147,20 @@
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
+            this.plays = el.attributes['data-plays'].value;
+            //this.plays = this.define_data('data-plays', this.plays, 1);
+            if (el.attributes['data-plays'].value = 'undefined'){this.plays = 1};
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
             clips.push(this);   // keep track of this
         }
+
+        //Clip.prototype.define_data = function(data, obj.prop, fill) {
+        //  if(el.attributes[data].value === undefined){
+            //    obj.prop == fill;
+            //}
+        //}
         
         Clip.prototype.sound_loaded = function() {
             this.$el.click(bind(this.click_handler, this));           
@@ -201,8 +210,19 @@
                 this.sound._player.on("positionChange", bind(function(pos) {
                     this.track_progress();
                     
-                    if(pos > this.end) {
+                    if(pos > this.end && plays_left > 0){
+                        this.pause();
+                        pos = this.start;
+                        plays_left--;
+                        this.play();
+                    }else if(pos > this.end && plays_left == 0){
                         this.stop();
+                        plays_left = this.plays;
+                        plays_left--;
+                    }else if(pos > this.end && plays_left == -1){
+                        this.pause();
+                        pos = this.start;
+                        this.play();
                     }
                 }, this));
                
