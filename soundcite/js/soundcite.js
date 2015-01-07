@@ -147,7 +147,8 @@
             this.el = el;
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
-            this.end = el.attributes['data-end'].value;                 // ms
+            this.endFind = el.attributes['data-end'];                   // ms
+            this.end = this.endFind && this.endFind.value || 10000;     // ms
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
