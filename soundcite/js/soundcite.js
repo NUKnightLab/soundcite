@@ -147,20 +147,13 @@
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
-            this.plays = el.attributes['data-plays'].value;
-            //this.plays = this.define_data('data-plays', this.plays, 1);
-            if (el.attributes['data-plays'].value = 'undefined'){this.plays = 1};
+            this.playsFind = el.attributes['data-plays'];
+            this.plays = this.playsFind && this.playsFind.value || 1
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
             clips.push(this);   // keep track of this
         }
-
-        //Clip.prototype.define_data = function(data, obj.prop, fill) {
-        //  if(el.attributes[data].value === undefined){
-            //    obj.prop == fill;
-            //}
-        //}
         
         Clip.prototype.sound_loaded = function() {
             this.$el.click(bind(this.click_handler, this));           
@@ -207,6 +200,11 @@
             $SoundCloud.stream(this.id, bind(function(sound) {
                 this.sound = sound;
 
+                console.log(this.plays);
+
+                var plays_left = this.plays;
+                plays_left--;
+
                 this.sound._player.on("positionChange", bind(function(pos) {
                     this.track_progress();
                     
@@ -215,7 +213,7 @@
                         pos = this.start;
                         plays_left--;
                         this.play();
-                    }else if(pos > this.end && plays_left == 0){
+                    }else if(pos > this.end && plays_left == 0 || plays_left === undefined){
                         this.stop();
                         plays_left = this.plays;
                         plays_left--;
