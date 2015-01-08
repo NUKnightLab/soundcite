@@ -147,6 +147,8 @@
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
+            this.playsFind = el.attributes['data-plays'];
+            this.plays = this.playsFind && this.playsFind.value || 1
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
@@ -198,11 +200,26 @@
             $SoundCloud.stream(this.id, bind(function(sound) {
                 this.sound = sound;
 
+                var plays_left = this.plays;
+                plays_left--;
+
                 this.sound._player.on("positionChange", bind(function(pos) {
                     this.track_progress();
                     
-                    if(pos > this.end) {
+                    if(pos > this.end && plays_left > 0){
+                        this.pause();
+                        pos = this.start;
+                        plays_left--;
+                        this.play();
+                    }else if(pos > this.end && plays_left == 0 || plays_left === undefined){
                         this.stop();
+                        pos = this.start;
+                        plays_left = this.plays;
+                        plays_left--;
+                    }else if(pos > this.end && plays_left == -1){
+                        this.pause();
+                        pos = this.start;
+                        this.play();
                     }
                 }, this));
                
@@ -214,7 +231,7 @@
         SoundCloudClip.prototype.sound_position = function() {
             return this.sound.getCurrentPosition();
         }
-                        
+                        ''
         SoundCloudClip.prototype.pause_sound = function() { 
             this.sound.pause();
         }
@@ -257,11 +274,28 @@
                 if(!this.end) {
                     this.end = this.sound.duration();
                 }                  
-                this.sound.cue(this.end, bind(this.stop, this)); 
-                
+
+                this.sound.cue(this.end, bind(function(){
+                    if(plays_left > 0){
+                        this.pause();
+                        pos = this.start;
+                        plays_left--;
+                        this.play();
+                    }else if(plays_left == 0 || plays_left === undefined){
+                        this.stop();
+                        plays_left = this.plays;
+                        plays_left--;
+                    }else if(plays_left == -1){
+                        this.pause();
+                        pos = this.start;
+                        this.play();
+                    }
+                }, this));
+
                 if(!soundcite.mobile) {
                     this.sound_loaded();
                 }
+
             }, this));
 
             if(soundcite.mobile) {   
@@ -269,6 +303,9 @@
             } else if(this.sound.readyState() > 1) {
                 this.sound_loaded();
             }
+
+            var plays_left = this.plays;
+            plays_left--;
         } 
         PopcornClip.prototype = Object.create(Clip.prototype);
      
@@ -293,6 +330,7 @@
             this.playing = true;
  
             this.sound.on('timeupdate', bind(this.track_progress, this));
+
             this.sound.on('ended', bind(this.stop, this));
         }
         
