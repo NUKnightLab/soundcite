@@ -200,8 +200,6 @@
             $SoundCloud.stream(this.id, bind(function(sound) {
                 this.sound = sound;
 
-                console.log(this.plays);
-
                 var plays_left = this.plays;
                 plays_left--;
 
@@ -232,7 +230,7 @@
         SoundCloudClip.prototype.sound_position = function() {
             return this.sound.getCurrentPosition();
         }
-                        
+                        ''
         SoundCloudClip.prototype.pause_sound = function() { 
             this.sound.pause();
         }
@@ -280,6 +278,7 @@
                 if(!soundcite.mobile) {
                     this.sound_loaded();
                 }
+
             }, this));
 
             if(soundcite.mobile) {   
@@ -287,6 +286,9 @@
             } else if(this.sound.readyState() > 1) {
                 this.sound_loaded();
             }
+
+            var plays_left = this.plays;
+            plays_left--;
         } 
         PopcornClip.prototype = Object.create(Clip.prototype);
      
@@ -311,7 +313,26 @@
             this.playing = true;
  
             this.sound.on('timeupdate', bind(this.track_progress, this));
-            this.sound.on('ended', bind(this.stop, this));
+
+ //           this.sound.on('ended', bind(this.stop, this));
+            this.sound.on('ended', bind(function(pos) {
+                
+                if(plays_left > 0){
+                    this.pause();
+                    pos = this.start;
+                    plays_left--;
+                    this.play();
+                }else if(plays_left == 0 || plays_left === undefined){
+                    this.stop();
+                    plays_left = this.plays;
+                    plays_left--;
+                }else if(plays_left == -1){
+                    this.pause();
+                    pos = this.start;
+                    this.play();
+                }
+
+            }, this));
         }
         
         PopcornClip.prototype.play_sound = function() {
