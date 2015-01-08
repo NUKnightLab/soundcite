@@ -273,8 +273,24 @@
                 if(!this.end) {
                     this.end = this.sound.duration();
                 }                  
-                this.sound.cue(this.end, bind(this.stop, this)); 
-                
+
+                this.sound.cue(this.end, bind(function(){
+                    if(plays_left > 0){
+                        this.pause();
+                        pos = this.start;
+                        plays_left--;
+                        this.play();
+                    }else if(plays_left == 0 || plays_left === undefined){
+                        this.stop();
+                        plays_left = this.plays;
+                        plays_left--;
+                    }else if(plays_left == -1){
+                        this.pause();
+                        pos = this.start;
+                        this.play();
+                    }
+                }, this));
+
                 if(!soundcite.mobile) {
                     this.sound_loaded();
                 }
@@ -314,25 +330,7 @@
  
             this.sound.on('timeupdate', bind(this.track_progress, this));
 
- //           this.sound.on('ended', bind(this.stop, this));
-            this.sound.on('ended', bind(function(pos) {
-                
-                if(plays_left > 0){
-                    this.pause();
-                    pos = this.start;
-                    plays_left--;
-                    this.play();
-                }else if(plays_left == 0 || plays_left === undefined){
-                    this.stop();
-                    plays_left = this.plays;
-                    plays_left--;
-                }else if(plays_left == -1){
-                    this.pause();
-                    pos = this.start;
-                    this.play();
-                }
-
-            }, this));
+            this.sound.on('ended', bind(this.stop, this));
         }
         
         PopcornClip.prototype.play_sound = function() {
