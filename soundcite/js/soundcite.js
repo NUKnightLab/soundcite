@@ -213,6 +213,7 @@
                         this.play();
                     }else if(pos > this.end && plays_left == 0 || plays_left === undefined){
                         this.stop();
+                        pos = this.start;
                         plays_left = this.plays;
                         plays_left--;
                     }else if(pos > this.end && plays_left == -1){
