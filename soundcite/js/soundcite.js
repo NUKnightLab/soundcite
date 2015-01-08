@@ -152,8 +152,6 @@
             this.end = this.endFind && this.endFind.value || 1000;             // ms
             this.playing = false;
             this.sound = null;                          // implement in subclass
-            
-            console.log('End input is ' + this.end);
 
             clips.push(this);   // keep track of this
         }
@@ -252,8 +250,6 @@
             // convert to ms to secs
             this.start = Math.floor(this.start / 1000);
             this.end = Math.floor(this.end / 1000);
-
-            console.log('After conversion, the end is ' + this.end);
                               
             $audio.append('<audio id="'+this.id+'" src="'+this.url+'" preload="true"></audio>');   
             this.sound = $Popcorn('#'+this.id, {'frameAnimation': true});
@@ -261,11 +257,9 @@
             // Safari iOS Audio streams cannot be loaded unless triggered by a 
             // user event, so load in play_sound via click for mobile
             this.sound.on('loadeddata', bind(function() {
-                console.log('Sound length = ' + this.sound.duration());
                 if(this.end === 1) {
                     this.end = this.sound.duration();
-                }          
-                console.log('End set at ' + this.end);        
+                }                 
                 this.sound.cue(this.end, bind(this.stop, this)); 
                 
                 if(!soundcite.mobile) {
