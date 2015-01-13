@@ -1,29 +1,29 @@
-{% extends "base.html" %}
-{% block title %}Soundcite: Examples: Test{% endblock %}
-
-{% block content %}
-
-  {% with active="test" %}
-  {% include "_examples_nav.html" %}
-  {% endwith %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Soundcite: Examples: Test</title>
+<!-- build:css //cdn.knightlab.com/libs/soundcite/%(cdn)s/css/player.css -->
+<link rel="stylesheet" href="/soundcite/css/player.css">
+<!-- endbuild -->
+<!-- build:js //cdn.knightlab.com/libs/soundcite/%(cdn)s/js/soundcite.min.js -->
+<script type="text/javascript" src="/soundcite/js/soundcite.js"></script>
+<!-- endbuild -->
+</head>
+<body>
  
-  <div id="qa" class="row-fluid">
-    <div class="offset2 span8">
-      <h2>Test Page</h2>
-      <p><b>navigator.userAgent =</b><em>
+<h2>Test Page</h2>
+<p><b>navigator.userAgent =</b><em>
 <script type="text/javascript">document.write(navigator.userAgent)</script>
-      </em></p>
-      <p><b>mobile test =</b><em>
-<script type="text/javascript">document.write(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))</script>
-      </em></p>      
-      <p>These are 10 second SoundCloud clips of Tame Impala's Elephant... <span class="soundcite" data-id="55728529" data-start="0" data-end="10000" >this one starts at the beginning</span> and <span class="soundcite" data-id="55728529" data-start="80000" data-end="90000">this one starts around the 1:20 mark</span></p>
-      
-      <p>These are MP3 clips of Tame Impala's Elephant... <span class="soundcite" data-url="http://media.knightlab.com/soundcite/tame-impala_elephant.mp3" data-start="0" data-end="10000">this one starts at the beginning</span> and <span class="soundcite" data-url="http://media.knightlab.com/soundcite/tame-impala_elephant.mp3" data-start="80000" data-end="90000">this one starts around the 1:20 mark</span></p>
+</em></p>
 
-      <p>Tame Impala's Elephant (SC) <span class="soundcite" data-id="55728529" data-end="2000" >no start, 2 secs</span> and <span class="soundcite" data-id="55728529" data-start="200000">start at 3:20 to end</span></p>
-      
-      <p>Tame Impala's Elephant (MP3) <span class="soundcite" data-url="http://media.knightlab.com/soundcite/tame-impala_elephant.mp3" data-end="2000">no start, 2 secs</span> and <span class="soundcite" data-url="http://media.knightlab.com/soundcite/tame-impala_elephant.mp3" data-start="200000">start at 3:20 to end</span></p>
-      
-    </div>
-  </div>
-{% endblock %}
+<p><b>mobile test =</b><em>
+<script type="text/javascript">document.write(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))</script>
+</em></p>      
+
+
+<p>These are 10 second SoundCloud clips of Tame Impala's Elephant... <span class="soundcite" data-id="55728529" data-start="0" data-end="10000">this one starts at the beginning</span> and <span class="soundcite" data-id="55728529" data-start="80000" data-end="90000">this one starts around the 1:20 mark</span>... neither of these should show up on mobile.</p>
+  
+<p>These are MP3 clips of Tame Impala's Elephant... <span class="soundcite" data-url="http://media.knightlab.com/soundcite/tame-impala_elephant.mp3" data-start="0" data-end="10000">this one starts at the beginning</span> and <span class="soundcite" data-url="http://media.knightlab.com/soundcite/tame-impala_elephant.mp3" data-start="80000" data-end="90000">this one starts around the 1:20 mark</span>... these should show up on all platforms.</p>
+   
+</body>
+</html>
