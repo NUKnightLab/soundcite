@@ -202,7 +202,7 @@
                 this.sound._player.on("positionChange", bind(function(pos) {
                     this.track_progress();
                     
-                    if(pos > this.end) {
+                    if(pos >= this.end) {
                         this.stop();
                     }
                 }, this));
