@@ -107,8 +107,8 @@
     };
        
     function removeClass(el, name) {
-        var cn = el.className;
-        for(var i = 0, arr = name.split(); i < arr.length; i++) {
+        var cn = el.className;        
+        for(var i = 0, arr = name.match(/\S+/g); i < arr.length; i++) {
             cn = cn.replace(new RegExp('(?:^|\\s)'+arr[i]+'(?!\\S)'), '');
         }
         el.className = cn; 
@@ -116,7 +116,7 @@
     
     function addClass(el, name) {
         var cn = el.className;
-        for(var i = 0, arr = name.split(); i < arr.length; i++) {
+        for(var i = 0, arr = name.match(/\S+/g); i < arr.length; i++) {
             if(!cn.match(new RegExp('(?:^|\\s)'+arr[i]+'(?!\\S)'))) {
                 cn += " "+arr[i];
             }
@@ -330,8 +330,9 @@
     }
 
     PopcornClip.prototype._play_sound = function() {
-        removeClass(this.el, 'soundcite-play');
+        removeClass(this.el, 'soundcite-loading soundcite-play');       
         addClass(this.el, 'soundcite-pause');
+
         this.sound.play();
         this.playing = true;
 
@@ -362,7 +363,7 @@
             if(this.sound.readyState() > 1) {
                 this.play_sound();
             } else {               
-                this.sound.on('canplaythrough',bind(function() {
+                this.sound.on('canplaythrough', bind(function() {
                     this.play_sound();
                 }, this));
                 document.getElementById(this.id).load();
