@@ -147,7 +147,7 @@
             this.el = el;
             this.$el = $(this.el);
             this.start = el.attributes['data-start'] ? el.attributes['data-start'].value : 0;     // ms
-            this.end = el.attributes['data-end'] ? el.attributes['data-end'].value : 1000;           // ms
+            this.end = el.attributes['data-end'] ? el.attributes['data-end'].value : null;           // ms
             this.playing = false;
             this.sound = null;                          // implement in subclass
 
@@ -206,7 +206,10 @@
                         this.stop();
                     }
                 }, this));
-               
+            if(this.end === null) {
+                this.end = this.sound.getDuration();
+            }                 
+
                this.sound_loaded();
             }, this));
         }
@@ -255,7 +258,7 @@
             // Safari iOS Audio streams cannot be loaded unless triggered by a 
             // user event, so load in play_sound via click for mobile
             this.sound.on('loadeddata', bind(function() {
-                if(this.end === 1) {
+                if(this.end === null) {
                     this.end = this.sound.duration();
                 }                 
                 //this.sound.cue(this.end, bind(this.stop, this));
