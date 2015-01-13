@@ -147,8 +147,8 @@
             this.$el = $(this.el);
             this.start = el.attributes['data-start'].value || 0;        // ms
             this.end = el.attributes['data-end'].value;                 // ms
-            this.playsFind = el.attributes['data-plays'];
-            this.plays = this.playsFind && this.playsFind.value || 1
+            //this.playsFind = el.attributes['data-plays'];
+            this.plays = el.attributes['data-plays'] ? el.attributes['data-plays'].value : 1
             this.playing = false;
             this.sound = null;                          // implement in subclass
             
