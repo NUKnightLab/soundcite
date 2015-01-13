@@ -1,3 +1,4 @@
+//loop branch
 // window.Popcorn.version = 1.5.6
 // http://popcornjs.org/code/dist/popcorn-complete.min.js
 // window.SC._version = 2.0.0
@@ -145,11 +146,13 @@
         function Clip(el) {
             this.el = el;
             this.$el = $(this.el);
-            this.start = el.attributes['data-start'].value || 0;        // ms
-            this.end = el.attributes['data-end'].value;                 // ms
+            this.startFind = el.attributes['data-start'];                   
+            this.start = this.startFind && this.startFind.value || 0;       // ms
+            this.endFind = el.attributes['data-end'];                 
+            this.end = this.endFind && this.endFind.value || 1000;             // ms
             this.playing = false;
             this.sound = null;                          // implement in subclass
-            
+
             clips.push(this);   // keep track of this
         }
         
@@ -176,7 +179,7 @@
             var totalTime = this.end - this.start;
             var position = this.sound_position();       // implement in subclass
             var relative_position = position - this.start;
-            var percentage = (relative_position * 100) / totalTime;            
+            var percentage = (relative_position * 100) / totalTime;        
             SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
         }
 
@@ -254,10 +257,15 @@
             // Safari iOS Audio streams cannot be loaded unless triggered by a 
             // user event, so load in play_sound via click for mobile
             this.sound.on('loadeddata', bind(function() {
-                if(!this.end) {
+                if(this.end === 1) {
                     this.end = this.sound.duration();
-                }                  
-                this.sound.cue(this.end, bind(this.stop, this)); 
+                }                 
+                //this.sound.cue(this.end, bind(this.stop, this));
+                this.sound.cue(this.end, bind(function(){
+                    this.stop();
+                    this.sound.currentTime(this.start);
+                }, this));
+                
                 
                 if(!soundcite.mobile) {
                     this.sound_loaded();
@@ -291,7 +299,7 @@
             this.$el.addClass('soundcite-pause');
             this.sound.play();
             this.playing = true;
- 
+
             this.sound.on('timeupdate', bind(this.track_progress, this));
             this.sound.on('ended', bind(this.stop, this));
         }
@@ -327,7 +335,7 @@
                 }  
             } else {
                 this.play_sound();
-            }       
+            }     
         }
         
 
