@@ -1,5 +1,5 @@
-/* soundcite - v2015-01-13-16-28-50 - 2015-01-13
- * Copyright (c) 2015 Tyler J. Fisher and Northwestern University Knight Lab 
+/* soundcite - v0.3.3 - 2014-12-08
+ * Copyright (c) 2014 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 // window.Popcorn.version = 1.5.6
 // http://popcornjs.org/code/dist/popcorn-complete.min.js
@@ -51,8 +51,7 @@
         if(!(js = window.Popcorn) || cmp_vers(version, js.version) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
-            // popcornjs.org is woefully slow, hopefully jsdelivr will do better
-            script.src = "//cdn.jsdelivr.net/popcorn.js/1.3/popcorn-complete.min.js"; // no SSL version of this, will self-host
+            script.src = "http://popcornjs.org/code/dist/popcorn-complete.min.js"; // no SSL version of this, will self-host
             script.onload = script.onreadystatechange = function() {
                 if(!loaded_p && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
                     new_js = window.Popcorn;
