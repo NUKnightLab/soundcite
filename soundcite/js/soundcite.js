@@ -146,10 +146,8 @@
         function Clip(el) {
             this.el = el;
             this.$el = $(this.el);
-            this.startFind = el.attributes['data-start'];                   
-            this.start = this.startFind && this.startFind.value || 0;       // ms
-            this.endFind = el.attributes['data-end'];                 
-            this.end = this.endFind && this.endFind.value || 1000;             // ms
+            this.start = el.attributes['data-start'] ? el.attributes['data-start'].value : 0;     // ms
+            this.end = el.attributes['data-end'] ? el.attributes['data-end'].value : 1000;           // ms
             this.playing = false;
             this.sound = null;                          // implement in subclass
 
