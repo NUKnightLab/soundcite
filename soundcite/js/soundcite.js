@@ -260,7 +260,12 @@
                 if(this.end === 1) {
                     this.end = this.sound.duration();
                 }                 
-                this.sound.cue(this.end, bind(this.stop, this)); 
+                //this.sound.cue(this.end, bind(this.stop, this));
+                this.sound.cue(this.end, bind(function(){
+                    this.stop();
+                    this.sound.currentTime(this.start);
+                }, this));
+                
                 
                 if(!soundcite.mobile) {
                     this.sound_loaded();
