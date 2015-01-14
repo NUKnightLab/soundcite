@@ -1,4 +1,4 @@
-/* soundcite - v2015-01-13-20-49-23 - 2015-01-13
+/* soundcite - v2015-01-14-16-46-15 - 2015-01-14
  * Copyright (c) 2015 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 //loop branch
@@ -110,8 +110,8 @@
     };
        
     function removeClass(el, name) {
-        var cn = el.className;
-        for(var i = 0, arr = name.split(); i < arr.length; i++) {
+        var cn = el.className;        
+        for(var i = 0, arr = name.match(/\S+/g); i < arr.length; i++) {
             cn = cn.replace(new RegExp('(?:^|\\s)'+arr[i]+'(?!\\S)'), '');
         }
         el.className = cn; 
@@ -119,7 +119,7 @@
     
     function addClass(el, name) {
         var cn = el.className;
-        for(var i = 0, arr = name.split(); i < arr.length; i++) {
+        for(var i = 0, arr = name.match(/\S+/g); i < arr.length; i++) {
             if(!cn.match(new RegExp('(?:^|\\s)'+arr[i]+'(?!\\S)'))) {
                 cn += " "+arr[i];
             }
@@ -176,44 +176,33 @@
     }
 
 // Clip
-        function Clip(el) {
-            this.el = el;
-            this.$el = $(this.el);
-            this.start = el.attributes['data-start'] ? el.attributes['data-start'].value : 0;     // ms
-            this.end = el.attributes['data-end'] ? el.attributes['data-end'].value : null;           // ms
-            this.playing = false;
-            this.sound = null;                          // implement in subclass
-
-            clips.push(this);   // keep track of this
-        }
-        
-        Clip.prototype.sound_loaded = function() {
-            this.$el.click(bind(this.click_handler, this));           
-            this.$el.addClass('soundcite-loaded soundcite-play');        
-        }
-        
-        Clip.prototype.pause = function() {
-            this.$el.removeClass('soundcite-pause');
-            this.$el.addClass('soundcite-play');
-            this.pause_sound();                         // implement in subclass
-            this.playing = false;
-        }
-        
-        Clip.prototype.stop = function() {    
-            this.$el.removeClass('soundcite-pause');
-            this.$el.addClass('soundcite-play');            
-            this.stop_sound();                          // implement in subclass
-            this.playing = false;
-        }
-
-        Clip.prototype.track_progress = function() {
-            var totalTime = this.end - this.start;
-            var position = this.sound_position();       // implement in subclass
-            var relative_position = position - this.start;
-            var percentage = (relative_position * 100) / totalTime;        
-            SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
-        }
-
+    function Clip(el) {
+        this.el = el;
+        this.start = el.getAttribute('data-start') || 0;    // ms          
+        this.end = el.getAttribute('data-end') || null;     // ms
+        this.playing = false;
+        this.sound = null;                          // implement in subclass                  
+        clips.push(this);   // keep track of this
+    }
+    
+    Clip.prototype.sound_loaded = function() {
+        this.el.addEventListener('click', bind(this.click_handler, this));
+        addClass(this.el, 'soundcite-loaded soundcite-play');
+    }
+    
+    Clip.prototype.pause = function() {
+        removeClass(this.el, 'soundcite-pause');
+        addClass(this.el, 'soundcite-play');
+        this.pause_sound();                         // implement in subclass
+        this.playing = false;
+    }
+    
+    Clip.prototype.stop = function() {    
+        removeClass(this.el, 'soundcite-pause');
+        addClass(this.el, 'soundcite-play');            
+        this.stop_sound();                          // implement in subclass
+        this.playing = false;
+    }
 
     Clip.prototype.track_progress = function() {
         var totalTime = this.end - this.start;
@@ -237,15 +226,21 @@
         Clip.apply(this, Array.prototype.slice.call(arguments));
 
         this.id = el.getAttribute('data-id');
+        
         $SoundCloud.stream(this.id, bind(function(sound) {
             this.sound = sound;
 
             this.sound._player.on("positionChange", bind(function(pos) {
-                this.track_progress();                    
-                if(pos > this.end) {
+                this.track_progress(); 
+                                   
+                if(pos >= this.end) {
                     this.stop();
                 }
             }, this));
+            
+            if(this.end === null) {
+                this.end = this.sound.getDuration();
+            }
            
            this.sound_loaded();
         }, this));
@@ -256,18 +251,13 @@
         return this.sound.getCurrentPosition();
     }
                     
-                    if(pos > this.end) {
-                        this.stop();
-                    }
-                }, this));
-            if(this.end === null) {
-                this.end = this.sound.getDuration();
-            }                 
-
-               this.sound_loaded();
-            }, this));
-        }
-        SoundCloudClip.prototype = Object.create(Clip.prototype);
+    SoundCloudClip.prototype.pause_sound = function() { 
+        this.sound.pause();
+    }
+    
+    SoundCloudClip.prototype.stop_sound = function() {
+        this.sound.stop();
+    }
 
     SoundCloudClip.prototype.play = function() {
         var pos = this.sound_position();
@@ -284,36 +274,8 @@
     }
             
 // Popcorn Clip    
-        function PopcornClip(el) {
-            Clip.apply(this, Array.prototype.slice.call(arguments));
- 
-            this.id = 'soundcite-audio-'+clips.length;
-            this.url = el.attributes['data-url'].value;
-           
-            // convert to ms to secs
-            this.start = Math.floor(this.start / 1000);
-            this.end = Math.floor(this.end / 1000);
-                              
-            $audio.append('<audio id="'+this.id+'" src="'+this.url+'" preload="true"></audio>');   
-            this.sound = $Popcorn('#'+this.id, {'frameAnimation': true});
-                        
-            // Safari iOS Audio streams cannot be loaded unless triggered by a 
-            // user event, so load in play_sound via click for mobile
-            this.sound.on('loadeddata', bind(function() {
-                if(this.end === null) {
-                    this.end = this.sound.duration();
-                }                 
-                //this.sound.cue(this.end, bind(this.stop, this));
-                this.sound.cue(this.end, bind(function(){
-                    this.stop();
-                    this.sound.currentTime(this.start);
-                }, this));
-                
-                
-                if(!soundcite.mobile) {
-                    this.sound_loaded();
-                }
-            }, this));
+    function PopcornClip(el) {
+        Clip.apply(this, Array.prototype.slice.call(arguments));
 
         this.id = 'soundcite-audio-'+clips.length;
         this.url = el.getAttribute('data-url');
@@ -334,10 +296,14 @@
         // Safari iOS Audio streams cannot be loaded unless triggered by a 
         // user event, so load in play_sound via click for mobile
         this.sound.on('loadeddata', bind(function() {
-            if(!this.end) {
+            if(this.end === null) {
                 this.end = this.sound.duration();
             }                  
-            this.sound.cue(this.end, bind(this.stop, this)); 
+            //this.sound.cue(this.end, bind(this.stop, this)); 
+            this.sound.cue(this.end, bind(function(){
+                this.stop();
+                this.sound.currentTime(this.start);
+            }, this));
             
             if(!soundcite.mobile) {
                 this.sound_loaded();
@@ -349,16 +315,36 @@
         } else if(this.sound.readyState() > 1) {
             this.sound_loaded();
         }
+    } 
+    PopcornClip.prototype = Object.create(Clip.prototype);
+ 
+    PopcornClip.prototype.sound_position = function() {
+        return this.sound.currentTime();
+    }
 
-        PopcornClip.prototype._play_sound = function() {
-            this.$el.removeClass('soundcite-loading soundcite-play');
-            this.$el.addClass('soundcite-pause');
-            this.sound.play();
-            this.playing = true;
+    PopcornClip.prototype.pause_sound = function() {
+        this.sound.pause();      
+        this.sound.off('timeupdate');
+    }
+    
+    PopcornClip.prototype.stop_sound = function() {
+        this.sound.pause();
+        this.sound.off('timeupdate');
+    }
 
-            this.sound.on('timeupdate', bind(this.track_progress, this));
-            this.sound.on('ended', bind(this.stop, this));
-        }
+    PopcornClip.prototype._play_sound = function() {
+        removeClass(this.el, 'soundcite-loading soundcite-play');       
+        addClass(this.el, 'soundcite-pause');
+
+        this.sound.play();
+        this.playing = true;
+
+        this.sound.on('timeupdate', bind(this.track_progress, this));
+        this.sound.on('ended', bind(this.stop, this));
+    }
+    
+    PopcornClip.prototype.play_sound = function() {
+        var pos = this.sound.roundTime();
         
         if(pos < this.start || pos >= this.end) {
             this.sound.on('seeked', bind(function() {
@@ -379,12 +365,18 @@
                  
             if(this.sound.readyState() > 1) {
                 this.play_sound();
-            }     
-        }
-        
+            } else {               
+                this.sound.on('canplaythrough', bind(function() {
+                    this.play_sound();
+                }, this));
+                document.getElementById(this.id).load();
+            }  
+        } else {
+            this.play_sound();
+        }       
+    }
 
-// set up clips array
-     
+// set up clips array    
     var soundcite_array = document.getElementsByClassName('soundcite');
     for(var i = 0; i < soundcite_array.length; i++) {
         var el = soundcite_array[i];
