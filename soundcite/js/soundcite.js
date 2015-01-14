@@ -178,6 +178,9 @@
         this.start = el.hasAttribute('data-start') ? el.getAttribute('data-start') : 0; // ms          
         this.end = el.hasAttribute('data-end') ? el.getAttribute('data-end') : null;    // ms
         
+        this.plays = el.hasAttribute('data-plays') ? el.getAttribute('data-plays') : 1;
+        this.plays_left = this.plays;
+        
         this.playing = false;
         this.sound = null;                          // implement in subclass                  
         clips.push(this);   // keep track of this
@@ -200,6 +203,7 @@
         addClass(this.el, 'soundcite-play');            
         this.stop_sound();                          // implement in subclass
         this.playing = false;
+        this.plays_left = this.plays;    // reset plays_left!
     }
 
     Clip.prototype.track_progress = function() {
@@ -230,10 +234,19 @@
 
             this.sound._player.on("positionChange", bind(function(pos) {
                 this.track_progress(); 
-                                   
-                if(pos >= this.end) {
-                    this.stop();
-                }
+
+                if(pos >= this.end) {     
+                    if(this.plays > 0) {    // not infinite loop               
+                        this.plays_left--;  // update plays_left
+                    }
+                    
+                    if(this.plays < 0 || this.plays_left > 0) {
+                        this.pause();
+                        this.play();
+                    } else {
+                        this.stop();
+                    }  
+                }                
             }, this));
             
             if(this.end === null) {
@@ -300,9 +313,21 @@
                 this.end = this.sound.duration();
             }                  
 
-            this.sound.cue(this.end, bind(function(){
-                this.stop();
-                this.sound.currentTime(this.start);
+            this.sound.cue(this.end, bind(function() {
+                if(this.plays > 0) {    // not infinite loop                    
+                    this.plays_left--;  // update plays_left!
+                }
+                
+                if(this.plays < 0 || this.plays_left > 0) {
+                    this.pause();
+                    this.play();
+                } else {
+                    this.stop();
+                    this.sound.currentTime(this.start);
+                }  
+
+                //this.stop();
+                //this.sound.currentTime(this.start);
             }, this));
             
             if(!soundcite.mobile) {
