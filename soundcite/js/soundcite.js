@@ -175,8 +175,9 @@
 // Clip
     function Clip(el) {
         this.el = el;
-        this.start = el.getAttribute('data-start') || 0;    // ms          
-        this.end = el.getAttribute('data-end') || null;     // ms
+        this.start = el.hasAttribute('data-start') ? el.getAttribute('data-start') : 0; // ms          
+        this.end = el.hasAttribute('data-end') ? el.getAttribute('data-end') : null;    // ms
+        
         this.playing = false;
         this.sound = null;                          // implement in subclass                  
         clips.push(this);   // keep track of this
@@ -278,8 +279,10 @@
         this.url = el.getAttribute('data-url');
       
         // convert to ms to secs
-        this.start = Math.floor(this.start / 1000);
-        this.end = Math.floor(this.end / 1000);
+        this.start = Math.floor(this.start / 1000);       
+        if(this.end !== null) {
+            this.end = Math.floor(this.end / 1000);
+        }
 
         var audio = document.createElement("audio");
         audio.id = this.id;
@@ -296,7 +299,7 @@
             if(this.end === null) {
                 this.end = this.sound.duration();
             }                  
-            //this.sound.cue(this.end, bind(this.stop, this)); 
+
             this.sound.cue(this.end, bind(function(){
                 this.stop();
                 this.sound.currentTime(this.start);
