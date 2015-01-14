@@ -177,6 +177,7 @@ function create_clip() {
                 url: $('#url').val(),
                 start: getTimeAsMillis('#start_field'),
                 end: getTimeAsMillis('#end_field'),
+                plays: $('#plays_field').val(),
                 text: $('#linktext').val()
             });
             $('#audition_area').css('display', 'block');
@@ -193,6 +194,7 @@ function create_clip() {
                     id: sound_metadata.id,
                     start: getTimeAsMillis('#start_field'),
                     end: getTimeAsMillis('#end_field'),
+                    plays: $('#plays_field').val(),
                     text: $('#linktext').val()
                 });
                 $('#audition_area').css('display', 'block');

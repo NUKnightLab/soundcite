@@ -36,20 +36,24 @@
         </div>
         
         <form id="times" class="form-inline clearfix">
-          <div id="start-group" class="control-group span3 offset1">
-            <label class="control-label" for="start_field">Start time</label>
-            <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1">
+          <div id="start-group" class="control-group span2">
+            <label class="control-label" for="start_field">Start time</label><br>
+            <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1"><br>
             <button type="button" id="start_btn" class="btn btn-link">Set from player</button>
           </div>
-          <div id="end-group" class="control-group span3">
-            <label class="control-label" for="start_field">End time</label>
-                <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2">
+          <div id="end-group" class="control-group span2">
+            <label class="control-label" for="start_field">End time</label><br>
+                <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2"><br>
                 <button type="button" id="end_btn" class="btn btn-link">Set from player</button>
           </div>
+          <div id="end-group" class="control-group span2">
+            <label class="control-label" for="plays">Plays</label><br>
+            <input type="number" id="plays_field" class="input-mini plays" placeholder="1" value="1" min="0" tabindex="3">               
+          </div>          
           <div id="text-group" class="control-group span5">
-            <label class="control-label" id="linklabel" for="linktext">Link text</label>
-              <input type="text" class="input-medium span4" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="3">
-            <button type="button" id="create_clip" class="btn btn-primary pull-right" tabindex="4">Create clip</button>
+            <label class="control-label" id="linklabel" for="linktext">Link text</label><br>
+            <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="4">
+            <button type="button" id="create_clip" class="btn btn-primary pull-right" tabindex="5">Create clip</button>
           </div>
         </form>
         <h3>Created clips</h3>
@@ -75,10 +79,10 @@
 
 </section> <!-- end section -->
 <script id="soundcloud-clip-base-template" type="text/template">
-<span class="soundcite" data-id="<%= id %>" data-start="<%= start %>" data-end="<%= end %>"><%= text %></span>
+<span class="soundcite" data-id="<%= id %>" data-start="<%= start %>" data-end="<%= end %>" data-plays="<%= plays %>"><%= text %></span>
 </script>
 <script id="file-clip-base-template" type="text/template">
-<span class="soundcite" data-url="<%= url %>" data-start="<%= start %>" data-end="<%= end %>"><%= text %></span>
+<span class="soundcite" data-url="<%= url %>" data-start="<%= start %>" data-end="<%= end %>" data-plays="<%= plays %>"><%= text %></span>
 </script>
 <script id="clip-preview-template" type="text/template">
 <div class="clip">
