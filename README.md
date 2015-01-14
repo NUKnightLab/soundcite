@@ -22,9 +22,10 @@ Currently, you can customize the SoundCite progress bar by editing the CSS set d
 
         // change the css to customize your player
 
-        $(this.el).css({
-            'background' : '-webkit-linear-gradient(left, white, #ccc ' + percentage + '%, white)'
-        });
+        el.style.cssText = 
+         'background: -webkit-linear-gradient(left, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);'
+       + 'background: linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);';
+
     }
 ```
 
