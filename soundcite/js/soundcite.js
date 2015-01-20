@@ -318,7 +318,6 @@
             this.sound.cue(this.end, bind(function() {
                 if(this.plays) {
                     this.plays_left--;      // update plays_left
-                    console.log(this.plays_left);
                     if(this.plays_left > 0) {
                         this.pause();
                         this.sound.currentTime(this.start);
