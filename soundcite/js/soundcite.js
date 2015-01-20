@@ -318,8 +318,10 @@
             this.sound.cue(this.end, bind(function() {
                 if(this.plays) {
                     this.plays_left--;      // update plays_left
+                    console.log(this.plays_left);
                     if(this.plays_left > 0) {
                         this.pause();
+                        this.sound.currentTime(this.start);
                         this.play();
                     } else {
                         this.stop();
@@ -366,7 +368,6 @@
         this.playing = true;
 
         this.sound.on('timeupdate', bind(this.track_progress, this));
-        this.sound.on('ended', bind(this.stop, this));
     }
     
     PopcornClip.prototype.play_sound = function() {
