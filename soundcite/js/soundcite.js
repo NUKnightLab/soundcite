@@ -243,8 +243,7 @@
                             this.play();
                             this.track_position();
                         } else {
-                            this.stop();
-                        }
+                            this.stop(){
                     } else {                // infinite loop
                         this.play();
                         this.track_position();
