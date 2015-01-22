@@ -219,7 +219,8 @@
         if(this.playing) {
             this.pause();
         } else {
-            this.play();                            // implement in subclass
+            this.play();  
+            this.fade();                          // implement in subclass
         }
     }
 
@@ -239,14 +240,14 @@
                     if(this.plays) {
                         this.plays_left--;  // update plays_left                        
                         if(this.plays_left > 0) {
-                            this.pause();
                             this.play();
+                            this.track_position();
                         } else {
                             this.stop();
                         }
-                    } else {     
-                        this.pause();       // infinite loop
+                    } else {                // infinite loop
                         this.play();
+                        this.track_position();
                     }
                 }                
             }, this));
@@ -319,15 +320,14 @@
                 if(this.plays) {
                     this.plays_left--;      // update plays_left
                     if(this.plays_left > 0) {
-                        this.pause();
                         this.sound.currentTime(this.start);
                         this.play();
                     } else {
                         this.stop();
                         this.sound.currentTime(this.start);
                     }
-                } else {
-                    this.pause();           // infinite loop
+                } else {                    // infinite loop
+                    this.sound.currentTime(this.start);
                     this.play();               
                 }
             }, this));
