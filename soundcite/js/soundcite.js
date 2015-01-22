@@ -219,8 +219,7 @@
         if(this.playing) {
             this.pause();
         } else {
-            this.play();  
-            this.fade();                          // implement in subclass
+            this.play();                            // implement in subclass
         }
     }
 
