@@ -239,14 +239,13 @@
                     if(this.plays) {
                         this.plays_left--;  // update plays_left                        
                         if(this.plays_left > 0) {
-                            this.pause();
                             this.play();
+                            this.track_position();
                         } else {
-                            this.stop();
-                        }
-                    } else {     
-                        this.pause();       // infinite loop
+                            this.stop(){
+                    } else {                // infinite loop
                         this.play();
+                        this.track_position();
                     }
                 }                
             }, this));
@@ -319,14 +318,14 @@
                 if(this.plays) {
                     this.plays_left--;      // update plays_left
                     if(this.plays_left > 0) {
-                        this.pause();
+                        this.sound.currentTime(this.start);
                         this.play();
                     } else {
                         this.stop();
                         this.sound.currentTime(this.start);
                     }
-                } else {
-                    this.pause();           // infinite loop
+                } else {                    // infinite loop
+                    this.sound.currentTime(this.start);
                     this.play();               
                 }
             }, this));
@@ -366,7 +365,6 @@
         this.playing = true;
 
         this.sound.on('timeupdate', bind(this.track_progress, this));
-        this.sound.on('ended', bind(this.stop, this));
     }
     
     PopcornClip.prototype.play_sound = function() {
