@@ -1,4 +1,4 @@
-0.4.0 (pending)
+0.4.0 (2015-01-28)
 ------------------
 * Soundcite no longer depends on jQuery
 * Soundcite only loads JS libraries for Soundcloud and Popcorn if necessary. (#36)
