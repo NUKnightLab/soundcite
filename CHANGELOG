@@ -4,7 +4,7 @@
 * Soundcite only loads JS libraries for Soundcloud and Popcorn if necessary. (#36)
 * 'data-start' and 'data-end' attributes now optional. Defaults to beginning and end of clip, respectively.
 * Clips can be set to loop a fixed number of times or indefinitely, using the 'data-plays'  attribute
-
+* Load PopcornJS from our own CDN because theirs is very unreliable.
 
 
 0.3.3 (2014-12-08)
