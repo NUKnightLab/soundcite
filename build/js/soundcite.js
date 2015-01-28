@@ -1,4 +1,4 @@
-/* soundcite - v2015-01-28-18-45-26 - 2015-01-28
+/* soundcite - v0.4.0 - 2015-01-28
  * Copyright (c) 2015 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 //loop branch
@@ -36,7 +36,7 @@
         } else if(!js || cmp_vers(version, js.version) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "http://cdn.popcornjs.org/code/dist/popcorn.min.js"; // no SSL version of this, will self-host
+            script.src = "http://cdn.knightlab.com/libs/soundcite/latest/vendor/popcorn.min.js"; // no SSL version of this, will self-host
             script.onload = script.onreadystatechange = function() {
                 if(!loaded_p && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
                     new_js = window.Popcorn;
