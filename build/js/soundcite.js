@@ -1,4 +1,4 @@
-/* soundcite - v2015-01-14-19-11-44 - 2015-01-14
+/* soundcite - v2015-01-28-18-45-26 - 2015-01-28
  * Copyright (c) 2015 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 //loop branch
@@ -93,12 +93,12 @@
      
         load_popcorn("1.5.6", function(p) {
             load_soundcloud("2.0.0", function(s) {
-               callback(p, s);   
+               callback(elements, p, s);   
             });                
         });
     });
     
-})(window, document, function($Popcorn, $SoundCloud) {    
+})(window, document, function(soundcite_elements, $Popcorn, $SoundCloud) {    
 
     // borrowing underscore.js bind function
     var bind = function(func, context) {
@@ -181,7 +181,7 @@
         this.start = el.hasAttribute('data-start') ? el.getAttribute('data-start') : 0; // ms          
         this.end = el.hasAttribute('data-end') ? el.getAttribute('data-end') : null;    // ms
         
-        this.plays = el.hasAttribute('data-plays') ? el.getAttribute('data-plays') : 1;
+        this.plays = el.hasAttribute('data-plays') ? parseInt(el.getAttribute('data-plays')) : 1;
         this.plays_left = this.plays;
         
         this.playing = false;
@@ -237,19 +237,21 @@
 
             this.sound._player.on("positionChange", bind(function(pos) {
                 this.track_progress(); 
-
-                if(pos >= this.end) {     
-                    if(this.plays > 0) {    // not infinite loop               
-                        this.plays_left--;  // update plays_left
-                    }
-                    
-                    if(this.plays < 0 || this.plays_left > 0) {
-                        this.pause();
+            
+                if(pos >= this.end) {              
+                    if(this.plays) {
+                        this.plays_left--;  // update plays_left                        
+                        if(this.plays_left > 0) {
+                            this.play();
+                            this.track_position();
+                        } else {
+                            this.stop();
+                        }
+                    } else {                // infinite loop
                         this.play();
-                    } else {
-                        this.stop();
-                    }  
-                }                
+                        this.track_position();
+                    }
+                }  
             }, this));
             
             if(this.end === null) {
@@ -317,20 +319,19 @@
             }                  
 
             this.sound.cue(this.end, bind(function() {
-                if(this.plays > 0) {    // not infinite loop                    
-                    this.plays_left--;  // update plays_left!
-                }
-                
-                if(this.plays < 0 || this.plays_left > 0) {
-                    this.pause();
-                    this.play();
-                } else {
-                    this.stop();
+                if(this.plays) {
+                    this.plays_left--;      // update plays_left
+                    if(this.plays_left > 0) {
+                        this.sound.currentTime(this.start);
+                        this.play();
+                    } else {
+                        this.stop();
+                        this.sound.currentTime(this.start);
+                    }
+                } else {                    // infinite loop
                     this.sound.currentTime(this.start);
-                }  
-
-                //this.stop();
-                //this.sound.currentTime(this.start);
+                    this.play();               
+                }
             }, this));
             
             if(!soundcite.mobile) {
@@ -368,7 +369,6 @@
         this.playing = true;
 
         this.sound.on('timeupdate', bind(this.track_progress, this));
-        this.sound.on('ended', bind(this.stop, this));
     }
     
     PopcornClip.prototype.play_sound = function() {
@@ -404,10 +404,9 @@
         }       
     }
 
-// set up clips array    
-    var soundcite_array = document.getElementsByClassName('soundcite');
-    for(var i = 0; i < soundcite_array.length; i++) {
-        var el = soundcite_array[i];
+// set up clips array from element array
+    for(var i = 0; i < soundcite_elements.length; i++) {
+        var el = soundcite_elements[i];
         if(el.getAttribute('data-url')) {
             new PopcornClip(el);
         } else {
