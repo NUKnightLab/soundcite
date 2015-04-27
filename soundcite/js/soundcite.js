@@ -214,7 +214,8 @@
         SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
     }
 
-    Clip.prototype.click_handler = function() {
+    Clip.prototype.click_handler = function(event) {
+        event.preventDefault(); // if used on a tag, don't follow href
         pause_all_clips(this);
         if(this.playing) {
             this.pause();
