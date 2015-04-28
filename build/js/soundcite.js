@@ -36,7 +36,7 @@
         } else if(!js || cmp_vers(version, js.version) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "http://cdn.knightlab.com/libs/soundcite/latest/vendor/popcorn.min.js"; // no SSL version of this, will self-host
+            script.src = "//s3.amazonaws.com/cdn.knightlab.com/libs/soundcite/latest/vendor/popcorn.min.js"; // no SSL version of this, will self-host
             script.onload = script.onreadystatechange = function() {
                 if(!loaded_p && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
                     new_js = window.Popcorn;
