@@ -11,3 +11,6 @@ from .base import *
 
 # Set static URL
 STATIC_URL = '/static'
+
+# Set media UEL
+MEDIA_URL = '/media'

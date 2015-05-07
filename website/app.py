@@ -8,7 +8,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import json
-from flask import send_from_directory
+from flask import send_from_directory, send_file
 import importlib
 import traceback
 import sys
@@ -42,19 +42,22 @@ app = Flask(__name__)
 
 build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
 source_dir = os.path.join(settings.PROJECT_ROOT, 'soundcite')
+media_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'media')
 
 @app.context_processor
-def inject_static_url():
+def inject_ursl():
     """
-    Inject the variables 'static_url' and 'STATIC_URL' into the templates to
-    avoid hard-coded paths to static files. Grab it from the environment 
-    variable STATIC_URL, or use the default. Never has a trailing slash.
+    Inject the variables into the templates to avoid hard-coded paths
+    to files. Never has a trailing slash.
     """
     static_url = settings.STATIC_URL or app.static_url_path
     if static_url.endswith('/'):
         static_url = static_url.rstrip('/')
-    return dict(static_url=static_url, STATIC_URL=static_url)
-
+        
+    media_url = settings.MEDIA_URL or '/media'
+    return dict(
+        static_url=static_url, STATIC_URL=static_url,
+        media_url=media_url, MEDIA_URL=media_url)
 
 @app.route('/build/<path:path>')
 def catch_build(path):
@@ -71,15 +74,43 @@ def catch_source(path):
     """
     return send_from_directory(source_dir, path)    
 
+@app.route('/media/<path:path>')
+def catch_media(path):
+    """
+    Serve /static/media/... files 
+    """
+    return send_from_directory(media_dir, path)
+    
 @app.route('/')
 @app.route('/<path:path>')
 def catch_all(path='index.html'):
     """Catch-all function which serves every URL."""
-      
     if not os.path.splitext(path)[1]:
         path = os.path.join(path, 'index.html')
     return render_template(path)
     
         
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    import getopt
+    
+    ssl_context = None
+    port = 5000
+    
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "sp:", ["port="])
+        for opt, arg in opts:
+            if opt == '-s':
+                ssl_context = (
+                    os.path.join(site_dir, 'website.crt'), 
+                    os.path.join(site_dir, 'website.key'))
+
+            elif opt in ('-p', '--port'):
+                port = int(arg)
+            else:
+                print 'Usage: app.py [-s]'
+                sys.exit(1)   
+    except getopt.GetoptError:
+        print 'Usage: app.py [-s] [-p port]'
+        sys.exit(1)
+       
+    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)

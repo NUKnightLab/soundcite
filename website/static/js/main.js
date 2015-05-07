@@ -42,10 +42,6 @@ function timeToMillis(s) {
     return (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000);
 }
 
-function sc_resolve(url,callback) {
-    SC.get('http://api.soundcloud.com/resolve.json', {url: url}, callback);
-}
-
 function set_end_from_widget() {
     var widget = SC.Widget("player_iframe");
     widget.getDuration(function(duration) { 
@@ -62,7 +58,7 @@ function load_sc_player() {
     var baseURL = $('#url').val();
     $.ajax({
             type: "POST",
-            url: 'http://soundcloud.com/oembed',
+            url: 'https://soundcloud.com/oembed',
             data: { url: baseURL, format: 'json', visual: false },
             success: function(data) {
             if (data) {

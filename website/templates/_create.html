@@ -15,7 +15,7 @@
         <button id="load_url" class="btn btn-primary">Load</button>
       </form>
       <em class="example block">SoundCloud example: <a class="example-url" href="javascript:void(0);">https://soundcloud.com/tame-impala/elephant</a></em>
-      <em class="example block">MP3 example: <a class="example-url" href="javascript:void(0);">http://media.knightlab.com/soundcite/bach-cello-suite.mp3</a></em>
+      <em class="example block">MP3 example: <a class="example-url" href="javascript:void(0);">{{ MEDIA_URL }}/bach-cello-suite.mp3</a></em>
    </div>
   </div> <!-- end row -->
 
@@ -32,7 +32,7 @@
         </div>
        
         <div id="player_container">   
-          <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
+          <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
         </div>
         
         <form id="times" class="form-inline clearfix">
