@@ -110,6 +110,15 @@
                 }
             ]
         },
-        "prd": {"bucket": "soundcite.knightlab.com", "usemin_context": {"cdn": "latest"}}
+        "prd": {
+            "bucket": "soundcite.knightlab.com", 
+            "usemin_context": {"cdn": "latest"},
+            "copy": [
+                {
+                    "src": "website/media",
+                    "dst": "build/website/media"
+                }
+            ]            
+        }
     }
 }
