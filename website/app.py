@@ -83,11 +83,12 @@ def catch_media(path):
     
 @app.route('/')
 @app.route('/<path:path>')
-def catch_all(path='index.html'):
+def catch_all(path='index.html', context=None):
     """Catch-all function which serves every URL."""
+    context = context or {}
     if not os.path.splitext(path)[1]:
         path = os.path.join(path, 'index.html')
-    return render_template(path)
+    return render_template(path, **context)
     
         
 if __name__ == "__main__":

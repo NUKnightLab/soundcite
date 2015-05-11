@@ -1,4 +1,4 @@
-/* soundcite - v0.4.0 - 2015-01-28
+/* soundcite - v2015-05-11-15-48-05 - 2015-05-11
  * Copyright (c) 2015 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 //loop branch
@@ -36,7 +36,7 @@
         } else if(!js || cmp_vers(version, js.version) > 0 || cb(js)) {
             var script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "http://cdn.knightlab.com/libs/soundcite/latest/vendor/popcorn.min.js"; // no SSL version of this, will self-host
+            script.src = "//cdn.knightlab.com/libs/soundcite/latest/vendor/popcorn.min.js"; // no SSL version of this, will self-host
             script.onload = script.onreadystatechange = function() {
                 if(!loaded_p && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
                     new_js = window.Popcorn;
@@ -217,7 +217,8 @@
         SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
     }
 
-    Clip.prototype.click_handler = function() {
+    Clip.prototype.click_handler = function(event) {
+        event.preventDefault(); // if used on a tag, don't follow href
         pause_all_clips(this);
         if(this.playing) {
             this.pause();
