@@ -10,3 +10,5 @@ paramiko==1.12.3
 ply==3.4
 pycrypto==2.6.1
 wsgiref==0.1.2
+pyOpenSSL==0.15.1
+
