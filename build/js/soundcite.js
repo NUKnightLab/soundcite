@@ -1,4 +1,4 @@
-/* soundcite - v2016-03-15-13-07-50 - 2016-03-15
+/* soundcite - v0.4.2 - 2016-03-16
  * Copyright (c) 2016 Tyler J. Fisher and Northwestern University Knight Lab 
  */
 //loop branch
