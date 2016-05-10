@@ -1,3 +1,7 @@
+0.4.2 (2016-03-16)
+------------------
+* Use https URL instead of protocol relative
+
 0.4.0 (2015-01-28)
 ------------------
 * Soundcite no longer depends on jQuery
