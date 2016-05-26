@@ -407,8 +407,10 @@
         var el = soundcite_elements[i];
         if(el.getAttribute('data-url')) {
             new PopcornClip(el);
-        } else {
+        } else if (el.getAttribute('data-id')) {
             new SoundCloudClip(el);
+        } else {
+            console.log('Unable to form Soundcite element because of missing attributes. The offending Soundcite was "' + el.textContent + '."');
         }
     }
 
