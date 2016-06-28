@@ -155,7 +155,7 @@
     // initialize SoundCloud SDK
     if($SoundCloud) {
         $SoundCloud.initialize({
-            client_id: "5ba7fd66044a60db41a97cb9d924996a"
+            client_id: "5f016c08c2201881c4217afd5f52e065"
         });
     }
 
