@@ -129,7 +129,8 @@
              el.style.cssText =
                 'background: -webkit-linear-gradient(left, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);'
               + 'background: linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);'
-        }
+        },
+        soundcloud_client_id: "5f016c08c2201881c4217afd5f52e065"
     }
     for(var key in window.SOUNDCITE_CONFIG) {
         SOUNDCITE_CONFIG[key] = window.SOUNDCITE_CONFIG[key];
@@ -155,7 +156,7 @@
     // initialize SoundCloud SDK
     if($SoundCloud) {
         $SoundCloud.initialize({
-            client_id: "5f016c08c2201881c4217afd5f52e065"
+            client_id: SOUNDCITE_CONFIG['soundcloud_client_id']
         });
     }
 
