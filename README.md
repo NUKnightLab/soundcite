@@ -29,3 +29,17 @@ Currently, you can customize the SoundCite progress bar by editing the CSS set d
     }
 ```
 
+## Development
+
+Requires:
+ * the KnightLab [fablib](https://github.com/NUKnightLab/fablib) repository which should be co-located with the soundcite repo.
+ * Python 2.7.x
+ * Node & npm
+
+### Setup
+
+ * create a virtualenv (Python 2)
+ * `pip install -r requirements.txt`
+ * `npm install less -g`
+ * `npm install uglify-js -g`
+ * `fab -l` to see available build commands
