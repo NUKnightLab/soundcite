@@ -17,10 +17,10 @@ import os
 #if __name__ == "__main__":
 # Add current directory to sys.path
 site_dir = os.path.dirname(os.path.abspath(__file__))
-         
+
 if site_dir not in sys.path:
     sys.path.append(site_dir)
-      
+
 # Set default FLASK_SETTINGS_MODULE for debug mode
 if not os.environ.get('FLASK_SETTINGS_MODULE', ''):
     os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings.loc'
@@ -53,7 +53,7 @@ def inject_ursl():
     static_url = settings.STATIC_URL or app.static_url_path
     if static_url.endswith('/'):
         static_url = static_url.rstrip('/')
-        
+
     media_url = settings.MEDIA_URL or '/media'
     return dict(
         static_url=static_url, STATIC_URL=static_url,
@@ -64,7 +64,7 @@ def catch_build(path):
     """
     Serve /build/... urls from the build directory
     """
-    return send_from_directory(build_dir, path)    
+    return send_from_directory(build_dir, path)
 
 @app.route('/soundcite/<path:path>')
 @app.route('/source/<path:path>')
@@ -72,15 +72,15 @@ def catch_source(path):
     """
     Serve /source/... urls from the source directory
     """
-    return send_from_directory(source_dir, path)    
+    return send_from_directory(source_dir, path)
 
 @app.route('/media/<path:path>')
 def catch_media(path):
     """
-    Serve /static/media/... files 
+    Serve /static/media/... files
     """
     return send_from_directory(media_dir, path)
-    
+
 @app.route('/')
 @app.route('/<path:path>')
 def catch_all(path='index.html', context=None):
@@ -89,14 +89,14 @@ def catch_all(path='index.html', context=None):
     if not os.path.splitext(path)[1]:
         path = os.path.join(path, 'index.html')
     return render_template(path, **context)
-    
-        
+
+
 if __name__ == "__main__":
     import getopt
-    
+
     ssl_context = None
     port = 5000
-    
+
     try:
         opts, args = getopt.getopt(sys.argv[1:], "sp:", ["port="])
         for opt, arg in opts:
@@ -106,9 +106,9 @@ if __name__ == "__main__":
                 port = int(arg)
             else:
                 print 'Usage: app.py [-s]'
-                sys.exit(1)   
+                sys.exit(1)
     except getopt.GetoptError:
         print 'Usage: app.py [-s] [-p port]'
         sys.exit(1)
-       
+
     app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)
