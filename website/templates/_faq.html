@@ -83,5 +83,25 @@
         </div>
       </div>
     </div>
+
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#should-i-api-key">
+          What if I don't use my own API key?
+        </a>
+      </div>
+      <div id="should-i-api-key" class="accordion-body collapse">
+        <div class="accordion-inner">
+            <p>SoundCloud imposes rate limits on API key usage. It occasionally happens that a popular SoundCite embed will reach the limit on our application API key, affecting all other embeds. To isolate your request count from SoundCite embeds on other sites, use your own API key by pasting your SoundCloud Client ID into the optional Client ID field before you copy the SoundCite embed code.</p>
+            <p>You can always add your key later by prepending the following code to your embed code (with your own client ID):</p>
+<code class="embed-code">    &lt;script type="text/javascript"&gt;
+        SOUNDCITE_CONFIG = {
+            soundcloud_client_id: "YOUR_SOUNDCLOUD_CLIENT_ID"
+        }
+    &lt;/script&gt;
+</code>
+      </div>
+    </div>
+
   </div>
 </section>

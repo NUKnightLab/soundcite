@@ -43,3 +43,12 @@ Requires:
  * `npm install less -g`
  * `npm install uglify-js -g`
  * `fab -l` to see available build commands
+
+### Web application development
+
+The web application is hosted at http://soundcite.knightlab.com. This is where
+users can create embed codes. It is a Flask application and can be run locally
+(after the above setup) via `fab serve`
+
+The web application and its assets are located in the `website` directory of
+this repository.

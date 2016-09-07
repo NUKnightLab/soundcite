@@ -11,7 +11,7 @@
       <h4>Paste the URL of your SoundCloud, MP3 or Ogg sound below:</h4>
       <p>After clicking the "Load" button, you will see your clip appear in step #2.</p>
       <form class="form-inline" onsubmit="return false;">
-        <input type="search" id="url" class="urlBox" value="" placeholder="Enter an URL">
+        <input type="search" id="url" class="urlBox" value="" placeholder="Enter URL">
         <button id="load_url" class="btn btn-primary">Load</button>
       </form>
       <em class="example block">SoundCloud example: <a class="example-url" href="javascript:void(0);">https://soundcloud.com/tame-impala/elephant</a></em>
@@ -68,12 +68,31 @@
     <div class="span11">
      <h4>Embedding</h4>
       <ol>
-        <li>When you are finished creating clips, take the following embed code and paste it at the top of your page.</li>
-        <textarea id="header" rows="4" readonly="readonly" class="code">&lt;link href='https://cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'&gt;&lt;script type='text/javascript' src='https://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'&gt;&lt;/script&gt;
+          <input id="apikey" type="text" class="input-xxlarge" placeholder="(Optional) Paste SoundCloud Client ID here" ></input>&nbsp;
+        <i class="icon-question-sign" data-toggle="modal" data-target="#api-key-overlay"></i>
+        <li>When you are finished creating clips and have (optionally) pasted your Client ID above, take the following embed code and paste it at the top of your page.</li>
+        <textarea id="header" rows="4" readonly="readonly" class="code">
         </textarea>
+
+
         <li>Then, for each clip, paste its associated embed code where the text would normally go in the page.</li>
       </ol>
     </div>
+  </div>
+
+
+  <div id="api-key-overlay" class="modal hide fade">
+      <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <p>SoundCloud imposes rate limits on API key usage. To isolate your request count from SoundCite embeds on other sites, use your own API key by pasting it here.</p>
+          <ul>
+              <li>Go to https://developers.soundcloud.com/</li>
+              <li>Click "Register a new application</li>
+              <li>Fill in the application for and click "Register"</li>
+              <li>Copy the "Client ID" field. This is your API key</li>
+              <li>Be sure to save the app</li>
+          </ul>
+      </div>
   </div>
 
 
@@ -98,4 +117,8 @@
   <button data-dismiss="alert" class="close" type="button">x</button>
   <strong>Oops!</strong> Please correct the errors above and try submitting again.
 </div>
+</script>
+
+<script id="embed-code-template" type="text/template">
+    <% if (typeof(api_key) !== "undefined" && api_key != "") { %><% print('<script'); %> type="text/javascript">SOUNDCITE_CONFIG = {soundcloud_client_id: "<%= api_key %>"}<% print('</' + 'script>'); %><% } %><link href='https://cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'><% print('<script'); %> type='text/javascript' src='https://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'><% print('</' + 'script>'); %>
 </script>

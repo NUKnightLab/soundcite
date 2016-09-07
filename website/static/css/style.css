@@ -217,6 +217,7 @@ input:-ms-input-placeholder {
   width: 80%;
   font-size: 14px;
 }
+
 #audition_area  {
    display: none;
 }
@@ -236,4 +237,8 @@ input:-ms-input-placeholder {
 
 .example.block a {
   cursor: pointer;
+}
+
+.embed-code {
+    white-space: pre;
 }
