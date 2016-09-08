@@ -47,8 +47,8 @@ Requires:
 ### Web application development
 
 The web application is hosted at http://soundcite.knightlab.com. This is where
-users can create embed codes. It is a Flask application and can be run locally
-(after the above setup) via `fab serve`
+users can create embed codes. In development, it runs as a Flask application
+via `fab serve`. For deployment, it is compiled into a static site.
 
 The web application and its assets are located in the `website` directory of
 this repository.
