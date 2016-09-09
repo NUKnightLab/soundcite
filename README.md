@@ -44,6 +44,8 @@ Requires:
  * `npm install uglify-js -g`
  * `fab -l` to see available build commands
 
+Additonally: Set your WORKON_HOME environment variable to point to the location of your virtualenvironments.
+
 ### Web application development
 
 The web application is hosted at http://soundcite.knightlab.com. This is where
