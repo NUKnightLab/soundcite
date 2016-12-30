@@ -29,3 +29,28 @@ Currently, you can customize the SoundCite progress bar by editing the CSS set d
     }
 ```
 
+## Development
+
+Requires:
+ * the KnightLab [fablib](https://github.com/NUKnightLab/fablib) repository which should be co-located with the soundcite repo.
+ * Python 2.7.x
+ * Node & npm
+
+### Setup
+
+ * create a virtualenv (Python 2)
+ * `pip install -r requirements.txt`
+ * `npm install less -g`
+ * `npm install uglify-js -g`
+ * `fab -l` to see available build commands
+
+Additonally: Set your WORKON_HOME environment variable to point to the location of your virtualenvironments.
+
+### Web application development
+
+The web application is hosted at http://soundcite.knightlab.com. This is where
+users can create embed codes. In development, it runs as a Flask application
+via `fab serve`. For deployment, it is compiled into a static site.
+
+The web application and its assets are located in the `website` directory of
+this repository.

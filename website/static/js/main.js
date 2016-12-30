@@ -2,7 +2,7 @@ var clip_duration_in_millis = 0;
 var popcorn_clip = null;
 
 
-function millisToTime(s) { 
+function millisToTime(s) {
 // http://stackoverflow.com/questions/9763441/milliseconds-to-time-in-javascript
   function addZ(n) {
     return (n<10? '0':'') + n;
@@ -38,15 +38,15 @@ function timeToMillis(s) {
         if (parts.length > 2) {
             hrs = parts[2];
         }
-    }    
+    }
     return (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000);
 }
 
 function set_end_from_widget() {
     var widget = SC.Widget("player_iframe");
-    widget.getDuration(function(duration) { 
+    widget.getDuration(function(duration) {
         clip_duration_in_millis = duration;
-        setTime("#end_field",millisToTime(duration));           
+        setTime("#end_field",millisToTime(duration));
         validate_time_field($("#end_field"));
     });
 }
@@ -54,7 +54,7 @@ function set_end_from_widget() {
 // Get the song
 function load_sc_player() {
     $("#url").removeClass("error");
-    
+
     var baseURL = $('#url').val();
     $.ajax({
             type: "POST",
@@ -63,7 +63,7 @@ function load_sc_player() {
             success: function(data) {
             if (data) {
                 clip_duration_in_millis = 0;
-                setTime("#start_field",millisToTime(0));                
+                setTime("#start_field",millisToTime(0));
                 window.data = data;
                 $('#player_container').html(data.html);
                 $('#explainer').css('display', 'none');
@@ -83,9 +83,9 @@ function load_sc_player() {
 
 function load_audio_file() {
     $("#url").removeClass("error");
-    
+
     var url = $('#url').val();
-    
+
     $('#audio_player').attr("src", url);
 
     popcorn_clip = Popcorn('#audio_player', {'frameAnimation': true});
@@ -93,15 +93,15 @@ function load_audio_file() {
         var parts = url.split('/');
         $('#audio_name').html(parts[parts.length - 1]);
         $('#audio_container').show();
-        
-        clip_duration_in_millis = Math.floor(popcorn_clip.duration()) * 1000;        
+
+        clip_duration_in_millis = Math.floor(popcorn_clip.duration()) * 1000;
         setTime('#start_field', millisToTime(0));
-        setTime('#end_field', millisToTime(clip_duration_in_millis));  
-        
+        setTime('#end_field', millisToTime(clip_duration_in_millis));
+
         $('#explainer').css('display', 'none');
         $('#creation_box').css('display', 'block');
-        validate_time_field($("#end_field"));       
-    });   
+        validate_time_field($("#end_field"));
+    });
 
     $('#audio_player')[0].load();
 }
@@ -114,7 +114,7 @@ function load_sound(url) {
     }
 
     $('#player_container').empty();
-    $('#audio_container').hide();   
+    $('#audio_container').hide();
     $("#times")[0].reset();
 
     if(url.match(/^https?:\/\/soundcloud.com\//i)) {
@@ -128,9 +128,9 @@ function load_sound(url) {
 
 // Player functionality
 
-function setTime(field_id, position, validate) { 
+function setTime(field_id, position, validate) {
     position = String(position);
-    
+
     if (position.match(/^\d+$/)) { // all digits is good
         $(field_id).val(millisToTime(position));
     } else { // for now, trust everything
@@ -151,9 +151,9 @@ function getTimeAsMillis(field_id) {
 
 var soundcloud_clip_base_template = _.template($("#soundcloud-clip-base-template").html().trim());
 var file_clip_base_template = _.template($("#file-clip-base-template").html().trim());
-
 var clip_preview_template = _.template($("#clip-preview-template").html().trim());
 var create_error_template = _.template($("#create-error-template").html().trim());
+var embed_code_template = _.template($('#embed-code-template').html().trim());
 
 $('#audition_area').on("click",".delete-clip", function() {
     var the_sound = $(this).prev('.soundcite');
@@ -220,7 +220,7 @@ function show_errors(msgs) {
 
 function validate_required($el, label, msgs) {
     $el.parent().removeClass("error");
-    
+
     if ($el.val().match(/.+/)) {
         return true;
     }
@@ -247,7 +247,7 @@ function validate_time_field($el, label, msgs) {
         } else if (clip_duration_in_millis > 0 && timeToMillis(value) > clip_duration_in_millis) {
             msgs.push(label + " is beyond the end of the clip.")
             return false;
-        }       
+        }
     }
     return true;
 }
@@ -277,7 +277,7 @@ function validate_form() {
 }
 
 
-$("#url").keyup(function(event) { 
+$("#url").keyup(function(event) {
     $("#url").removeClass("error");
     if(event.keyCode == 13) { $('#load-sound').click();}
 });
@@ -330,4 +330,13 @@ $('#audition_area').on('click', 'textarea.code', function() {
     $(this).select();
 });
 
+
+$('#apikey').on('change keyup paste', function(data) {
+    var api_key = $(this).val();
+   $('#header').text(embed_code_template({ api_key: api_key }));
+});
+
+$(function() {
+   $('#header').text(embed_code_template({ }));
+});
 
