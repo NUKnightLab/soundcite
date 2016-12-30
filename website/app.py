@@ -43,9 +43,9 @@ app = Flask(__name__)
 build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
 source_dir = os.path.join(settings.PROJECT_ROOT, 'soundcite')
 media_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'media')
-
+examples_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'examples.json')
 @app.context_processor
-def inject_ursl():
+def inject_urls():
     """
     Inject the variables into the templates to avoid hard-coded paths
     to files. Never has a trailing slash.
@@ -58,6 +58,10 @@ def inject_ursl():
     return dict(
         static_url=static_url, STATIC_URL=static_url,
         media_url=media_url, MEDIA_URL=media_url)
+
+@app.context_processor
+def inject_examples():
+    return dict(examples=json.load(open(examples_json)))
 
 @app.route('/build/<path:path>')
 def catch_build(path):
