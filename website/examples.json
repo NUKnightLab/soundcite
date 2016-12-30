@@ -1,0 +1,65 @@
+[
+  {
+      "link": "http://www.nytimes.com/interactive/2014/04/13/magazine/blues.html",
+      "thumbnail": "/static/img/examples/thumbs/thumb_record.jpg",
+      "source": "New York Times Magazine",
+      "source_logo": "/static/img/examples/logos/logo_nytmag.png",
+      "title": "The Ballad of Geeshie and Elvie"
+  },
+  {
+      "link": "http://www.macleans.ca/news/canada/interactive-timeline-what-happened-in-ottawa/",
+      "thumbnail": "/static/img/examples/thumbs/thumb_ottawa.jpg",
+      "source": "Maclean's",
+      "source_logo": "/static/img/examples/logos/logo_macleans.jpg",
+      "title": "What Happened in Ottawa"
+  },
+  {
+      "link": "http://www.propublica.org/article/the-red-cross-secret-disaster",
+      "thumbnail": "/static/img/examples/thumbs/thumb_redpicture.jpg",
+      "source": "ProPublica",
+      "source_logo": "/static/img/examples/logos/logo_propublica.png",
+      "title": "The Red Cross' Secret Disaster"
+  },
+  {
+    "link": "http://www.washingtonpost.com/sf/style/2014/07/01/songwriters/",
+    "thumbnail": "/static/img/examples/thumbs/thumb_singer.jpg",
+    "source": "Washington Post",
+    "source_logo": "/static/img/examples/logos/logo_washingtonpost.png",
+    "title": "Songwriters at The End of the World"
+  },
+  {
+      "link": "http://www.wbez.org/blogs/jim-derogatis/2013-05/chance-rapper-paints-giddy-yet-profound-picture-south-side-life-107164",
+      "thumbnail": "/static/img/examples/thumbs/thumb_chance-the-rapper.jpg",
+      "source": "WBEZ",
+      "source_logo": "/static/img/examples/logos/logo_wbez.png",
+      "title": "Jim DeRogatis: Chance the Rapper"
+  },
+  {
+      "link": "http://www.edweek.org/ew/projects/2013/native-american-education/running-in-place.html",
+      "thumbnail": "/static/img/examples/thumbs/thumb_lakota-schoolbus.jpg",
+      "source": "Education Week",
+      "source_logo": "/static/img/examples/logos/logo_educationweek.png",
+      "title": "Running in Place"
+  },
+  {
+      "link": "http://interactive.wbez.org/nerdsjocks/",
+      "thumbnail": "/static/img/examples/thumbs/thumb_jock-or-nerd.jpg",
+      "source": "WBEZ",
+      "source_logo": "/static/img/examples/logos/logo_wbez.png",
+      "title": "Nerd or Jock?"
+  },
+  {
+      "link": "http://www.mo.be/interview/nick-yarris",
+      "thumbnail": "/static/img/examples/thumbs/thumb_mondiaal-nieuws-book.jpg",
+      "source": "Mondiaal Nieuws",
+      "source_logo": "/static/img/examples/logos/logo_mondiaal.png",
+      "title": "Wrongly Convicted: 21 Years on Death Row"
+  },
+  {
+      "link": "http://projects.aljazeera.com/2014/tangier-island/",
+      "thumbnail": "/static/img/examples/thumbs/thumb_fisherman.jpg",
+      "source": "Al Jazeera America",
+      "source_logo": "/static/img/examples/logos/logo_aja.png",
+      "title": "Treasured Tangier Island"
+  }
+]

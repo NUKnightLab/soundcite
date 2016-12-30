@@ -17,7 +17,7 @@
     <ul>
         <li class="logo">
             <a href="http://knightlab.com">
-                <img src="../../assets/knightlab-dark.png" />
+                <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/knightlab-dark.png" />
             </a>
         </li>
     </ul>
@@ -78,17 +78,18 @@
                         </div>
                     	<figcaption class="credit">Knight Lab</figcaption>
                     	<figcaption>
-                    		A caption for the above image. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat.
+                    		This video will walk you through the basics of creating a Soundcite clip. Note that
+                        the visual style of the Soundcite page has changed since this video was made, but the
+                        basic steps have not.
                     	</figcaption>
                     </figure>
         		</div>
         		<div class="grid-item">
                     <h3 style="margin-top:0;">Tips &amp; tricks</h3>
         			<ol>
-        				<li>Keep it short. We recommend not having more than 20 slides for a reader to click through.</li>
-        				<li>Pick stories that have a strong location narrative. It does not work well for stories that need to jump around in the map.</li>
-        				<li>Write each event as a part of a larger narrative.</li>
-        				<li>Include events that build up to major occurrences — not just the major events.</li>
+        				<li>TK TK TK Soundcite tip</li>
+        				<li>TK TK TK Soundcite tip</li>
+                <li>TK TK TK Soundcite tip</li>
         			</ol>
 
 
@@ -143,61 +144,21 @@
     <div class="container">
         <h2>Examples</h2>
         <div class="example-grid">
-                <div class="grid-item">
-                    <a href="http://apps.washingtonpost.com/g/page/world/map-how-isis-is-carving-out-a-new-country/1095/" class="button button-light">
-                        <figure class="examples">
-                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thumb_islamicstate.jpg" alt="How the Islamic State is Carving out a New Country">
-                        </figure>
-                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_wapo.png" class="logo-inline">
-                        <h4>How the Islamic State is Carving out a New Country</h4>
-                    </a>
-                </div>
-                <div class="grid-item">
-                    <a href="http://extras.thetimes.co.uk/public/2014/maps/25-02/Yanukovych_storymap.html" class="button button-light">
-                        <figure class="examples">
-                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thetimes_victor_yanukovych.jpg" alt="Yanukovych on the Run">
-                        </figure>
-                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_thetimes.png" class="logo-inline">
-                        <h4>Yanukovych on the Run</h4>
-                    </a>
-                </div>
-                <div class="grid-item">
-                    <a href="http://www.minnpost.com/stroll/2014/06/hockey-hip-hop-and-other-green-line-highlights" class="button button-light">
-                        <figure class="examples">
-                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thumb_greenline.jpg" alt="Hockey, Hip-hop, and Other Green Line Highlights">
-                        </figure>
-                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_minn.png" class="logo-inline">
-                        <h4>Hockey, Hip-hop, and Other Green Line Highlights</h4>
-                    </a>
-                </div>
-                <div class="grid-item">
-                    <a href="http://thecityjournal.net/data-alex-tutorial/0-89-million-pounds-expensive-transfers-football-history/" class="button button-light">
-                        <figure class="examples">
-                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thumb_football.png" alt="From 0-89 Million Pounds - The Most Expensive Transfers in Football History">
-                        </figure>
-                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_city_journal.png" class="logo-inline">
-                        <h4>From 0-89 Million Pounds - The Most Expensive Transfers in Football History</h4>
-                    </a>
-                </div>
-                <div class="grid-item">
-                    <a href="https://storymap.knightlab.com/examples/aryas-journey/" class="button button-light">
-                        <figure class="examples">
-                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/knightlab_arya.png" alt="Game of Thrones: Arya&#x27;s Journey">
-                        </figure>
-
-                        <h4>Game of Thrones: Arya&#x27;s Journey</h4>
-                    </a>
-                </div>
-                <div class="grid-item">
-                    <a href="https://storymap.knightlab.com/examples/bosch-garden/" class="button button-light">
-                        <figure class="examples">
-                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/knightlab_bosch.png" alt="Hieronymus Bosch: Garden of Earthly Delights">
-                        </figure>
-
-                        <h4>Hieronymus Bosch: Garden of Earthly Delights</h4>
-                    </a>
-                </div>
-        </div>
+          {% for example in examples %}
+          {#
+              Add/edit examples in the examples.json file.
+              Depends upon inject_examples in app.py for these to be available to render.
+          #}
+          <div class="grid-item">
+              <a href="{{ example.link }}" class="button button-light">
+                  <figure class="examples">
+                      <img src="{{ example.thumbnail }}" alt="{{ example.title }}">
+                  </figure>
+                  <img src="{{ example.source_logo }}" alt="{{ example.source }}" class="logo-inline">
+                  <h4>{{ example.title }}</h4>
+              </a>
+          </div>
+          {% endfor %}
     </div>
 </section>
 
@@ -213,55 +174,77 @@
 
                     <li class="step grid">
                         <div class="step-number column-2">
-                            <h6>Create your spreadsheet</h6>
+                            <h6>Paste your audio URL</h6>
                         </div>
                         <div class="step-details column-10">
-                            <p>Build a new Google Spreadsheet using our template. You'll need to copy the template to your own Google Drive account by clicking the "Use this template" button.</p>
-                            <p>Drop dates, text and links to media into the appropriate columns. For more about working with our template, see our <a href="#">help docs.</a></p>
-                            <a class="button button-complement" href="https://drive.google.com/previewtemplate?id=1pHBvXN7nmGkiG8uQSUB82eNlnL8xHu6kydzH_-eguHQ&mode=public" target="_blank">Get the Spreadsheet Template &nbsp;<span class="icon-new-tab"></span></a>
-                            <p class="note">Don't change the column headers, don't remove any columns, and don't leave any blank rows in your spreadsheet.</p>
+                            <p>Before you start, you must publish your sound files to the web. You can use <a href="https://soundcloud.com">SoundCloud</a> or put MP3 or Ogg audio files on a webserver of your choice.</p>
+                            <p>Put the URL to your audio in the field below and click "load."</p>
+                            <form>
+                                <div class="input-group-label column-12">
+                                    <label class="input-group-addon" for="inlinelabel">Audio URL</label>
+                                    <input type="text" id="url">
+                                </div>
+                            </form>
+                            <a class="button button-complement" id="load_url">Load</a>
+                            <div id="audio-clip-examples">
+                              <p>Want to try Soundcite but you don't have any audio? Try one of these:</p>
+                              <em class="example block">SoundCloud example: <a class="example-url" href="javascript:void(0);">https://soundcloud.com/tame-impala/elephant</a></em><br>
+                              <em class="example block">MP3 example: <a class="example-url" href="javascript:void(0);">{{ MEDIA_URL }}/bach-cello-suite.mp3</a></em>
+                            </div>
                         </div>
                     </li>
                     <li class="step grid">
                         <div class="step-number column-2">
-                            <h6>Publish to the web</h6>
+                            <h6>Set clip options</h6>
                         </div>
                         <div class="step-details column-10">
 
                             <div class="grid">
                                 <div class="grid-item">
-                                    <p>Under the File menu, select “Publish to the Web.”</p>
-                                    <img class="img-shadow"  src="http://timeline.knightlab.com/static/img/make/publish_to_web_small.png" />
-                                    <p>In the next window, click the blue "publish" button. When asked, "Are you sure…?" click OK.</p>
-                                    <p>Now, copy the URL that appears in the center of the window. You'll use this in the next step.</p>
-                                </div>
-                                <div class="grid-item">
-                                    <img class="img-shadow"  src="http://timeline.knightlab.com/static/img/make/publish_to_web_button_small.png" />
-                                    <img class="img-shadow"  src="http://timeline.knightlab.com/static/img/make/publish_to_web_url_small.png" />
+                                  <p>Do you want to play just part of your audio file? Soundcite can do that without you having to cut the file up into separate clips.</p>
+                                  <p>If you want to play the entire audio file, you don't have to do anything. If you want to play just a clip, you can enter the start and end times in the file below. If you'd rather, you can just use the embedded player to listen, and use the "set from player" buttons when you hear the right part.</p>
+                                  <section id="creation_box" style="display: none">
+
+                                    <div id="audio_container">
+                                        <div id="audio_name"></div>
+                                        <audio id="audio_player" src="" controls>
+                                        </audio>
+                                    </div>
+
+                                    <div id="player_container">
+                                      <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src=""></iframe>
+                                    </div>
+
+                                    <form id="times" class="">
+                                      <div id="start-group" class="control-group span2">
+                                        <label class="control-label" for="start_field">Start time</label><br>
+                                        <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1"><br>
+                                        <button type="button" id="start_btn" class="btn btn-link">Set from player</button>
+                                      </div>
+                                      <div id="end-group" class="control-group span2">
+                                        <label class="control-label" for="start_field">End time</label><br>
+                                            <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2"><br>
+                                            <button type="button" id="end_btn" class="btn btn-link">Set from player</button>
+                                      </div>
+                                      <div id="end-group" class="control-group span2">
+                                        <label class="control-label" for="plays">Plays</label><br>
+                                        <input type="number" id="plays_field" class="input-mini plays" placeholder="1" value="1" min="0" tabindex="3">
+                                      </div>
+                                      <div id="text-group" class="control-group span5">
+                                        <label class="control-label" id="linklabel" for="linktext">Link text</label><br>
+                                        <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="4">
+                                        <button type="button" id="create_clip" class="btn btn-primary pull-right" tabindex="5">Create clip</button>
+                                      </div>
+                                    </form>
+                                    <h3>Created clips</h3>
+                                    <em id="audition_area_status">None</em>
+                                    <div id="audition_area">
+                                    </div>
+                                  </section>
                                 </div>
                             </div>
-                            <p class="note note-alert">
-                                The following has changed as of 21 November 2016!<br/><br/>
-                                Close the 'Publish to the web' window. Copy the URL for your Timeline from the browser's address bar. It should look something like this:<br />
-                                 <code>https://docs.google.com/spreadsheets/d/1xuY4upIooEeszZ_lCmeNx24eSFWe0rHe9ZdqH2xqVNk/edit#gid=0</code>
-                                <br/><br/>Disregard the URL that appears in the "publish to the web" window. It used to be used below, but changes to Google mean that you'll get an error if you use it now.
-                            </p>
                         </div>
 
-                    </li>
-                    <li class="step grid">
-                        <div class="step-number column-2">
-                            <h6>Generate your timeline</h6>
-                        </div>
-                        <div class="step-details column-10">
-                            <p>Copy/paste spreadsheet URL into the box below to generate your timeline. (Make sure you've published the spreadsheet.)</p>
-                            <form>
-                                <div class="input-group-label column-12">
-                                    <label class="input-group-addon" for="inlinelabel">Google Spreadsheet URL</label>
-                                    <input type="text" placeholder="1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI" name="inlinelabel">
-                                </div>
-                            </form>
-                        </div>
                     </li>
                     <li class="step grid">
                         <div class="step-number column-2">
@@ -269,48 +252,10 @@
                         </div>
                         <div class="step-details column-10">
 
-                            <h6>Share Link</h6>
-                            <!-- <ul class="list--social">
-                                <li>
-                                    <a class="link--no-style" href="#" ><span class="icon-twitter text-color-complement"></span></a>
-                                </li>
-                                <li>
-                                    <a class="link--no-style" href="#"><span class="icon-facebook text-color-complement"></span></a>
-                                </li>
-                            </ul> -->
-
-                            <form>
-                                <textarea rows="3" type="text" "readonly" name="textplaceholder" value="" style="height:4rem;">
-https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&font=Bevan-PotanoSans&maptype=toner&width=600&height=600
-                                </textarea>
-                            </form>
-
-                            <h6>Embed</h6>
-                            <p class="small">Grab the embed code and paste it on your site where you want your timeline to appear (just like a YouTube video). If you're embedding on Medium.com just paste the link from the right where you want your timeline to appear.</p>
-                            <form>
-                                <textarea rows="3" readonly="readonly" type="text" name="textplaceholder" value="" style="height:5rem;">
-&lt;iframe src=&apos;https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&amp;font=Bevan-PotanoSans&amp;maptype=toner&amp;width=600&amp;height=600&apos; width=&apos;600&apos; height=&apos;600&apos; frameborder=&apos;0&apos;&gt;&lt;/iframe&gt;
-                                </textarea>
-                            </form>
-                            <a class="button button-complement" href="#" target="_blank">Preview</a>&nbsp;
-                            <a class="button button-light" href="#" target="_blank">Open Preview in a new window  &nbsp;<span class="icon-new-tab"></span></a>
-
 
                         </div>
                     </li>
                 </ol>
-            </div>
-
-            <div id="preview-embed">
-                <div class="container">
-                    <h3>Preview Embed</h3>
-                </div>
-                <section id="demo" class="container-fluid">
-                    <div id="preview-embed-iframe" class="product-demo">
-                        <iframe src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&amp;font=Default&amp;lang=en&amp;initial_zoom=2&amp;height=650" width="100%" height="650" frameborder="0"></iframe>
-                    </div>
-
-                </section>
             </div>
         </section>
 
@@ -419,14 +364,14 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
     <div class="grid grid-size-4 grid-size-2-tablet grid-size-1-phone">
         <div class="grid-item">
             <a href="http://timeline.knightlab.com/" class="button button-dark">
-                <img class="img-rounded" src="../../assets/screenshot-timeline.png">
+                <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-timeline.png">
                 <h4 class="product-logo product-logo-small">Timeline <span>JS</span></h4>
                 <p class="product-tagline">Easy-to-make, beautiful timelines.</p>
             </a>
         </div>
         <div class="grid-item">
             <a href="http://storymap.knightlab.com/" class="button button-dark">
-                <img class="img-rounded" src="../../assets/screenshot-storymap.png">
+                <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-storymap.png">
                 <h4 class="product-logo product-logo-small">StoryMap <span>JS</span></h4>
                 <p class="product-tagline">Maps that tell stories.</p>
 
@@ -434,14 +379,14 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
         </div>
         <div class="grid-item">
             <a href="http://juxtapose.knightlab.com/" class="button button-dark">
-                <img class="img-rounded" src="../../assets/screenshot-juxtapose.jpg">
+                <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-juxtapose.jpg">
                 <h4 class="product-logo product-logo-small">Juxtapose <span>JS</span></h4>
                 <p class="product-tagline">Easy-to-make frame comparisons.</p>
             </a>
         </div>
         <div class="grid-item">
             <a href="http://soundcite.knightlab.com/" class="button button-dark">
-                <img class="img-rounded" src="../../assets/screenshot-soundcite.png">
+                <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-soundcite.png">
                 <h4 class="product-logo product-logo-small">Soundcite <span>JS</span></h4>
                 <p class="product-tagline">Seamless inline audio.</p>
             </a>
@@ -455,7 +400,7 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
         <div class='grid grid-center'>
             <div class='column-2 column-4-phone column-4-tablet'>
                 <a href="http://knightlab.northwestern.edu" target="_blank">
-                    <img src="../../assets/logo-knightlab-stacked-dark-small.png" style="margin-left:auto;">
+                    <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/logo-knightlab-stacked-dark-small.png" style="margin-left:auto;">
                 </a>
                 <ul class="list--social text-align-center">
                     <li><a class="link--no-style" href="http://www.twitter.com/knightlab" target="_blank" title="Knight Lab on Twitter"><span class="icon-twitter"></span></a></li>
@@ -470,13 +415,13 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
                 <div class="grid-size-2 grid-size-2-phone">
                     <div class="grid-item">
                         <a title="Medill School of Journalism, Media, Integrated Marketing Communications" href="http://www.medill.northwestern.edu/" target="_blank">
-                            <img src="../../assets/logo-medill-dark.png">
+                            <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/logo-medill-dark.png">
                         </a>
                     </div>
 
                     <div class="grid-item">
                         <a title="McCormick School of Engineering" href="http://www.mccormick.northwestern.edu/" target="_blank">
-                            <img src="../../assets/logo-mccormick-dark.png">
+                            <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/logo-mccormick-dark.png">
                         </a>
                     </div>
                 </div>
@@ -505,7 +450,36 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
         </div>
     </div>
 </footer>
-<script src="../../js/main.js"></script>
+<script id="soundcloud-clip-base-template" type="text/template">
+<span class="soundcite" data-id="<%= id %>" data-start="<%= start %>" data-end="<%= end %>" data-plays="<%= plays %>"><%= text %></span>
+</script>
+<script id="file-clip-base-template" type="text/template">
+<span class="soundcite" data-url="<%= url %>" data-start="<%= start %>" data-end="<%= end %>" data-plays="<%= plays %>"><%= text %></span>
+</script>
+<script id="clip-preview-template" type="text/template">
+<div class="clip">
+  <button type='button' class='btn btn-text pull-right delete-clip'>delete</button>
+  <p>This is your clip <%= clip_html %> shown inline with text.</p>
+  <h6>Embed code</h6>
+  <textarea readonly="readonly" class="code"><%= clip_html %></textarea>
+</div>
+</script>
+
+<script id="create-error-template" type="text/template">
+<div id="create-error" class="alert alert-error clear">
+  <button data-dismiss="alert" class="close" type="button">x</button>
+  <strong>Oops!</strong> Please correct the errors above and try submitting again.
+</div>
+</script>
+
+<script id="embed-code-template" type="text/template">
+    this is simple
+</script>
+<script src="https://cdn.knightlab.com/libs/orangeline/latest/js/main.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script src="//w.soundcloud.com/player/api.js"></script>
+<script src="/static/js/main.js"></script>
 
 
 </body>
