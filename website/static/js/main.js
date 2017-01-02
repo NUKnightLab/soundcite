@@ -52,7 +52,7 @@ function set_end_from_widget() {
 }
 
 // Get the song
-function load_sc_player() {
+function load_sc_player(success_callback) {
     $("#url").removeClass("error");
 
     var baseURL = $('#url').val();
@@ -73,6 +73,9 @@ function load_sc_player() {
                 var widget = SC.Widget('player_iframe');
                 widget.bind(SC.Widget.Events.READY,set_end_from_widget);
                 $(new_iframe).height(166);
+                if (success_callback) {
+                  success_callback();
+                }
             } else {
                 $("#url").addClass('error');
             }
@@ -81,7 +84,7 @@ function load_sc_player() {
     });
 }
 
-function load_audio_file() {
+function load_audio_file(success_callback) {
     $("#url").removeClass("error");
 
     var url = $('#url').val();
@@ -104,6 +107,9 @@ function load_audio_file() {
     });
 
     $('#audio_player')[0].load();
+    if (success_callback) {
+      success_callback();
+    }
 }
 
 function load_sound(url) {
@@ -117,10 +123,13 @@ function load_sound(url) {
     $('#audio_container').hide();
     $("#times")[0].reset();
 
+    var cb = function() {
+      window.location.hash = "make-clip-options";
+    }
     if(url.match(/^https?:\/\/soundcloud.com\//i)) {
-        load_sc_player();
+        load_sc_player(cb);
     } else if(url.match(/\.(mp3|ogg)$/i)) {
-        load_audio_file();
+        load_audio_file(cb);
     } else {
         $("#url").addClass('error');
     }
@@ -183,23 +192,27 @@ function create_clip() {
                 new soundcite.PopcornClip(this);
             });
         } else {
-            var widget = SC.Widget("player_iframe");
-            widget.pause();
-            widget.getCurrentSound(function(sound_metadata) {
-                var clip_html = soundcloud_clip_base_template({
-                    id: sound_metadata.id,
-                    start: getTimeAsMillis('#start_field'),
-                    end: getTimeAsMillis('#end_field'),
-                    plays: $('#plays_field').val(),
-                    text: $('#linktext').val()
-                });
-                $('#audition_area').css('display', 'block');
-                $('#audition_area_status').css('display', 'none');
-                $('#audition_area').prepend(clip_preview_template({clip_html: clip_html}))
-                $('#audition_area .clip:first').find('.soundcite').each(function() {
-                    new soundcite.SoundCloudClip(this);
-                });
-            });
+            try {
+              var widget = SC.Widget("player_iframe");
+              widget.pause();
+              widget.getCurrentSound(function(sound_metadata) {
+                  var clip_html = soundcloud_clip_base_template({
+                      id: sound_metadata.id,
+                      start: getTimeAsMillis('#start_field'),
+                      end: getTimeAsMillis('#end_field'),
+                      plays: $('#plays_field').val(),
+                      text: $('#linktext').val()
+                  });
+                  $('#audition_area').css('display', 'block');
+                  $('#audition_area_status').css('display', 'none');
+                  $('#audition_area').prepend(clip_preview_template({clip_html: clip_html}))
+                  $('#audition_area .clip:first').find('.soundcite').each(function() {
+                      new soundcite.SoundCloudClip(this);
+                  });
+              });
+            } catch (e) {
+              $('#audition_area .clip:first').find('.soundcite').style('color','red');
+            }
         }
     } else {
         //console.log('not valid?');
@@ -254,7 +267,7 @@ function validate_time_field($el, label, msgs) {
 
 function validate_form() {
     var msgs = [];
-    $("#create_clip").removeAttr("disabled");
+    $("#load").removeAttr("disabled");
     $("#create-error").remove();
     validate_required($("#start_field"),"Start time", msgs);
     validate_time_field($("#start_field"),"Start time", msgs);
@@ -290,6 +303,7 @@ $(".example-url").click(function() {
 $('#load_url').click(function(event) {
     load_sound($('#url').val().trim());
     event.preventDefault();
+
 });
 
 $("#start_field, #end_field, #linktext").change(validate_form);
@@ -339,4 +353,3 @@ $('#apikey').on('change keyup paste', function(data) {
 $(function() {
    $('#header').text(embed_code_template({ }));
 });
-
