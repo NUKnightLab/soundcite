@@ -1,26 +1,11 @@
 var clip_duration_in_millis = 0;
 var popcorn_clip = null;
 
-
-function millisToTime(s) {
+function millisToTime(ms) {
 // http://stackoverflow.com/questions/9763441/milliseconds-to-time-in-javascript
-  function addZ(n) {
-    return (n<10? '0':'') + n;
-  }
-  var ms = s % 1000;
-  s = (s - ms) / 1000;
-  var secs = s % 60;
-  s = (s - secs) / 60;
-  var mins = s % 60;
-  var hrs = (s - mins) / 60;
-
-  var parts = [], hms = 0;
-  if (secs) { parts.push(secs) } else { parts.push(0) };
-  if (mins) { parts.push(mins) } else { parts.push(0) };
-  if (hrs) parts.push(hrs);
-  hms = _(parts).map(addZ).reverse().join(':');
-  if (ms) return hms + '.' + ms;
-  return hms; // no decimal for zero
+// http://stackoverflow.com/a/35890816/102476 is the best algorithm
+// others fail when fractional seconds part is less than .1 (leading 0)
+  return new Date(ms).toISOString().slice(11, -1);
 }
 
 function secsToTime(s) {
