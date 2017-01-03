@@ -187,7 +187,7 @@
                             <p>Put the URL to your audio in the field below and click "load."</p>
                             <form>
                                 <div class="input-group-label column-12">
-                                    <label class="input-group-addon" for="inlinelabel">Audio URL</label>
+                                    <label class="input-group-addon" for="url">Audio URL</label>
                                     <input type="text" id="url">
                                 </div>
                             </form>
@@ -222,25 +222,28 @@
                                     </div>
 
                                     <form id="times" class="">
-                                      <div id="start-group" class="control-group span2">
-                                        <label class="control-label" for="start_field">Start time</label><br>
-                                        <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1"><br>
-                                        <button type="button" id="start_btn" class="btn btn-link">Set from player</button>
+
+                                      <div class="input-group-label column-12">
+                                          <label class="input-group-addon" for="start_field">Start time</label>
+                                          <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1">
                                       </div>
-                                      <div id="end-group" class="control-group span2">
-                                        <label class="control-label" for="start_field">End time</label><br>
-                                            <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2"><br>
-                                            <button type="button" id="end_btn" class="btn btn-link">Set from player</button>
+                                      <div class="input-group-label column-12">
+                                        <a id="start_btn" class="button button-light">Set start time from player</a>
                                       </div>
-                                      <div id="end-group" class="control-group span2">
-                                        <label class="control-label" for="plays">Plays</label><br>
-                                        <input type="number" id="plays_field" class="input-mini plays" placeholder="1" value="1" min="0" tabindex="3">
+                                      <div class="input-group-label column-12">
+                                          <label class="input-group-addon" for="end_field">End time</label>
+                                          <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2"><br>
                                       </div>
-                                      <div id="text-group" class="control-group span5">
-                                        <label class="control-label" id="linklabel" for="linktext">Link text</label><br>
-                                        <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="4">
-                                        <button type="button" id="create_clip" class="btn btn-primary pull-right" tabindex="5">Create clip</button>
+                                      <div class="input-group-label column-12">
+                                        <a id="end_btn" class="button button-light">Set end time from player</a>
                                       </div>
+
+                                      <div class="input-group-label column-12">
+                                          <label class="input-group-addon" for="linktext">Link text</label>
+                                          <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="3">
+                                      </div>
+
+                                      <button type="button" id="create_clip" class="button button-complement" tabindex="5">Create clip</button>
                                     </form>
                                     <h3>Created clips</h3>
                                     <em id="audition_area_status">None</em>
@@ -260,7 +263,7 @@
                           <div class="grid">
                               <div class="grid-item">
                                 <p>
-                                  When you are finished creating clips and have (optionally) pasted your Client ID above, take the following embed code and paste it at the top of your page.
+                                  When you are finished creating clips, take the following embed code and paste it at the top of your page.
                                   <textarea id="header" style="height: 8vh;" readonly="readonly" class="code">
                                   </textarea>
                                 </p>
@@ -271,7 +274,7 @@
                                     </p>
                                     <form>
                                       <div class="input-group-label column-12">
-                                          <label class="input-group-addon" for="inlinelabel">SoundCloud Client ID</label>
+                                          <label class="input-group-addon" for="apikey">SoundCloud Client ID</label>
                                           <input type="text" id="apikey" placeholder="(Optional) Paste SoundCloud Client ID here">
                                       </div>
                                     </form>
