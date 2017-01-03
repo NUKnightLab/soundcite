@@ -44,6 +44,8 @@ build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
 source_dir = os.path.join(settings.PROJECT_ROOT, 'soundcite')
 media_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'media')
 examples_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'examples.json')
+faq_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'faq.json')
+
 @app.context_processor
 def inject_urls():
     """
@@ -60,8 +62,8 @@ def inject_urls():
         media_url=media_url, MEDIA_URL=media_url)
 
 @app.context_processor
-def inject_examples():
-    return dict(examples=json.load(open(examples_json)))
+def inject_index_data():
+    return dict(examples=json.load(open(examples_json)),faqs=json.load(open(faq_json)))
 
 @app.route('/build/<path:path>')
 def catch_build(path):

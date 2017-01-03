@@ -1,0 +1,27 @@
+[
+  {
+      "slug": "can-i-use-with-wordpress",
+      "question": "Can I use SoundCite with Wordpress?",
+      "answer": "<p>Yes, with some cautions. For some user roles, Wordpress \"filters\" HTML, stripping out the information that SoundCite needs to function. Specifically, for most Wordpress installs, only users with the <code>administrator</code> and <code>editor</code> roles will be able to enter SoundCite clips. Users with the <code>author</code> or <code>contributor</code> roles will have the SoundCite information stripped out of their posts. This will also happen if an <code>author</code> or <code>contributor</code> edits a post after an <code>administrator</code> or <code>editor</code>  has configured SoundCite. For more, see the <a href=\"http://codex.wordpress.org/Roles_and_Capabilities#unfiltered_html\">Roles and Capabilities</a> page of the Wordpress Codex.</p>  <p>You can install the <a href=\"http://wordpress.org/plugins/user-role-editor/\">User Role Editor</a> plugin to grant the \"unfiltered_html\" capability to the \"author\" and \"contributor\" roles. There are risks involved in allowing less trusted users to author unfiltered HTML, so consider your own situation before choosing this solution.           </p>           <p>             Details may be slightly different for Wordpress multiuser sites.           </p>"
+  },
+  {
+    "slug": "customize-appearance",
+    "question": "Can I customize what SoundCite looks like?",
+    "answer": "SoundCite is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Right now it's hard to change the moving progress bar with CSS, which may make it hard to fit other custom styles in. Read more on the <a href=\"https://github.com/NUKnightLab/soundcite/wiki/Styling-Soundcite\">Github Wiki.</a>"
+  },
+  {
+    "slug": "other-audio",
+    "question": "Can I use an audio source other than SoundCloud?",
+    "answer": "SoundCite will also work with MP3 and Ogg clips that are hosted on your own server."
+  },
+  {
+    "slug": "soundcite-on-ios",
+    "question": "Does SoundCite work on iPhone, iPad, and other iOS devices?",
+    "answer": "SoundCite works best on iOS devices when using MP3 files.  It will work with SoundCloud, but there are issues seeking within the audio stream.  If you have SoundCite clips with a Start time other than 0, you may experience unpredictable playback behavior."
+  },
+  {
+    "slug": "should-i-api-key",
+    "question": "What if I don't use my own API key?",
+    "answer": "<p>SoundCloud imposes rate limits on API key usage. It occasionally happens that a popular SoundCite embed will reach the limit on our application API key, affecting all other embeds. To isolate your request count from SoundCite embeds on other sites, use your own API key by pasting your SoundCloud Client ID into the optional Client ID field before you copy the SoundCite embed code.</p>            <p>You can always add your key later by prepending the following code to your embed code (with your own client ID):</p><code class=\"embed-code\">    &lt;script type=\"text/javascript\"&gt;SOUNDCITE_CONFIG = { soundcloud_client_id: \"YOUR_SOUNDCLOUD_CLIENT_ID\" }&lt;/script&gt;</code>"
+  }
+]

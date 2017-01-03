@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Soundcite</title>
@@ -38,9 +38,9 @@
 </nav>
 
     <header class="header-product">
-	<h1 class="product-logo product-logo-large">Soundcite <span>JS</span></h1>
-	<h2 class="product-tagline">Seamless inline audio.</h2>
-	<a class="button button-secondary button-large button-small-phone" href="#make">Make a Clip</a>
+  <h1 class="product-logo product-logo-large">Soundcite <span>JS</span></h1>
+  <h2 class="product-tagline">Seamless inline audio.</h2>
+  <a class="button button-secondary button-large button-small-phone" href="#make">Make a Clip</a>
     <nav id="navbar-secondary" class="navbar navbar-subnav column-hide-phone">
         <ul>
             <li class="logo">
@@ -153,7 +153,7 @@
           {% for example in examples %}
           {#
               Add/edit examples in the examples.json file.
-              Depends upon inject_examples in app.py for these to be available to render.
+              Depends upon inject_index_data in app.py for these to be available to render.
           #}
           <div class="grid-item">
               <a href="{{ example.link }}" class="button button-light">
@@ -208,7 +208,7 @@
                             <div class="grid">
                                 <div class="grid-item">
                                   <p>Do you want to play just part of your audio file? Soundcite can do that without you having to cut the file up into separate clips.</p>
-                                  <p>If you want to play the entire audio file, you don't have to do anything. If you want to play just a clip, you can enter the start and end times in the file below. If you'd rather, you can just use the embedded player to listen, and use the "set from player" buttons when you hear the right part.</p>
+                                  <p>If you want to play the entire audio file, you don't have to do anything. If you want to play just a clip, you can enter the start and end times in the fields below. Don't know the exact time? Use the player to listen to your source, and click the "set from player" buttons at the right time.</p>
                                   <section id="creation_box" style="display: none">
 
                                     <div id="audio_container">
@@ -254,11 +254,39 @@
                     </li>
                     <li class="step grid">
                         <div class="step-number column-2">
-                            <h6>Share your timeline</h6>
+                            <h6>Embedding</h6>
                         </div>
                         <div class="step-details column-10">
+                          <div class="grid">
+                              <div class="grid-item">
+                                <p>
+                                  When you are finished creating clips and have (optionally) pasted your Client ID above, take the following embed code and paste it at the top of your page.
+                                  <textarea id="header" style="height: 8vh;" readonly="readonly" class="code">
+                                  </textarea>
+                                </p>
 
+                                Then, for each clip, paste its associated embed code (created above) where the text would normally go in the page.
 
+                                    <p class="note">SoundCloud imposes rate limits on API key usage. By default, all Soundcite users use the same API key, which can lead to cases where your Soundcite clips temporarily stop working. You can prevent this from happening by registering for your own free SoundCloud API key and pasting it in the field below.
+                                    </p>
+                                    <form>
+                                      <div class="input-group-label column-12">
+                                          <label class="input-group-addon" for="inlinelabel">SoundCloud Client ID</label>
+                                          <input type="text" id="apikey" placeholder="(Optional) Paste SoundCloud Client ID here">
+                                      </div>
+                                    </form>
+                                    <h6>How to get a SoundCloud client ID</h6>
+                                    <ul>
+                                        <li>Go to https://developers.soundcloud.com/</li>
+                                        <li>Click "Register a new application</li>
+                                        <li>Fill in the application for and click "Register"</li>
+                                        <li>Copy the "Client ID" field. This is your API key</li>
+                                        <li>Be sure to save the app</li>
+                                    </ul>
+
+                                </ol>
+                              </div>
+                          </div>
                         </div>
                     </li>
                 </ol>
@@ -281,14 +309,14 @@
             </p>
         </div>
         <div class="column-4">
-            <h3>Technical documentation</h3>
+            <!-- <h3>Technical documentation</h3>
             <p>Go further with Soundcite:</p>
             <ul>
                     <li><a href="https://storymap.knightlab.com/advanced/">Managing StoryMapJS data</a></li>
                     <li><a href="https://storymap.knightlab.com/advanced/">Setting up your page</a></li>
                     <li><a href="https://storymap.knightlab.com/advanced/#json-syntax">JSON syntax</a></li>
                     <li><a href="https://storymap.knightlab.com/gigapixel/">StoryMap for Images</a></li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 
@@ -296,62 +324,20 @@
     <div class="grid-item">
         <h3>Frequently asked questions</h3>
         <ul class="accordion">
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>What CMS does StoryMapJS work on?</h3>
-                    <div class="accordion-content">
-                        <ul><li>Custom sites</li><li>Wordpress</li><li>Squarespace</li><li>Wix</li></ul><p>Please let us know if you have tried it on others and it works, so that we can add to the list.</p>
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Why aren&#x27;t my Google Drive or DropBox Zoomify images working?</h3>
-                    <div class="accordion-content">
-                        <p>Unfortunately, Google has <a href='http://googleappsdeveloper.blogspot.com/2015/08/deprecating-web-hosting-support-in.html' target='_blank'>deprecated web hosting in Google Drive</a>, which means that Zoomify images hosted on Google Drive. will no longer display. Dropbox has similary <a href='https://www.dropbox.com/help/16' target='_blank'>discontinued rendering content in public folders</a>, so this method will cause problems for many users as well.</p><p>We're working on a solution, but for right now the only other option seems to be hosting your images on a web server.</p>
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Why are my DropBox images not showing?</h3>
-                    <div class="accordion-content">
-                        <p>First the image must be in the public folder.</p><p>To get the image URL change the domain name from the link that dropbox creates.</p><p><strong>Incorrect:</strong> <code>https://www.dropbox.com/s/38053034/GOT%20Storymap%20images/jon-weirwood-tree.jpg</code></p><p><strong>Correct:</strong> <code>https://dl.dropboxusercontent.com/u/38053034/GOT%20Storymap%20images/jon-weirwood-tree.jpg</code></p>
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How can I have a map without the lines between points?</h3>
-                    <div class="accordion-content">
-                        To disable connecting lines on maps, use the StoryMap option: <code>Treat as Image</code> <em>(as opposed to the default, <code>Treat as Cartography</code>)</em>
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How can I link to a specific slide?</h3>
-                    <div class="accordion-content">
-                        <p>You can add a parameter to the URL that is the value of the iframe src attribute, <code>start_at_slide</code>. Its value should be a number from 0 to one less than the total number of slides in the storymap.</p> <p><strong>For example:</strong> <code>http://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//media.knightlab.com/StoryMapJS/demo/sochi.json&start_at_slide=5</code></p><p>This should load <q>Sochi 2014 Olympic Torch Relay Highlights: Slide 5.</q></p>
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How can I use a custom map?</h3>
-                    <div class="accordion-content">
-                        <p>Choose <code>options</code> from the top left of the StoryMap window, then from the <code>map type</code> menu choose the type you like.</p> <p>Select <code>Mapbox</code> to enter the ID of your Mapbox map.</p> Select <code>custom</code> to enter the URL for a tile server. If the server supports multiple subdomains, enter them as a single string in the Subdomain field (e.g. subdomains 'a', 'b', and 'c' should be entered as 'abc').
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How can I adjust the zoom?</h3>
-                    <div class="accordion-content">
-                        <p>To keep it simple for most users, we've made some assumptions in the authoring tool which may not universally apply. For example, the first screen is always an <code>overview</code> slide. Also, the zoom is affected by the overall size of the map and the relationship between the current and previous points on the map.</p> <p>It's possible to download the configuration (a JSON file) that the authoring tool makes and edit the JSON yourself. You could then change the first slide to not be an <code>overview</code> and manually set a starting lat/lon/zoom.</p> <p>Be aware that switching back and forth between editing within and outside the authoring tool can get messy, so we suggest using our <a href='https://storymap.knightlab.com/advanced/'>advanced</a> method to have maximum control over the zoom feature and more.</p>
-                    </div>
-                </li>
+          {% for faq in faqs %}
+          {#
+              Add/edit examples in the examples.json file.
+              Depends upon inject_index_data in app.py for these to be available to render.
+          #}
+            <li>
+                <input type="checkbox" checked>
+                <i></i>
+                <h3 id="{{ faq.slug }}">{{ faq.question }}</h3>
+                <div class="accordion-content">
+                    {{ faq.answer|safe }}
+                </div>
+            </li>
+          {% endfor %}
         </ul>
     </div>
 </div>
@@ -479,7 +465,7 @@
 </script>
 
 <script id="embed-code-template" type="text/template">
-    this is simple
+  <% if (typeof(api_key) !== "undefined" && api_key != "") { %><% print('<script'); %> type="text/javascript">SOUNDCITE_CONFIG = {soundcloud_client_id: "<%= api_key %>"}<% print('</' + 'script>'); %><% } %><link href='https://cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'><% print('<script'); %> type='text/javascript' src='https://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'><% print('</' + 'script>'); %>
 </script>
 <script src="https://cdn.knightlab.com/libs/orangeline/latest/js/main.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
