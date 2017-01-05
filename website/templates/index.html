@@ -8,6 +8,7 @@
     <meta name="description" content="Knight Lab style guide">
     <link rel="stylesheet" href="https://cloud.webtype.com/css/d4767ecb-457a-4677-8761-72f890add836.css"/>
     <link rel="stylesheet" href="https://cdn.knightlab.com/libs/orangeline/latest/css/orangeline.min.css"/>
+    <link rel="stylesheet" href="/static/css/style.css"/>
     <!-- needed for authoring tool -->
     <script src="https://connect.soundcloud.com/sdk-2.0.0.js"></script>
     <!-- build:css //cdn.knightlab.com/libs/soundcite/%(cdn)s/css/player.css -->
@@ -186,17 +187,28 @@
                             <p>Before you start, you must publish your sound files to the web. You can use <a href="https://soundcloud.com">SoundCloud</a> or put MP3 or Ogg audio files on a webserver of your choice.</p>
                             <p>Put the URL to your audio in the field below and click "load."</p>
                             <form>
-                                <div class="input-group-label column-12">
-                                    <label class="input-group-addon" for="url">Audio URL</label>
-                                    <input type="text" id="url">
+                                <div class="grid grid-no-gutters">
+                                    <div class="input-group-label column-10">
+                                        <label class="input-group-addon" for="url">Audio URL</label>
+                                        <input type="text" id="url">
+                                    </div>
+                                    <div class="column-2">
+                                        <a class="button button-complement" id="load_url">Load</a>
+                                    </div>
                                 </div>
+
                             </form>
-                            <a class="button button-complement" id="load_url">Load</a>
-                            <div id="audio-clip-examples">
-                              <p>Want to try Soundcite but you don't have any audio? Try one of these:</p>
-                              <em class="example block">SoundCloud example: <a class="example-url" href="javascript:void(0);">https://soundcloud.com/studsterkel-radio-archive/alex-kotlowitz-discusses-his-book-there-are-no-children-here-19910228</a></em><br>
-                              <em class="example block">MP3 example: <a class="example-url" href="javascript:void(0);">{{ MEDIA_URL }}/bach-cello-suite.mp3</a></em>
-                            </div>
+
+                            <p class="note" id="audio-clip-examples">
+                                Want to try Soundcite but you don't have any audio? Try one of these:
+
+                                <br />
+                                <strong>SoundCloud example:</strong> <a class="example-url" href="javascript:void(0);">https://soundcloud.com/studsterkel-radio-archive/alex-kotlowitz-discusses-his-book-there-are-no-children-here-19910228</a>
+                                <br />
+                                <strong>MP3 example:</strong> <a class="example-url" href="javascript:void(0);">/media/bach-cello-suite.mp3</a>
+
+
+                            </p>
                         </div>
                     </li>
                     <li id="make-clip-options" class="step grid">
@@ -209,7 +221,7 @@
                                 <div class="grid-item">
                                   <p>Do you want to play just part of your audio file? Soundcite can do that without you having to cut the file up into separate clips.</p>
                                   <p>If you want to play the entire audio file, you don't have to do anything. If you want to play just a clip, you can enter the start and end times in the fields below. Don't know the exact time? Use the player to listen to your source, and click the "set from player" buttons at the right time.</p>
-                                  <section id="creation_box" style="display: none">
+                                  <section id="creation_box" >
 
                                     <div id="audio_container">
                                         <div id="audio_name"></div>
@@ -220,31 +232,40 @@
                                     <div id="player_container">
                                       <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src=""></iframe>
                                     </div>
+                                    <div class="">
+                                        <form id="times" class="">
+                                            <div class="grid">
+                                                <div class="grid-item">
+                                                    <div class="input-group">
+                                                        <label class="input-group-addon" for="start_field">Start time</label>
+                                                        <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1">
+                                                    </div>
+                                                    <a class="button button-light button-smallest" id="start_btn">Set from player</a>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <div class="input-group">
+                                                        <label class="input-group-addon" for="end_field">End time</label>
+                                                        <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2">
+                                                    </div>
+                                                    <a class="button button-light button-smallest" id="end_btn">Set from player</a>
+                                                </div>
+                                                <div class="column-2">
+                                                    <div class="input-group">
+                                                        <label class="input-group-addon" for="end_field">Plays</label>
+                                                        <input type="text" id="plays_field" class="input-small end" placeholder="1" value="1" min="0" tabindex="3">
+                                                    </div>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <label class="input-group-addon" for="linktext">Link text</label>
+                                                    <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="4">
+                                                </div>
+                                                <div class="grid-item grid-item-center">
+                                                    <button type="button" id="create_clip" class="button button-full-width button-complement" tabindex="5">Create clip</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
 
-                                    <form id="times" class="">
-
-                                      <div class="input-group-label column-12">
-                                          <label class="input-group-addon" for="start_field">Start time</label>
-                                          <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1">
-                                      </div>
-                                      <div class="input-group-label column-12">
-                                        <a id="start_btn" class="button button-light">Set start time from player</a>
-                                      </div>
-                                      <div class="input-group-label column-12">
-                                          <label class="input-group-addon" for="end_field">End time</label>
-                                          <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2"><br>
-                                      </div>
-                                      <div class="input-group-label column-12">
-                                        <a id="end_btn" class="button button-light">Set end time from player</a>
-                                      </div>
-
-                                      <div class="input-group-label column-12">
-                                          <label class="input-group-addon" for="linktext">Link text</label>
-                                          <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="3">
-                                      </div>
-
-                                      <button type="button" id="create_clip" class="button button-complement" tabindex="5">Create clip</button>
-                                    </form>
                                     <h3>Created clips</h3>
                                     <em id="audition_area_status">None</em>
                                     <div id="audition_area">
@@ -264,33 +285,35 @@
                               <div class="grid-item">
                                 <p>
                                   When you are finished creating clips, take the following embed code and paste it at the top of your page.
-                                  <textarea id="header" style="height: 8vh;" readonly="readonly" class="code">
+                                  <textarea id="header" readonly="readonly" class="code">
                                   </textarea>
                                 </p>
 
                                 Then, for each clip, paste its associated embed code (created above) where the text would normally go in the page.
-
-                                    <p class="note">SoundCloud imposes rate limits on API key usage. By default, all Soundcite users use the same API key, which can lead to cases where your Soundcite clips temporarily stop working. You can prevent this from happening by registering for your own free SoundCloud API key and pasting it in the field below.
+                                <div class="note note-alert">
+                                    <p class="">
+                                        SoundCloud imposes rate limits on API key usage. By default, all Soundcite users use the same API key, which can lead to cases where your Soundcite clips temporarily stop working. You can prevent this from happening by registering for your own free SoundCloud API key and pasting it in the field below.
                                     </p>
                                     <form>
-                                      <div class="input-group-label column-12">
-                                          <label class="input-group-addon" for="apikey">SoundCloud Client ID</label>
-                                          <input type="text" id="apikey" placeholder="(Optional) Paste SoundCloud Client ID here">
-                                      </div>
+                                        <div class="input-group-label column-12">
+                                            <label class="input-group-addon" for="apikey">SoundCloud Client ID</label>
+                                            <input type="text" id="apikey" placeholder="(Optional) Paste SoundCloud Client ID here">
+                                        </div>
                                     </form>
+
                                     <h6>How to get a SoundCloud client ID</h6>
                                     <ul>
-                                        <li>Go to https://developers.soundcloud.com/</li>
+                                        <li>Go to <a href="https://developers.soundcloud.com/" target="_blank">https://developers.soundcloud.com/</a></li>
                                         <li>Click "Register a new application</li>
                                         <li>Fill in the application for and click "Register"</li>
                                         <li>Copy the "Client ID" field. This is your API key</li>
                                         <li>Be sure to save the app</li>
                                     </ul>
 
-                                </ol>
-                              </div>
-                          </div>
+                                </div>
+                            </div>
                         </div>
+
                     </li>
                 </ol>
             </div>
@@ -305,7 +328,7 @@
                 Need help? First, please be sure to look at our list of <a href="#faq">frequently asked questions</a> below. If you're brand new to Soundcite JS, you may also want to watch our <a href="https://vimeo.com/68383495" target="_blank">introductory video</a>.
             </p>
             <p>
-                If you don't find an answer there, try our <a href="https://knightlab.zendesk.com/hc/en-us/categories/201567586-SoundciteJS">support forums</a> or use our <a href="https://knightlab.zendesk.com/anonymous_requests/new">tech support web form.</a> <strong>Please be clear</strong> with your question, <strong>include a link to your spreadsheet</strong>, and if appropriate, a link to a page which shows the issue with which you need help. <strong>We can only answer support questions in English.</strong> We try to be prompt, but please understand that we do not have a dedicated tech support staff.
+                If you don't find an answer there, try our <a href="https://knightlab.zendesk.com/hc/en-us/categories/201567586-SoundciteJS">support forums</a> or use our <a href="https://knightlab.zendesk.com/anonymous_requests/new">tech support web form.</a> <strong>Please be clear</strong> with your question, and if possible, include a link to a page which shows the issue with which you need help. <strong>We can only answer support questions in English.</strong> We try to be prompt, but please understand that we do not have a full-time tech support staff.
             </p>
             <p class="note">
                 <strong>Find a bug?</strong> If you are confident you have found a bug, please report it as <a href="https://github.com/NUKnightLab/soundcite/issues">a GitHub issue</a>. Be sure to include detailed instructions on how to reproduce the bug. If you're not sure, please start with <a href="https://knightlab.zendesk.com/anonymous_requests/new">the tech support system</a>.

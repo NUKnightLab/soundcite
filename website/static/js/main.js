@@ -52,7 +52,6 @@ function load_sc_player(success_callback) {
                 window.data = data;
                 $('#player_container').html(data.html);
                 $('#explainer').css('display', 'none');
-                $('#creation_box').css('display', 'block');
                 var new_iframe = $('#player_container iframe')[0];
                 $(new_iframe).attr('id','player_iframe');
                 var widget = SC.Widget('player_iframe');
@@ -87,7 +86,6 @@ function load_audio_file(success_callback) {
         setTime('#end_field', millisToTime(clip_duration_in_millis));
 
         $('#explainer').css('display', 'none');
-        $('#creation_box').css('display', 'block');
         validate_time_field($("#end_field"));
     });
 
@@ -109,6 +107,7 @@ function load_sound(url) {
     $("#times")[0].reset();
 
     var cb = function() {
+      $('#creation_box').css('display', 'block');
       window.location.hash = "make-clip-options";
     }
     if(url.match(/^https?:\/\/soundcloud.com\//i)) {
