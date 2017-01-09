@@ -1,0 +1,133 @@
+
+        <section class="section-color section-color-complement" id="make">
+            <div class="container">
+                <h2>Create Clips</h2>
+                <p>
+                    On your site or blog in no time. As easy as 1-2-3.
+                </p>
+                <ol class="instructional-steps">
+                    <li id="make-set-url" class="step grid">
+                        <div class="step-number column-2">
+                            <h6>Paste your audio URL</h6>
+                        </div>
+                        <div class="step-details column-10">
+                            <p>Before you start, you must publish your sound files to the web. You can use <a href="https://soundcloud.com">SoundCloud</a> or put MP3 or Ogg audio files on a webserver of your choice.</p>
+                            <p>Put the URL to your audio in the field below and click "load."</p>
+                            <form>
+                                <div class="grid grid-no-gutters">
+                                    <div class="input-group-label column-10">
+                                        <label class="input-group-addon" for="url">Audio URL</label>
+                                        <input type="text" id="url">
+                                    </div>
+                                    <div class="column-2">
+                                        <a class="button button-complement" id="load_url">Load</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="note" id="audio-clip-examples">
+                                Want to try Soundcite but you don't have any audio? Try one of these:
+                                <br />
+                                <strong>SoundCloud example:</strong> <a class="example-url" href="javascript:void(0);">https://soundcloud.com/studsterkel-radio-archive/alex-kotlowitz-discusses-his-book-there-are-no-children-here-19910228</a>
+                                <br />
+                                <strong>MP3 example:</strong> <a class="example-url" href="javascript:void(0);">/media/bach-cello-suite.mp3</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li id="make-clip-options" class="step grid">
+                        <div class="step-number column-2">
+                            <h6>Set clip options</h6>
+                        </div>
+                        <div class="step-details column-10">
+                            <div class="grid">
+                                <div class="grid-item">
+                                  <p>Do you want to play just part of your audio file? Soundcite can do that without you having to cut the file up into separate clips.</p>
+                                  <p>If you want to play the entire audio file, you don't have to do anything. If you want to play just a clip, you can enter the start and end times in the fields below. Don't know the exact time? Use the player to listen to your source, and click the "set from player" buttons at the right time.</p>
+                                  <section id="creation_box" >
+                                    <div id="audio_container">
+                                        <div id="audio_name"></div>
+                                        <audio id="audio_player" src="" controls>
+                                        </audio>
+                                    </div>
+                                    <div id="player_container">
+                                      <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src=""></iframe>
+                                    </div>
+                                    <div class="">
+                                        <form id="times" class="">
+                                            <div class="grid">
+                                                <div class="grid-item">
+                                                    <div class="input-group">
+                                                        <label class="input-group-addon" for="start_field">Start time</label>
+                                                        <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1">
+                                                    </div>
+                                                    <a class="button button-light button-smallest" id="start_btn">Set from player</a>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <div class="input-group">
+                                                        <label class="input-group-addon" for="end_field">End time</label>
+                                                        <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2">
+                                                    </div>
+                                                    <a class="button button-light button-smallest" id="end_btn">Set from player</a>
+                                                </div>
+                                                <div class="column-2">
+                                                    <div class="input-group">
+                                                        <label class="input-group-addon" for="end_field">Plays</label>
+                                                        <input type="text" id="plays_field" class="input-small end" placeholder="1" value="1" min="0" tabindex="3">
+                                                    </div>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <label class="input-group-addon" for="linktext">Link text</label>
+                                                    <input type="text" class="input-medium" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="4">
+                                                </div>
+                                                <div class="grid-item grid-item-center">
+                                                    <button type="button" id="create_clip" class="button button-full-width button-complement" tabindex="5">Create clip</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <h3>Created clips</h3>
+                                    <em id="audition_area_status">None</em>
+                                    <div id="audition_area">
+                                    </div>
+                                  </section>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step grid">
+                        <div class="step-number column-2">
+                            <h6>Embedding</h6>
+                        </div>
+                        <div class="step-details column-10">
+                          <div class="grid">
+                              <div class="grid-item">
+                                <p>
+                                  When you are finished creating clips, take the following embed code and paste it at the top of your page.
+                                  <textarea id="header" readonly="readonly" class="code">
+                                  </textarea>
+                                </p>
+                                Then, for each clip, paste its associated embed code (created above) where the text would normally go in the page.
+                                <div class="note note-alert">
+                                    <p class="">
+                                        SoundCloud imposes rate limits on API key usage. By default, all Soundcite users use the same API key, which can lead to cases where your Soundcite clips temporarily stop working. You can prevent this from happening by registering for your own free SoundCloud API key and pasting it in the field below.
+                                    </p>
+                                    <form>
+                                        <div class="input-group-label column-12">
+                                            <label class="input-group-addon" for="apikey">SoundCloud Client ID</label>
+                                            <input type="text" id="apikey" placeholder="(Optional) Paste SoundCloud Client ID here">
+                                        </div>
+                                    </form>
+                                    <h6>How to get a SoundCloud client ID</h6>
+                                    <ul>
+                                        <li>Go to <a href="https://developers.soundcloud.com/" target="_blank">https://developers.soundcloud.com/</a></li>
+                                        <li>Click "Register a new application</li>
+                                        <li>Fill in the application for and click "Register"</li>
+                                        <li>Copy the "Client ID" field. This is your API key</li>
+                                        <li>Be sure to save the app</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
