@@ -24,7 +24,7 @@
 </script>
 <script id="clip-preview-template" type="text/template">
 <div class="clip">
-  <button type='button' class='btn btn-text pull-right delete-clip'>delete</button>
+  <a type='button' class='button button-link pull-right delete-clip'>delete</a>
   <p>This is your clip <%= clip_html %> shown inline with text.</p>
   <h6>Embed code</h6>
   <textarea readonly="readonly" class="code"><%= clip_html %></textarea>
@@ -33,7 +33,7 @@
 
 <script id="create-error-template" type="text/template">
 <div id="create-error" class="alert alert-error clear">
-  <button data-dismiss="alert" class="close" type="button">x</button>
+  <a data-dismiss="alert" class="close button button-primary button-smallest" type="button">&times;</a>
   <strong>Oops!</strong> Please correct the errors above and try submitting again.
 </div>
 </script>
