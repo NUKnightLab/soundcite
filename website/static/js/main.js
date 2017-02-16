@@ -80,7 +80,7 @@ function load_audio_file(success_callback) {
         var parts = url.split('/');
         $('#audio_name').html(parts[parts.length - 1]);
         $('#audio_container').show();
-
+        console.log(popcorn_clip.duration());
         clip_duration_in_millis = Math.floor(popcorn_clip.duration()) * 1000;
         setTime('#start_field', millisToTime(0));
         setTime('#end_field', millisToTime(clip_duration_in_millis));
