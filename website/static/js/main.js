@@ -77,7 +77,16 @@ function load_sc_player() {
                 $("#url").addClass('error');
             }
         },
-            dataType: 'json'
+        statusCode: {
+          200: function () {
+            console.log('okay');
+          },
+          429: function(xhr, text, err) {
+            console.log("Oops! We've hit the rate limit on our API key. If you'd like to avoid this issue, you can use your own API key, generated here: https://developers.soundcloud.com.");
+            console.log(err);
+          }
+        },
+        dataType: 'json'
     });
 }
 
@@ -339,4 +348,3 @@ $('#apikey').on('change keyup paste', function(data) {
 $(function() {
    $('#header').text(embed_code_template({ }));
 });
-
