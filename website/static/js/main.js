@@ -112,7 +112,7 @@ function load_sound(url) {
     }
     if(url.match(/^https?:\/\/soundcloud.com\//i)) {
         load_sc_player(cb);
-    } else if(url.match(/\.(mp3|ogg)$/i)) {
+    } else if(url.match(/\.(mp3|m4a|wav|ogg)$/i)) {
         load_audio_file(cb);
     } else {
         $("#url").addClass('error');
