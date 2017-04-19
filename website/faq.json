@@ -12,7 +12,7 @@
   {
     "slug": "other-audio",
     "question": "Can I use an audio source other than SoundCloud?",
-    "answer": "SoundCite will also work with MP3 and Ogg clips that are hosted on your own server."
+    "answer": "SoundCite will also work with MP3, M4A, WAV and Ogg clips that are hosted on your own server."
   },
   {
     "slug": "soundcite-on-ios",
