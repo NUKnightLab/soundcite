@@ -467,6 +467,7 @@
             new SoundCloudClip(el);
         } else {
             console.log('Unable to form Soundcite element because of missing attributes. The offending Soundcite was "' + el.textContent + '."');
+            console.log(el);
         }
     }
 
