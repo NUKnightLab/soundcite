@@ -7,7 +7,7 @@
   {
     "slug": "customize-appearance",
     "question": "Can I customize what SoundCite looks like?",
-    "answer": "SoundCite is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Right now it's hard to change the moving progress bar with CSS, which may make it hard to fit other custom styles in. Read more on the <a href=\"https://github.com/NUKnightLab/soundcite/wiki/Styling-Soundcite\">Github Wiki.</a>"
+    "answer": "SoundCite is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Because of the animation for playing clips, you can't change the background color with CSS. However, you can specify a background color with JavaScript configuration. Here is an example: <code class=\"embed-code\">    &lt;script type=\"text/javascript\"&gt;SOUNDCITE_CONFIG = { background_color: \"#ff0000\" }&lt;/script&gt;</code> You can use any valid RGB hex code for the color. The alpha transparency is not configurable. All clips on the same page must have the same background color."
   },
   {
     "slug": "other-audio",
