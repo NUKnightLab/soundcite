@@ -1,5 +1,9 @@
+0.5.1 (2017-07-10)
+------------------
+* Deal with CSS precedence bug for setting background color
+
 0.5.0 (2017-07-10)
------------------ -
+------------------
 * Support background_color configuration.
 * Support m4a and wav audio clips as well as mp3 and ogg.
 
