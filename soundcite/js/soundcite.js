@@ -5,6 +5,7 @@
 // http://connect.soundcloud.com/sdk-2.0.0.js
 
 (function(window, document, callback) { // http://stackoverflow.com/questions/2170439/how-to-embed-javascript-widget-that-depends-on-jquery-into-an-unknown-environmen
+
     var loaded_p = true;    // default is to not load popcornjs
     var loaded_s = true;    // default is to not load soundcloud
 
@@ -97,6 +98,38 @@
 
 })(window, document, function(soundcite_elements, $Popcorn, $SoundCloud) {
 
+    var SOUNDCITE_CONFIG = {
+        soundcloud_client_id: "5f016c08c2201881c4217afd5f52e065"
+    }
+    for(var key in window.SOUNDCITE_CONFIG) {
+        SOUNDCITE_CONFIG[key] = window.SOUNDCITE_CONFIG[key];
+    }
+    var rgb = normalize_background_color(SOUNDCITE_CONFIG.background_color);
+    if (rgb) {
+      SOUNDCITE_CONFIG.background_color = rgb.join(',');
+      var ss = null;
+      for (var i = document.styleSheets.length - 1; i >= 0; i--) {
+        ss = document.styleSheets[i];
+        if (!ss.href) break;
+      }
+      var rule = '.soundcite-loaded { background-color: rgba(' + SOUNDCITE_CONFIG.background_color + ',.15) }';
+      if (ss && !ss.href) {
+        ss.insertRule(rule, ss.rules.length);
+        console.log('inserted', ss);
+      } else {
+        var style = document.createElement('style')
+        style.type = 'text/css'
+        style.innerHTML = rule;
+        document.getElementsByTagName('head')[0].appendChild(style)
+        
+      }
+
+
+
+    } else {
+      SOUNDCITE_CONFIG.background_color = '0,0,0';
+    }
+
     // borrowing underscore.js bind function
     var bind = function(func, context) {
         var slice = Array.prototype.slice;
@@ -124,16 +157,51 @@
         el.className = cn;
     }
 
-    var SOUNDCITE_CONFIG = {
-        update_playing_element: function(el, percentage) {
-             el.style.cssText =
-                'background: -webkit-linear-gradient(left, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);'
-              + 'background: linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);'
-        },
-        soundcloud_client_id: "5f016c08c2201881c4217afd5f52e065"
+    /**
+     * Given a string RGB color, break it into a 3-tuple of integers from 0-255. If the string is null
+     * or doesn't match a known pattern, return null.
+     */
+    function normalize_background_color(str) {
+      if (!str) return null;
+      var rgb = [];
+      var RGB_PATTERN = /^(?:rgb|rgba)?\(?(\d+),(\d+),(\d+).*\)?$/
+      var match_group = str.match(RGB_PATTERN)
+      if (match_group) {
+        var red = parseInt(match_group[1]);
+        var green = parseInt(match_group[2]);
+        var blue = parseInt(match_group[3]);
+        rgb = [red, green, blue];
+      } else {
+        var HEX_PATTERN = /^#?([0-9A-F]{1,2})([0-9A-F]{1,2})([0-9A-F]{1,2})$/i;
+        var match_group = str.match(HEX_PATTERN)
+        if (match_group) {
+          function hex_to_int(hex) { // make sure to handle single chars correctly
+            if (hex.length == 1) hex = hex + hex;
+            return parseInt(hex,16);
+          }
+          var red = hex_to_int(match_group[1]);
+          var green = hex_to_int(match_group[2]);
+          var blue = hex_to_int(match_group[3]);
+          rgb = [red, green, blue];
+        }
+      }
+
+      function valid_color(i) {
+        return (!isNaN(i) && i >= 0 && i <= 255);
+      }
+      if (rgb && valid_color(rgb[0]) && valid_color(rgb[1]) && valid_color(rgb[2])) {
+        return rgb;
+      }
+      return null;
     }
-    for(var key in window.SOUNDCITE_CONFIG) {
-        SOUNDCITE_CONFIG[key] = window.SOUNDCITE_CONFIG[key];
+
+
+    var update_playing_element = function(el, percentage) {
+
+      var color = SOUNDCITE_CONFIG.background_color || '0,0,0';
+      el.style.cssText =
+         'background: -webkit-linear-gradient(left, rgba(' + color + ',.15)' + percentage + '%, rgba(' + color + ',.05)' + (percentage + 1) + '%);'
+       + 'background: linear-gradient(to right, rgba(' + color + ',.15)' + percentage + '%, rgba(' + color + ',.05)' + (percentage + 1) + '%);'
     }
 
     // global vars
@@ -212,7 +280,9 @@
         var position = this.sound_position();       // implement in subclass
         var relative_position = position - this.start;
         var percentage = (relative_position * 100) / totalTime;
-        SOUNDCITE_CONFIG.update_playing_element(this.el, percentage);
+        var update_function = SOUNDCITE_CONFIG.update_playing_element || update_playing_element;
+        update_function(this.el, percentage);
+
     }
 
     Clip.prototype.click_handler = function(event) {
@@ -421,4 +491,5 @@
     soundcite.PopcornClip = PopcornClip;
     soundcite.clips = clips;    // keep track of clips
     soundcite.pause_all_clips = pause_all_clips;
+    soundcite.normalize_background_color = normalize_background_color; // for unit testing
 });

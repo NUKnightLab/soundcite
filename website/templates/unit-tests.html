@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Tests</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.18.0.css" />
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/g/underscorejs@1.6.0"></script>
+    <script type="text/javascript" src="https://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+
+  <!-- build:js https://cdn.knightlab.com/libs/timeline3/%(cdn)s/js/timeline-min.js -->
+  <script src="/soundcite/js/soundcite.js"></script>
+  <!-- endbuild -->
+
+
+    <script type="text/javascript">
+
+    function assertArray(assert, ary, expected, label) {
+      assert.equal(ary.length, expected.length, label + " equal length");
+      for (var i = 0; i < ary.length; i++) {
+        assert.equal(ary[i], expected[i], label + " [" + i + "]" );
+      }
+    }
+      QUnit.module("test normalize_background_color",{});
+      QUnit.test("test #FFFFFF", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('#FFFFFF'), [255, 255, 255], "test #FFFFFF")
+      });
+      QUnit.test("test #0055FF", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('#0055FF'), [0, parseInt('55', 16), 255], "test #0055FF")
+      });
+      QUnit.test("test #0f0", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('#0f0'), [0, 255, 0], "test #0f0")
+      });
+      QUnit.test("test 255,255,255", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('255,128,5'), [255, 128, 5], "test 255,255,255")
+      });
+      QUnit.test("test rgb(18,34,129)", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('rgb(18,34,129)'), [18, 34, 129], "test rgb(18,34,129)")
+      });
+      QUnit.test("test rgba(18,34,129,.1)", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('rgba(18,34,129,.1)'), [18, 34, 129], "test rgb(18,34,129)")
+      });
+      QUnit.test("test (18,34,129)", function(assert) {
+        assertArray(assert, soundcite.normalize_background_color('(18,34,129)'), [18, 34, 129], "test rgb(18,34,129)")
+      });
+      QUnit.test("test invalid", function(assert) {
+        assert.ok(!(soundcite.normalize_background_color('invalid')), 'invalid should return null')
+      });
+      QUnit.test("test invalid (#GGFFFF)", function(assert) {
+        assert.ok(!(soundcite.normalize_background_color('#GGFFFF')), '#GGFFFF should return null')
+      });
+      QUnit.test("test invalid (256,255,255)", function(assert) {
+        assert.ok(!(soundcite.normalize_background_color('(256,255,255)')), '(256,255,255) should return null')
+      });
+    </script>
+</head>
+<body>
+    <div id="qunit"></div>
+</body>
+</html>
