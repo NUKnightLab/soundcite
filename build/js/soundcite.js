@@ -110,13 +110,13 @@
     var rgb = normalize_background_color(SOUNDCITE_CONFIG.background_color);
     if (rgb) {
       SOUNDCITE_CONFIG.background_color = rgb.join(',');
-      var style = document.createElement('style')
-      style.type = 'text/css'
-      style.innerHTML = '.soundcite-loaded { background-color: rgba(' + SOUNDCITE_CONFIG.background_color + ',.15) }';
-      document.getElementsByTagName('head')[0].appendChild(style)
     } else {
       SOUNDCITE_CONFIG.background_color = '0,0,0';
     }
+    var style = document.createElement('style')
+    style.type = 'text/css'
+    style.innerHTML = '.soundcite-loaded { background-color: rgba(' + SOUNDCITE_CONFIG.background_color + ',.15) }';
+    document.getElementsByTagName('head')[0].appendChild(style)
 
     // borrowing underscore.js bind function
     var bind = function(func, context) {
@@ -470,6 +470,7 @@
             new SoundCloudClip(el);
         } else {
             console.log('Unable to form Soundcite element because of missing attributes. The offending Soundcite was "' + el.textContent + '."');
+            console.log(el);
         }
     }
 
