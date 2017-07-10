@@ -107,25 +107,10 @@
     var rgb = normalize_background_color(SOUNDCITE_CONFIG.background_color);
     if (rgb) {
       SOUNDCITE_CONFIG.background_color = rgb.join(',');
-      var ss = null;
-      for (var i = document.styleSheets.length - 1; i >= 0; i--) {
-        ss = document.styleSheets[i];
-        if (!ss.href) break;
-      }
-      var rule = '.soundcite-loaded { background-color: rgba(' + SOUNDCITE_CONFIG.background_color + ',.15) }';
-      if (ss && !ss.href) {
-        ss.insertRule(rule, ss.rules.length);
-        console.log('inserted', ss);
-      } else {
-        var style = document.createElement('style')
-        style.type = 'text/css'
-        style.innerHTML = rule;
-        document.getElementsByTagName('head')[0].appendChild(style)
-        
-      }
-
-
-
+      var style = document.createElement('style')
+      style.type = 'text/css'
+      style.innerHTML = '.soundcite-loaded { background-color: rgba(' + SOUNDCITE_CONFIG.background_color + ',.15) }';
+      document.getElementsByTagName('head')[0].appendChild(style)
     } else {
       SOUNDCITE_CONFIG.background_color = '0,0,0';
     }
