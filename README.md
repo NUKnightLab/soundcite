@@ -6,28 +6,13 @@ SoundCite is a simple-to-use tool that helps content creators add audio to their
 
 SoundCite's audio is just a link that plays right under the relevant text.
 
-SoundCite audio adds emotion or context to the text. It never asks users to look away from what their reading. And, most importantly, it requires no technical skills to use.
+SoundCite audio adds emotion or context to the text. It never asks users to look away from what they are reading. And, most importantly, it requires no technical skills to use.
 
 
 ## Customizing your SoundCite player
 
-Currently, you can customize the SoundCite progress bar by editing the CSS set dynamically in the track_progress method. Note that you would have to host your own version of the soundcite.js file for this to work.
+You can customize the basic colors and styles of Soundcite clips using CSS. See [this page](https://github.com/NUKnightLab/soundcite/wiki/Styling-Soundcite) for more information.  It's more complicated to change the progress animation, but that is also explained on that page.
 
-```javascript
- Clip.prototype.track_progress = function() {
-        var totalTime = this.end - this.start;
-        var position = this.sound.position;
-        var relative_position = position - this.start;
-        var percentage = (relative_position / totalTime) * 100
-
-        // change the css to customize your player
-
-        this.el.style.cssText = 
-         'background: -webkit-linear-gradient(left, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);'
-       + 'background: linear-gradient(to right, rgba(0,0,0,.15)' + percentage + '%, rgba(0,0,0,.05)' + (percentage + 1) + '%);';
-
-    }
-```
 
 ## Development
 
