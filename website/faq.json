@@ -1,8 +1,8 @@
 [
   {
       "slug": "can-i-use-with-wordpress",
-      "question": "Can I use SoundCite with Wordpress?",
-      "answer": "<p>Yes, with some cautions. For some user roles, Wordpress \"filters\" HTML, stripping out the information that SoundCite needs to function. Specifically, for most Wordpress installs, only users with the <code>administrator</code> and <code>editor</code> roles will be able to enter SoundCite clips. Users with the <code>author</code> or <code>contributor</code> roles will have the SoundCite information stripped out of their posts. This will also happen if an <code>author</code> or <code>contributor</code> edits a post after an <code>administrator</code> or <code>editor</code>  has configured SoundCite. For more, see the <a href=\"http://codex.wordpress.org/Roles_and_Capabilities#unfiltered_html\">Roles and Capabilities</a> page of the Wordpress Codex.</p>  <p>You can install the <a href=\"http://wordpress.org/plugins/user-role-editor/\">User Role Editor</a> plugin to grant the \"unfiltered_html\" capability to the \"author\" and \"contributor\" roles. There are risks involved in allowing less trusted users to author unfiltered HTML, so consider your own situation before choosing this solution.           </p>           <p>             Details may be slightly different for Wordpress multiuser sites.           </p>"
+      "question": "Can I use SoundCite with WordPress?",
+      "answer": "<p>Yes! We now have <a href=\"https://wordpress.org/plugins/knight-lab-soundcite/\">a WordPress plugin</a> which makes using Soundcite as easy as we can make it. Once it's installed, just copy and paste your clips from step 2 above -- be sure to paste them into the 'text' pane (where you edit HTML source code), not the 'visual' pane. With the WordPress plugin, you can skip step 3."
   },
   {
     "slug": "customize-appearance",
@@ -10,18 +10,18 @@
     "answer": "SoundCite is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Because of the animation for playing clips, you can't change the background color with CSS. However, you can specify a background color with JavaScript configuration. Here is an example: <code class=\"embed-code\">    &lt;script type=\"text/javascript\"&gt;SOUNDCITE_CONFIG = { background_color: \"#ff0000\" }&lt;/script&gt;</code> You can use any valid RGB hex code for the color. The alpha transparency is not configurable. All clips on the same page must have the same background color."
   },
   {
+    "slug": "soundcloud",
+    "question": "Does SoundCite work with SoundCloud?",
+    "answer": "When we first made SoundCite, SoundCloud was the only way to serve your audio. Since then, SoundCloud has changed the way they work with developers. Unless you have a SoundCloud client ID, we do not recommend hosting your audio on SoundCloud. KnightLab has a single client ID which uses up its daily allowance of plays very quickly, so while it may seem to work occasionally, it will be unpredictable. SoundCloud is no longer issuing new client IDs. If you have one from before they stopped, you can configure SoundCite to use your own client ID, and then, unless your project is wildly popular, you should have satisfactory results."
+  },
+  {
     "slug": "other-audio",
-    "question": "Can I use an audio source other than SoundCloud?",
-    "answer": "SoundCite will also work with MP3, M4A, WAV and Ogg clips that are hosted on your own server."
+    "question": "How can I serve audio without SoundCloud?",
+    "answer": "<p>There are no other novice-friendly audio hosting services that we know of. If you are able to upload audio files to your server, SoundCite can play those back. For example, WordPress users can use the \"Add Media\" button in the post editor to upload a file, and then use that URL in the SoundCite clip creator.</p><p>If your server doesn't let you upload audio files, you may be able to use services like <a href=\"https://aws.amazon.com/s3/\">Amazon S3</a>. Generally, cloud storage options such as Google Drive or DropBox will not work.</p><p>SoundCite works with MP3, M4A, WAV and Ogg clips, as long as they can be loaded with a regular URL.</p>"
   },
   {
     "slug": "soundcite-on-ios",
     "question": "Does SoundCite work on iPhone, iPad, and other iOS devices?",
     "answer": "SoundCite works best on iOS devices when using MP3 files.  It will work with SoundCloud, but there are issues seeking within the audio stream.  If you have SoundCite clips with a Start time other than 0, you may experience unpredictable playback behavior."
-  },
-  {
-    "slug": "should-i-api-key",
-    "question": "What if I don't use my own API key?",
-    "answer": "<p>SoundCloud imposes rate limits on API key usage. It occasionally happens that a popular SoundCite embed will reach the limit on our application API key, affecting all other embeds. To isolate your request count from SoundCite embeds on other sites, use your own API key by pasting your SoundCloud Client ID into the optional Client ID field before you copy the SoundCite embed code.</p>            <p>You can always add your key later by prepending the following code to your embed code (with your own client ID):</p><code class=\"embed-code\">    &lt;script type=\"text/javascript\"&gt;SOUNDCITE_CONFIG = { soundcloud_client_id: \"YOUR_SOUNDCLOUD_CLIENT_ID\" }&lt;/script&gt;</code>"
   }
 ]
