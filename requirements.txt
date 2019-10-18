@@ -11,4 +11,4 @@ ply==3.4
 pycrypto==2.6.1
 readline==6.2.4.1
 slimit==0.8.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
