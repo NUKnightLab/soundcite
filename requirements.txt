@@ -4,7 +4,7 @@ ecdsa==0.11
 Fabric==1.8.3
 Flask==1.0.2
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.0
 paramiko==1.12.3
 ply==3.4
