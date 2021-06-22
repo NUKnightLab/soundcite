@@ -2,10 +2,10 @@ var clip_duration_in_millis = 0;
 var popcorn_clip = null;
 
 function millisToTime(ms) {
-// http://stackoverflow.com/questions/9763441/milliseconds-to-time-in-javascript
-// http://stackoverflow.com/a/35890816/102476 is the best algorithm
-// others fail when fractional seconds part is less than .1 (leading 0)
-  return new Date(ms).toISOString().slice(11, -1);
+    // http://stackoverflow.com/questions/9763441/milliseconds-to-time-in-javascript
+    // http://stackoverflow.com/a/35890816/102476 is the best algorithm
+    // others fail when fractional seconds part is less than .1 (leading 0)
+    return new Date(ms).toISOString().slice(11, -1);
 }
 
 function secsToTime(s) {
@@ -13,7 +13,9 @@ function secsToTime(s) {
 }
 
 function timeToMillis(s) {
-    var hrs = 0, mins = 0, secs = 0;
+    var hrs = 0,
+        mins = 0,
+        secs = 0;
     if (s.indexOf(':') == 0) s = "0" + s;
     parts = s.split(':');
     parts.reverse();
@@ -31,7 +33,7 @@ function set_end_from_widget() {
     var widget = SC.Widget("player_iframe");
     widget.getDuration(function(duration) {
         clip_duration_in_millis = duration;
-        setTime("#end_field",millisToTime(duration));
+        setTime("#end_field", millisToTime(duration));
         validate_time_field($("#end_field"));
     });
 }
@@ -42,29 +44,29 @@ function load_sc_player(success_callback) {
 
     var baseURL = $('#url').val();
     $.ajax({
-            type: "POST",
-            url: 'https://soundcloud.com/oembed',
-            data: { url: baseURL, format: 'json', visual: false },
-            success: function(data) {
+        type: "POST",
+        url: 'https://soundcloud.com/oembed',
+        data: { url: baseURL, format: 'json', visual: false },
+        success: function(data) {
             if (data) {
                 clip_duration_in_millis = 0;
-                setTime("#start_field",millisToTime(0));
+                setTime("#start_field", millisToTime(0));
                 window.data = data;
                 $('#player_container').html(data.html);
                 $('#explainer').css('display', 'none');
                 var new_iframe = $('#player_container iframe')[0];
-                $(new_iframe).attr('id','player_iframe');
+                $(new_iframe).attr('id', 'player_iframe');
                 var widget = SC.Widget('player_iframe');
-                widget.bind(SC.Widget.Events.READY,set_end_from_widget);
+                widget.bind(SC.Widget.Events.READY, set_end_from_widget);
                 $(new_iframe).height(166);
                 if (success_callback) {
-                  success_callback();
+                    success_callback();
                 }
             } else {
                 $("#url").addClass('error');
             }
         },
-            dataType: 'json'
+        dataType: 'json'
     });
 }
 
@@ -75,7 +77,7 @@ function load_audio_file(success_callback) {
 
     $('#audio_player').attr("src", url);
 
-    popcorn_clip = Popcorn('#audio_player', {'frameAnimation': true});
+    popcorn_clip = Popcorn('#audio_player', { 'frameAnimation': true });
     popcorn_clip.on('loadeddata', function() {
         var parts = url.split('/');
         $('#audio_name').html(parts[parts.length - 1]);
@@ -91,12 +93,12 @@ function load_audio_file(success_callback) {
 
     $('#audio_player')[0].load();
     if (success_callback) {
-      success_callback();
+        success_callback();
     }
 }
 
 function load_sound(url) {
-    if(popcorn_clip) {
+    if (popcorn_clip) {
         popcorn_clip.pause();
         popcorn_clip.destroy();
         popcorn_clip = null;
@@ -107,12 +109,12 @@ function load_sound(url) {
     $("#times")[0].reset();
 
     var cb = function() {
-      $('#creation_box').css('display', 'block');
-      window.location.hash = "make-clip-options";
+        $('#creation_box').css('display', 'block');
+        window.location.hash = "make-clip-options";
     }
-    if(url.match(/^https?:\/\/soundcloud.com\//i)) {
+    if (url.match(/^https?:\/\/soundcloud.com\//i)) {
         load_sc_player(cb);
-    } else if(url.match(/\.(mp3|m4a|wav|ogg)$/i)) {
+    } else if (url.match(/\.(mp3|m4a|wav|ogg)$/i)) {
         load_audio_file(cb);
     } else {
         $("#url").addClass('error');
@@ -148,10 +150,10 @@ var clip_preview_template = _.template($("#clip-preview-template").html().trim()
 var create_error_template = _.template($("#create-error-template").html().trim());
 var embed_code_template = _.template($('#embed-code-template').html().trim());
 
-$('#audition_area').on("click",".delete-clip", function() {
+$('#audition_area').on("click", ".delete-clip", function() {
     var the_sound = $(this).prev('.soundcite');
-    for(var i = 0; i < soundcite.clips.length; i++) {
-        if(the_sound[0] === soundcite.clips[i].el) {
+    for (var i = 0; i < soundcite.clips.length; i++) {
+        if (the_sound[0] === soundcite.clips[i].el) {
             soundcite.clips.splice(i, 1);
         }
     }
@@ -159,8 +161,8 @@ $('#audition_area').on("click",".delete-clip", function() {
 });
 
 function create_clip() {
-    if(validate_form()) {
-        if(popcorn_clip) {
+    if (validate_form()) {
+        if (popcorn_clip) {
             popcorn_clip.pause();
             var clip_html = file_clip_base_template({
                 url: $('#url').val(),
@@ -171,31 +173,31 @@ function create_clip() {
             });
             $('#audition_area').css('display', 'block');
             $('#audition_area_status').css('display', 'none');
-            $('#audition_area').prepend(clip_preview_template({clip_html: clip_html}))
+            $('#audition_area').prepend(clip_preview_template({ clip_html: clip_html }))
             $('#audition_area .clip:first').find('.soundcite').each(function() {
                 new soundcite.PopcornClip(this);
             });
         } else {
             try {
-              var widget = SC.Widget("player_iframe");
-              widget.pause();
-              widget.getCurrentSound(function(sound_metadata) {
-                  var clip_html = soundcloud_clip_base_template({
-                      id: sound_metadata.id,
-                      start: getTimeAsMillis('#start_field'),
-                      end: getTimeAsMillis('#end_field'),
-                      plays: $('#plays_field').val(),
-                      text: $('#linktext').val()
-                  });
-                  $('#audition_area').css('display', 'block');
-                  $('#audition_area_status').css('display', 'none');
-                  $('#audition_area').prepend(clip_preview_template({clip_html: clip_html}))
-                  $('#audition_area .clip:first').find('.soundcite').each(function() {
-                      new soundcite.SoundCloudClip(this);
-                  });
-              });
+                var widget = SC.Widget("player_iframe");
+                widget.pause();
+                widget.getCurrentSound(function(sound_metadata) {
+                    var clip_html = soundcloud_clip_base_template({
+                        id: sound_metadata.id,
+                        start: getTimeAsMillis('#start_field'),
+                        end: getTimeAsMillis('#end_field'),
+                        plays: $('#plays_field').val(),
+                        text: $('#linktext').val()
+                    });
+                    $('#audition_area').css('display', 'block');
+                    $('#audition_area_status').css('display', 'none');
+                    $('#audition_area').prepend(clip_preview_template({ clip_html: clip_html }))
+                    $('#audition_area .clip:first').find('.soundcite').each(function() {
+                        new soundcite.SoundCloudClip(this);
+                    });
+                });
             } catch (e) {
-              $('#audition_area .clip:first').find('.soundcite').style('color','red');
+                $('#audition_area .clip:first').find('.soundcite').style('color', 'red');
             }
         }
     } else {
@@ -251,13 +253,13 @@ function validate_time_field($el, label, msgs) {
 
 function validate_form() {
     var msgs = [];
-    $("#load").removeAttr("disabled");
+    $("#create_clip").removeAttr("disabled");
     $("#create-error").remove();
-    validate_required($("#start_field"),"Start time", msgs);
-    validate_time_field($("#start_field"),"Start time", msgs);
-    validate_required($("#end_field"),"End time", msgs);
-    validate_time_field($("#end_field"),"End time", msgs);
-    validate_required($("#linktext"),"Link text", msgs);
+    validate_required($("#start_field"), "Start time", msgs);
+    validate_time_field($("#start_field"), "Start time", msgs);
+    validate_required($("#end_field"), "End time", msgs);
+    validate_time_field($("#end_field"), "End time", msgs);
+    validate_required($("#linktext"), "Link text", msgs);
     var start = getTimeAsMillis("#start_field");
     var end = getTimeAsMillis("#end_field");
     if (start && end && (end < start)) {
@@ -266,7 +268,7 @@ function validate_form() {
         $("#end_field").parent().addClass("error");
     }
     if (msgs && msgs.length > 0) {
-        $("#create_clip").attr("disabled","disabled");
+        $("#create_clip").attr("disabled", "disabled");
         show_errors(msgs);
         return false;
     }
@@ -276,7 +278,7 @@ function validate_form() {
 
 $("#url").keyup(function(event) {
     $("#url").removeClass("error");
-    if(event.keyCode == 13) { $('#load-sound').click();}
+    if (event.keyCode == 13) { $('#load-sound').click(); }
 });
 
 $(".example-url").click(function() {
@@ -297,7 +299,7 @@ $("#linktext").keyup(function() {
 });
 
 $("#start_btn").click(function() {
-    if(popcorn_clip) {
+    if (popcorn_clip) {
         setTime("#start_field", secsToTime(popcorn_clip.currentTime()), true)
     } else {
         var widget = SC.Widget("player_iframe");
@@ -308,7 +310,7 @@ $("#start_btn").click(function() {
 });
 
 $("#end_btn").click(function() {
-    if(popcorn_clip) {
+    if (popcorn_clip) {
         setTime("#end_field", secsToTime(popcorn_clip.currentTime()), true)
     } else {
         var widget = SC.Widget("player_iframe");
@@ -331,9 +333,9 @@ $('#audition_area').on('click', 'textarea.code', function() {
 
 $('#apikey').on('change keyup paste', function(data) {
     var api_key = $(this).val();
-   $('#header').text(embed_code_template({ api_key: api_key }));
+    $('#header').text(embed_code_template({ api_key: api_key }));
 });
 
 $(function() {
-   $('#header').text(embed_code_template({ }));
+    $('#header').text(embed_code_template({}));
 });
