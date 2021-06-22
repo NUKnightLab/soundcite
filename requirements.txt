@@ -1,6 +1,6 @@
 boto==2.27.0
 click==6.7
-ecdsa==0.11
+ecdsa==0.13.3
 Fabric==1.8.3
 Flask==1.1.4
 itsdangerous==0.24
