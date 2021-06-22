@@ -2,13 +2,12 @@ boto==2.27.0
 click==6.7
 ecdsa==0.11
 Fabric==1.8.3
-Flask==1.0.2
+Flask==1.1.4
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.0
 paramiko==1.12.3
 ply==3.4
 pycrypto==2.6.1
-readline==6.2.4.1
 slimit==0.8.1
-Werkzeug==0.14.1
+Werkzeug==1.0.1
