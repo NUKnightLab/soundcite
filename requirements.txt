@@ -10,4 +10,4 @@ paramiko>=2.0.9
 ply==3.4
 pycrypto==2.6.1
 slimit==0.8.1
-Werkzeug==1.0.1
+Werkzeug==2.2.3
